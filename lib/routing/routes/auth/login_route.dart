@@ -1,7 +1,7 @@
 part of '../../app_router.dart';
 
 @TypedGoRoute<LoginRoute>(path: AppRoutes.login,
-routes: [forgout])
+routes: [forgotPassword])
  class LoginRoute extends GoRouteData with _$LoginRoute{
  const  LoginRoute();
    
@@ -12,13 +12,13 @@ routes: [forgout])
  }
 
 
-const forgout = TypedGoRoute<ForgoutPasswordRouter>(path: AppRoutes.forgoutPassword);
- class ForgoutPasswordRouter extends GoRouteData with _$ForgoutPasswordRouter{
- const  ForgoutPasswordRouter();
+const forgotPassword = TypedGoRoute<ForgotPasswordRouter>(path: AppRoutes.forgoutPassword);
+ class ForgotPasswordRouter extends GoRouteData with _$ForgotPasswordRouter{
+ const  ForgotPasswordRouter();
 
    @override
   Widget build(BuildContext context, GoRouterState state) {
-    return ForgoutPasswordPage();
+    return ForgotPasswordPage();
   }
  }
 

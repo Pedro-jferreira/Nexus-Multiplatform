@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: providers(sharedPreferences, router),
       child: MaterialApp.router(
-        title: 'IF Inclusivo',
+        title: 'Nexus',
         theme: theme.light(),
         darkTheme: theme.dark(),
         themeMode: ThemeMode.system,
