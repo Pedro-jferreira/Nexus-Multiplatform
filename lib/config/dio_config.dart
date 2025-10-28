@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DioConfig {
-  static Dio createDio(GoRouter router, SharedPreferences prefs) {
+  static Dio createDio({required GoRouter router, required SharedPreferences prefs}) {
     final baseUrl = dotenv.env['API_BASE_URL'];
     if (baseUrl == null) {
       throw Exception("A variável BASE_URL não foi encontrada no arquivo .env");
