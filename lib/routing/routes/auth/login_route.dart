@@ -7,7 +7,7 @@ routes: [forgotPassword])
    
    @override
   Widget build(BuildContext context, GoRouterState state) {
-    return LoginPage();
+    return LoginPage(viewModel: LoginViewModel(repository: context.read()),);
   }
  }
 

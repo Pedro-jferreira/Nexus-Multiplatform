@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../../../utils/responsive_ultils.dart';
+import '../../../../../utils/responsive_utils.dart';
 import '../../../../core/theme/theme_mobile.dart';
 
 class PresentationLogin extends StatelessWidget {

@@ -7,6 +7,6 @@ abstract class AuthRepository{
   Stream<UserResponse?> get userStream;
   UserResponse? get currentUser;
 
-  AsyncResult<void> login({required LoginRequest loginRequest});
+  AsyncResult<UserResponse> login({required LoginRequest loginRequest});
   AsyncResult<void> logout();
 }

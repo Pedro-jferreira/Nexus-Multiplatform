@@ -36,7 +36,7 @@ class AuthRepositoryImpl implements AuthRepository {
   UserResponse? get currentUser => _currentUser;
 
   @override
-  AsyncResult<void> login({required LoginRequest loginRequest}) async {
+  AsyncResult<UserResponse> login({required LoginRequest loginRequest}) async {
     try {
       final data = await _authService.login(
         loginRequest: loginRequest.toJson(),
@@ -56,9 +56,9 @@ class AuthRepositoryImpl implements AuthRepository {
 
       _setUser(user);
 
-      return Success(Null);
+      return Success(user);
     } catch (e) {
-      return Failure(throw ExceptionMapper.map(e));
+      return Failure(ExceptionMapper.map(e));
     }
   }
 
@@ -70,7 +70,7 @@ class AuthRepositoryImpl implements AuthRepository {
       _setUser(null);
       return Success(Null);
     } catch (e) {
-      return Failure(throw ExceptionMapper.map(e));
+      return Failure(ExceptionMapper.map(e));
     }
   }
 

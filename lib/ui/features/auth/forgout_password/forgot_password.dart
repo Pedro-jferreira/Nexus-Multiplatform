@@ -6,7 +6,7 @@ import 'package:nexus_multiplatform/ui/features/auth/forgout_password/widgets/re
 import 'package:nexus_multiplatform/ui/features/auth/login/widgets/presentation_login.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../utils/responsive_ultils.dart';
+import '../../../../utils/responsive_utils.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({super.key});
@@ -41,7 +41,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       precacheImage(const AssetImage('assets/icons/google.png'), context),
       precacheImage(const AssetImage('assets/images/password.png'), context),
     ]);
-    await Future.delayed(Duration(seconds: 1));
   }
 
   Future<String> _loadAndReplaceSvgColor(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../domain/validators/auth_validators.dart';
-import '../../../../../utils/responsive_ultils.dart';
+import '../../../../../utils/responsive_utils.dart';
 import '../../../../core/theme/theme_mobile.dart';
 
 class RequestForgot extends StatefulWidget {

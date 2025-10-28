@@ -1,38 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:nexus_multiplatform/ui/core/theme/theme.dart';
 import 'package:nexus_multiplatform/ui/core/theme/theme_mobile.dart';
 
 import '../../../../../domain/validators/auth_validators.dart';
-import '../../../../../utils/responsive_ultils.dart';
+import '../../../../../utils/responsive_utils.dart';
 
-class FormLogin extends StatefulWidget {
+class FormLogin extends StatelessWidget {
   final GlobalKey<FormState> formKey;
-  const FormLogin({super.key, required this.formKey});
+  final LoginParamDto loginParamDto;
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+  final FocusNode emailFocus;
+  final FocusNode passwordFocus;
+  final bool showPassword;
+  final bool? disabled;
+  final VoidCallback onTogglePassword;
+  final VoidCallback onSubmit;
+  final LoginParamValidation validator;
 
-  @override
-  State<FormLogin> createState() => _FormLoginState();
-}
-
-class _FormLoginState extends State<FormLogin> {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final validator = LoginParamValidation();
-  final loginParamDto = LoginParamDto.empty();
-  bool _showPassword = false;
-
-  final FocusNode _emailFocus = FocusNode();
-  final FocusNode _passwordFocus = FocusNode();
-
-  void _handlerVisibility() {
-    setState(() => _showPassword = !_showPassword);
-  }
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
+  const FormLogin({
+    super.key,
+    required this.formKey,
+    required this.loginParamDto,
+    required this.emailController,
+    required this.passwordController,
+    required this.emailFocus,
+    required this.passwordFocus,
+    required this.showPassword,
+    required this.onTogglePassword,
+    required this.onSubmit,
+    required this.validator,
+    this.disabled,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +43,7 @@ class _FormLoginState extends State<FormLogin> {
 
   Form _buildForm(BuildContext context) {
     return Form(
-      key: widget.formKey,
+      key: formKey,
       child: Column(
         spacing: 23,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -55,53 +53,59 @@ class _FormLoginState extends State<FormLogin> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(width: 30),
-              ConstrainedBox(
-                constraints: BoxConstraints(maxWidth: 291),
-                child: TextFormField(
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  onChanged: loginParamDto.setEmail,
-                  validator: validator.byField(loginParamDto, 'email'),
-                  controller: _emailController,
-                  textInputAction: TextInputAction.next,
-                  focusNode: _emailFocus,
-                  onFieldSubmitted: (_) {
-                    FocusScope.of(context).requestFocus(_passwordFocus);
-                  },
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(
-                      Icons.email_outlined,
-                    ),
-                    prefixIconColor: WidgetStateColor.resolveWith((states) {
-                      if (states.contains(WidgetState.error)) {
-                        return Theme.of(context).colorScheme.error;
-                      }
-                      return Theme.of(context).colorScheme.primary;
-                    }),
-                    hintText: 'Email',
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25),
-                      borderSide: BorderSide.none,
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25),
-                      borderSide: BorderSide(
-                        color: Theme.of(context).colorScheme.error,
-                        width: 2,
+              Flexible(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: 291),
+                  child: TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    onChanged: loginParamDto.setEmail,
+                    validator: validator.byField(loginParamDto, 'email'),
+                    controller: emailController,
+                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.emailAddress,
+                    autofillHints: const [
+                      AutofillHints.username,
+                      AutofillHints.email,
+                    ],
+                    enabled: (disabled != true),
+                    focusNode: emailFocus,
+                    onFieldSubmitted: (_) {
+                      FocusScope.of(context).requestFocus(passwordFocus);
+                    },
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.email_outlined),
+                      prefixIconColor: WidgetStateColor.resolveWith((states) {
+                        if (states.contains(WidgetState.error)) {
+                          return Theme.of(context).colorScheme.error;
+                        }
+                        return Theme.of(context).colorScheme.primary;
+                      }),
+                      hintText: 'Email',
+                      filled: true,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25),
+                        borderSide: BorderSide.none,
                       ),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25),
-                      borderSide: BorderSide(
-                        color: Theme.of(context).colorScheme.error,
-                        width: 1.5,
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25),
+                        borderSide: BorderSide(
+                          color: Theme.of(context).colorScheme.error,
+                          width: 2,
+                        ),
                       ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25),
-                      borderSide: BorderSide(
-                        color: Theme.of(context).colorScheme.primary,
-                        width: 2,
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25),
+                        borderSide: BorderSide(
+                          color: Theme.of(context).colorScheme.error,
+                          width: 1.5,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25),
+                        borderSide: BorderSide(
+                          color: Theme.of(context).colorScheme.primary,
+                          width: 2,
+                        ),
                       ),
                     ),
                   ),
@@ -116,53 +120,58 @@ class _FormLoginState extends State<FormLogin> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(width: 30),
-              ConstrainedBox(
-                constraints: BoxConstraints(maxWidth: 291),
-                child: TextFormField(
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  onChanged: loginParamDto.setPassword,
-                  validator: validator.byField(loginParamDto, 'password'),
-                  controller: _passwordController,
-                  obscureText: !_showPassword,
-                  textInputAction: TextInputAction.done,
-                  focusNode: _passwordFocus,
-                  onFieldSubmitted: (_) {
-                    _passwordFocus.unfocus(); // fecha o teclado
-                  },
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.keyboard_alt_outlined),
-                    prefixIconColor: WidgetStateColor.resolveWith((states) {
-                      if (states.contains(WidgetState.error)) {
-                        return Theme.of(context).colorScheme.error;
-                      }
-                      return Theme.of(context).colorScheme.primary;
-                    }),
-                    hintText: 'Senha',
+              Flexible(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: 291),
+                  child: TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    onChanged: loginParamDto.setPassword,
+                    validator: validator.byField(loginParamDto, 'password'),
+                    controller: passwordController,
+                    obscureText: !showPassword,
+                    textInputAction: TextInputAction.done,
+                    focusNode: passwordFocus,
+                    enabled: (disabled != true),
+                    autofillHints: const [AutofillHints.password],
+                    onFieldSubmitted: (_) {
+                      passwordFocus.unfocus();
+                      onSubmit();
+                    },
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.keyboard_alt_outlined),
+                      prefixIconColor: WidgetStateColor.resolveWith((states) {
+                        if (states.contains(WidgetState.error)) {
+                          return Theme.of(context).colorScheme.error;
+                        }
+                        return Theme.of(context).colorScheme.primary;
+                      }),
+                      hintText: 'Senha',
 
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25),
-                      borderSide: BorderSide.none,
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25),
-                      borderSide: BorderSide(
-                        color: Theme.of(context).colorScheme.error,
-                        width: 2,
+                      filled: true,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25),
+                        borderSide: BorderSide.none,
                       ),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25),
-                      borderSide: BorderSide(
-                        color: Theme.of(context).colorScheme.error,
-                        width: 1.5,
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25),
+                        borderSide: BorderSide(
+                          color: Theme.of(context).colorScheme.error,
+                          width: 2,
+                        ),
                       ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25),
-                      borderSide: BorderSide(
-                        color: Theme.of(context).colorScheme.primary,
-                        width: 2,
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25),
+                        borderSide: BorderSide(
+                          color: Theme.of(context).colorScheme.error,
+                          width: 1.5,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25),
+                        borderSide: BorderSide(
+                          color: Theme.of(context).colorScheme.primary,
+                          width: 2,
+                        ),
                       ),
                     ),
                   ),
@@ -184,8 +193,8 @@ class _FormLoginState extends State<FormLogin> {
                         ).colorScheme.surfaceContainerHighest,
                         foregroundColor: Theme.of(context).colorScheme.primary,
                       ),
-                      onPressed: _handlerVisibility,
-                      icon: _showPassword
+                      onPressed: (disabled != true) ? onTogglePassword : null,
+                      icon: showPassword
                           ? Icon(Icons.visibility_off_outlined)
                           : Icon(Icons.visibility_outlined),
                     ),
@@ -201,7 +210,7 @@ class _FormLoginState extends State<FormLogin> {
 
   Form _buildFormMobile(BuildContext context) {
     return Form(
-      key: widget.formKey,
+      key: formKey,
       child: Column(
         spacing: 23,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -219,13 +228,19 @@ class _FormLoginState extends State<FormLogin> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     onChanged: loginParamDto.setEmail,
                     validator: validator.byField(loginParamDto, 'email'),
-                    controller: _emailController,
+                    controller: emailController,
                     textInputAction: TextInputAction.next,
-                    focusNode: _emailFocus,
-
+                    focusNode: emailFocus,
+                    keyboardType: TextInputType.emailAddress,
+                    autofillHints: const [
+                      AutofillHints.username,
+                      AutofillHints.email,
+                    ],
                     onFieldSubmitted: (_) {
-                      FocusScope.of(context).requestFocus(_passwordFocus);
+                      FocusScope.of(context).requestFocus(passwordFocus);
                     },
+                    enabled: (disabled != true),
+
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25),
@@ -263,8 +278,9 @@ class _FormLoginState extends State<FormLogin> {
                       prefixIcon: Icon(Icons.email_outlined),
                       prefixIconColor: WidgetStateColor.resolveWith((states) {
                         if (states.contains(WidgetState.error)) return error;
-                        if (states.contains(WidgetState.focused))
+                        if (states.contains(WidgetState.focused)) {
                           return primaryMain;
+                        }
                         return primaryEmphasis;
                       }),
                       hintText: 'Email',
@@ -272,7 +288,10 @@ class _FormLoginState extends State<FormLogin> {
                       fillColor: surface,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25),
-                        borderSide: BorderSide(color: primaryEmphasis, width: 1),
+                        borderSide: BorderSide(
+                          color: primaryEmphasis,
+                          width: 1,
+                        ),
                       ),
                     ),
                   ),
@@ -295,52 +314,48 @@ class _FormLoginState extends State<FormLogin> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     onChanged: loginParamDto.setPassword,
                     validator: validator.byField(loginParamDto, 'password'),
-                    controller: _passwordController,
-                    obscureText: !_showPassword,
+                    controller: passwordController,
+                    obscureText: !showPassword,
                     textInputAction: TextInputAction.done,
-                    focusNode: _passwordFocus,
+                    focusNode: passwordFocus,
+                    autofillHints: const [AutofillHints.password],
+                    enabled: (disabled != true),
+
                     onFieldSubmitted: (_) {
-                      _passwordFocus.unfocus(); // fecha o teclado
+                      passwordFocus.unfocus();
+                      onSubmit();
                     },
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25),
                         borderSide: BorderSide(
-                          color: primaryEmphasis, // cor da borda padrão
+                          color: primaryEmphasis,
                           width: 1,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25),
-                        borderSide: BorderSide(
-                          color: primaryMain, // cor quando estiver em foco
-                          width: 2, // deixa mais espesso ao focar
-                        ),
+                        borderSide: BorderSide(color: primaryMain, width: 2),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25),
-                        borderSide: BorderSide(
-                          color: error, // cor da borda no erro
-                          width: 1.5,
-                        ),
+                        borderSide: BorderSide(color: error, width: 1.5),
                       ),
                       errorStyle: Theme.of(
                         context,
                       ).textTheme.bodySmall?.copyWith(color: error),
-                      // borda quando há erro e o campo está em foco
+
                       focusedErrorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25),
-                        borderSide: BorderSide(
-                          color: error, // cor mais forte com foco
-                          width: 2,
-                        ),
+                        borderSide: BorderSide(color: error, width: 2),
                       ),
 
                       prefixIcon: Icon(Icons.keyboard_alt_outlined),
                       prefixIconColor: WidgetStateColor.resolveWith((states) {
                         if (states.contains(WidgetState.error)) return error;
-                        if (states.contains(WidgetState.focused))
+                        if (states.contains(WidgetState.focused)) {
                           return primaryMain;
+                        }
                         return primaryEmphasis;
                       }),
                       hintText: 'Senha',
@@ -348,7 +363,10 @@ class _FormLoginState extends State<FormLogin> {
                       fillColor: surface,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25),
-                        borderSide: BorderSide(color: primaryEmphasis, width: 1),
+                        borderSide: BorderSide(
+                          color: primaryEmphasis,
+                          width: 1,
+                        ),
                       ),
                     ),
                   ),
@@ -375,8 +393,8 @@ class _FormLoginState extends State<FormLogin> {
                           ), // define a cor da borda
                         ),
                       ),
-                      onPressed: _handlerVisibility,
-                      icon: _showPassword
+                      onPressed: (disabled != true) ? onTogglePassword : null,
+                      icon: showPassword
                           ? Icon(Icons.visibility_off_outlined)
                           : Icon(Icons.visibility_outlined),
                     ),

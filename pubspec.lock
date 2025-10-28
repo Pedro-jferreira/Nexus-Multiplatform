@@ -700,10 +700,10 @@ packages:
     dependency: "direct main"
     description:
       name: result_command
-      sha256: cb09b81ececcf7c1f41ab51829dec20fd8dc668d3941b8bd583655fd7e2689da
+      sha256: "629917f2f492bd9ceb3178868d393e7d5ff9fb6c8fc20f3de5e16ec013bc331d"
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.0"
+    version: "2.2.0"
   result_dart:
     dependency: "direct main"
     description:

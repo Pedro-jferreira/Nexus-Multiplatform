@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:nexus_multiplatform/routing/app_router.dart';
 import 'package:nexus_multiplatform/ui/core/theme/theme_mobile.dart';
 
-import '../../../../../utils/responsive_ultils.dart';
+import '../../../../../utils/responsive_utils.dart';
 
 class ButtonsLogin extends StatelessWidget {
   final void Function()? googleLoginOnPressed;
   final void Function()? loginOnPressed;
+  final bool isLoading;
 
   const ButtonsLogin({
     super.key,
     required this.googleLoginOnPressed,
     required this.loginOnPressed,
+    required this.isLoading,
   });
 
   @override
@@ -32,17 +34,17 @@ class ButtonsLogin extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: FilledButton(
-                    onPressed:loginOnPressed ,
+                    onPressed: isLoading? null: loginOnPressed ,
                     style: FilledButton.styleFrom(
                         padding: EdgeInsets.symmetric(vertical: 10),
 
-                        backgroundColor: Theme.of(context).colorScheme.tertiary,
-                      foregroundColor: Theme.of(context).colorScheme.onTertiary,
+                        backgroundColor: Theme.of(context).colorScheme.secondary,
+                      foregroundColor: Theme.of(context).colorScheme.onSecondary,
                       textStyle: Theme.of(
                         context,
                       ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
                     ),
-                    child: Text('Entrar'),
+                    child:isLoading?CircularProgressIndicator(): Text('Entrar'),
 
                   ),
                 ),
