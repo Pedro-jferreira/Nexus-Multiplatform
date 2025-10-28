@@ -8,7 +8,7 @@ bool isPublicRoute(String route) {
 
 bool canAccess(
     String route,
-    List<Roles> userRoles, {
+    List<Role> userRoles, {
       bool isLoggedIn = false,
     }) {
   if (isPublicRoute(route)) return true;
