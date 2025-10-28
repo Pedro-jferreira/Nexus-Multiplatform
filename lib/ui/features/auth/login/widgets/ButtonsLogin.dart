@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nexus_multiplatform/routing/app_router.dart';
+import 'package:nexus_multiplatform/ui/core/theme/theme_mobile.dart';
+
+import '../../../../../utils/responsive_ultils.dart';
 
 class ButtonsLogin extends StatelessWidget {
   final void Function()? googleLoginOnPressed;
@@ -13,63 +16,100 @@ class ButtonsLogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 27.0,),
-      child: ConstrainedBox(
-        constraints: BoxConstraints(maxWidth: 291),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          spacing: 27,
-          children: [
-            SizedBox(
-              width: double.infinity,
-              child: FilledButton(
-                onPressed:loginOnPressed ,
-                style: FilledButton.styleFrom(
-                    padding: EdgeInsets.symmetric(vertical: 10),
+    final device = Responsive.getDeviceType(context);
+    return Row(
+      spacing: 5,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(width: 30,),
+        Flexible(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: 291),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              spacing: 15,
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: FilledButton(
+                    onPressed:loginOnPressed ,
+                    style: FilledButton.styleFrom(
+                        padding: EdgeInsets.symmetric(vertical: 10),
 
-                    backgroundColor: Theme.of(context).colorScheme.tertiary,
-                  foregroundColor: Theme.of(context).colorScheme.onTertiary,
-                  textStyle: Theme.of(
-                    context,
-                  ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
-                ),
-                child: Text('Entrar'),
+                        backgroundColor: Theme.of(context).colorScheme.tertiary,
+                      foregroundColor: Theme.of(context).colorScheme.onTertiary,
+                      textStyle: Theme.of(
+                        context,
+                      ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
+                    ),
+                    child: Text('Entrar'),
 
-              ),
-            ),
-            TextButton(
-              onPressed: ()=> ForgotPasswordRouter().push(context),
-              child: Text(
-                'Esqueci minha senha',
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  fontWeight: FontWeight.w600,
-                  decoration: TextDecoration.underline,
-                  decorationColor: Theme.of(context).colorScheme.onPrimary,
-                  decorationThickness: 2,
-                  decorationStyle: TextDecorationStyle.solid,
+                  ),
                 ),
-              ),
-            ),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton.icon(
-                onPressed: googleLoginOnPressed,
-                icon: SizedBox(
-                  width: 22,
-                  height: 22,
-                  child: Image.asset('assets/icons/google.png'),
+                TextButton(
+                  onPressed: ()=> ForgotPasswordRouter().push(context),
+                  child: Text(
+                    'Esqueci minha senha',
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color:(device == DeviceScreenType.mobile)? text: Theme.of(context).colorScheme.onSurface,
+                      fontWeight: FontWeight.w600,
+                      decoration: TextDecoration.underline,
+                      decorationColor:(device == DeviceScreenType.mobile)?  text: Theme.of(context).colorScheme.onSurface,
+                      decorationThickness: 3,
+                      decorationStyle: TextDecorationStyle.solid,
+                    ),
+                  ),
                 ),
-                label: Text('Entrar com o Google'),
-                style:ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 10)
-                ) ,
-              ),
+                if(device == DeviceScreenType.mobile)
+                SizedBox(
+                  width: double.infinity,
+                  child: FilledButton.icon(
+                    onPressed: googleLoginOnPressed,
+                    icon: SizedBox(
+                      width: 22,
+                      height: 22,
+                      child: Image.asset('assets/icons/google.png'),
+                    ),
+                    label: Text('Entrar com o Google'),
+                    style:ElevatedButton.styleFrom(
+                      backgroundColor: surface,
+                      foregroundColor: text,
+                      padding: EdgeInsets.symmetric(vertical: 15),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                          50,
+                        ), // controla o arredondamento
+                        side: BorderSide(
+                          color: primaryEmphasis,
+                        ), // define a cor da borda
+                      ),
+                    ) ,
+                  ),
+                )else
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      onPressed: googleLoginOnPressed,
+                      icon: SizedBox(
+                        width: 22,
+                        height: 22,
+                        child: Image.asset('assets/icons/google.png'),
+                      ),
+                      label: Text('Entrar com o Google'),
+                      style:ElevatedButton.styleFrom(
+                          padding: EdgeInsets.symmetric(vertical: 15),
+                        backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+                        foregroundColor: Theme.of(context).colorScheme.onSurface
+                      ) ,
+                    ),
+                  )
+              ],
             ),
-          ],
+          ),
         ),
-      ),
+        SizedBox(width: 30,),
+
+      ],
     );
   }
 }

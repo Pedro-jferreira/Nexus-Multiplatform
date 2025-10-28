@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nexus_multiplatform/ui/core/theme/theme_mobile.dart';
 import 'package:nexus_multiplatform/ui/features/auth/forgout_password/widgets/request_forgot.dart';
 import 'package:nexus_multiplatform/ui/features/auth/login/widgets/presentation_login.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../utils/responsive_ultils.dart';
 
@@ -14,21 +16,20 @@ class ForgotPasswordPage extends StatefulWidget {
 }
 
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
-  late Future<String> _precacheFutureSvg;
   late Future<void> _precacheFutureImages;
+  late Future<String> _precacheSvg;
   bool _initialized = false;
+  bool _hasSend = true;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (!_initialized) {
-      _precacheFutureSvg = _loadAndReplaceSvgColor(
-        'assets/icons/rafiki.svg',
-        Theme.of(context).colorScheme.onPrimary,
-      );
       _precacheFutureImages = _precacheAssets();
       _initialized = true;
     }
+    _precacheSvg = _precacheSvgFuture();
+
   }
 
   Future<void> _precacheAssets() async {
@@ -38,13 +39,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         context,
       ),
       precacheImage(const AssetImage('assets/icons/google.png'), context),
+      precacheImage(const AssetImage('assets/images/password.png'), context),
     ]);
-
-    const loader = SvgAssetLoader('assets/icons/rafiki.svg');
-    await svg.cache.putIfAbsent(
-      loader.cacheKey(null),
-      () => loader.loadBytes(null),
-    );
+    await Future.delayed(Duration(seconds: 1));
   }
 
   Future<String> _loadAndReplaceSvgColor(
@@ -62,78 +59,193 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         .replaceAll('#E0E0E0', color);
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: Future.wait([_precacheFutureImages, _precacheFutureSvg]),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Scaffold(
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              foregroundColor: Theme.of(context).colorScheme.onPrimary,
-            ),
-            body: Center(
-              child: CircularProgressIndicator(
-                color: Theme.of(context).colorScheme.onPrimary,
-              ),
-            ),
-          );
-        }
-        final svgString = snapshot.data![1] as String; // o SVG processado
-
-        final device = Responsive.getDeviceType(context);
-
-        return buildMobile(svgString, device);
-      },
+  Future<String> _precacheSvgFuture() async {
+    return await _loadAndReplaceSvgColor(
+      'assets/icons/rafiki.svg',
+      Theme.of(context).colorScheme.onSurface,
     );
   }
 
-  buildMobile(String svgString, device) {
+  @override
+  Widget build(BuildContext context) {
+    final device = Responsive.getDeviceType(context);
+
+    return device == DeviceScreenType.mobile
+        ? FutureBuilder(
+            future: Future.wait([_precacheFutureImages]),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Scaffold(
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  appBar: AppBar(
+                    backgroundColor: Colors.transparent,
+                    foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                  body: Center(
+                    child: CircularProgressIndicator(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
+                  ),
+                );
+              }
+              return buildContent(device, null);
+            },
+          )
+        : FutureBuilder(
+            future: Future.wait([_precacheFutureImages, _precacheSvg]),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Scaffold(
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  appBar: AppBar(
+                    backgroundColor: Colors.transparent,
+                    foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                  body: Center(
+                    child: CircularProgressIndicator(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
+                  ),
+                );
+              }
+
+              final svgString = snapshot.data?[1] as String? ?? '';
+
+              return buildContent(device, svgString);
+            },
+          );
+  }
+
+  buildContent(device, String? svg) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor:device == DeviceScreenType.mobile ? backGround: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        foregroundColor: Theme.of(context).colorScheme.onPrimary,
+        foregroundColor: text,
       ),
-      body: Center(
+      body: SizedBox(
+        width: double.infinity,
         child: SingleChildScrollView(
-          child: SizedBox(
-            width: double.infinity,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: device == DeviceScreenType.mobile
-                  ? MainAxisAlignment.start
-                  : MainAxisAlignment.center,
-              spacing: device == DeviceScreenType.mobile? 0:5,
-              children: [
-                if (device == DeviceScreenType.mobile)
-                  PresentationLogin(
-                    svgString: svgString,
-                    title: 'Recuperar Senha?',
-                  ),
-                if (device != DeviceScreenType.mobile)
-                  Column(
-                    spacing: 55.7,
-                    children: [
-                      SvgPicture.string(svgString),
-                      Text(
-                        'Esqueceu sua senha?',
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          color: Theme.of(context).colorScheme.onPrimary,
-                          fontWeight: FontWeight.w600,
+          child: !_hasSend
+              ? Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: device == DeviceScreenType.mobile
+                      ? MainAxisAlignment.start
+                      : MainAxisAlignment.center,
+                  spacing: device == DeviceScreenType.mobile ? 0 : 5,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 9.0, bottom: 44),
+                      child: PresentationLogin(
+                        title: 'Link Enviado!',
+                        imgPath: 'assets/images/sent-message.png',
+                      ),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        right: 16.0,
+                        left: 16,
+                        bottom: 50,
+                      ),
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(maxWidth: 291),
+                        child: Column(
+                          spacing: 43,
+                          children: [
+                            Text(
+                              'Instruções para redefinir sua senha foram enviadas para o e-mail fornecido, caso ele esteja cadastrado.',
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context).textTheme.labelLarge
+                                  ?.copyWith(
+                                    color: text,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                            ),
+                            SizedBox(
+                              width: double.infinity,
+                              child: FilledButton(
+                                onPressed: () async {
+                                  // Tentamos abrir um aplicativo de e-mail
+                                  final Uri emailUri = Uri(scheme: 'mailto');
+
+                                  // Verifica se há app que lide com o esquema mailto:
+                                  if (await canLaunchUrl(emailUri)) {
+                                    await launchUrl(
+                                      emailUri,
+                                      mode: LaunchMode.externalApplication,
+                                    );
+                                    return;
+                                  }
+
+                                  // Se não houver, tenta abrir o Gmail (web ou app, dependendo do sistema)
+                                  final Uri gmailUri = Uri.parse(
+                                    'https://mail.google.com/mail/u/0/#inbox',
+                                  );
+                                  await launchUrl(
+                                    gmailUri,
+                                    mode: LaunchMode.externalApplication,
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  padding: EdgeInsets.symmetric(vertical: 10),
+                                  backgroundColor: secondaryMain,
+                                  foregroundColor: surface,
+                                ),
+                                child: const Text('Abrir e-mail'),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                RequestForgot(),
-              ],
-            ),
-          ),
+                    ),
+                  ],
+                )
+              :device == DeviceScreenType.mobile?buildContentMobile(context):buildContentWeb(context, svg!),
         ),
       ),
+    );
+  }
+
+  buildContentMobile(context){
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 9.0, bottom: 44),
+            child: PresentationLogin(title: 'Recuperar Senha?'),
+          ),
+
+        RequestForgot(),
+      ],
+    );
+  }
+  buildContentWeb(context, svg){
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      spacing: 5,
+      children: [
+          Column(
+            spacing: 51,
+            children: [
+              SvgPicture.string(svg, height: 131.3),
+              Text(
+                'Esqueceu sua senha?',
+                style: Theme.of(context).textTheme.titleLarge
+                    ?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurface,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+        RequestForgot(),
+      ],
     );
   }
 }

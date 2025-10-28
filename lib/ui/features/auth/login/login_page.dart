@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nexus_multiplatform/ui/core/theme/theme_mobile.dart';
 import 'package:nexus_multiplatform/ui/features/auth/login/widgets/ButtonsLogin.dart';
 import 'package:nexus_multiplatform/ui/features/auth/login/widgets/form_login.dart';
 import 'package:nexus_multiplatform/ui/features/auth/login/widgets/presentation_login.dart';
@@ -23,13 +24,14 @@ class _LoginPageState extends State<LoginPage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (!_initialized) {
-      _precacheFutureSvg = _loadAndReplaceSvgColor(
-        'assets/icons/rafiki.svg',
-        Theme.of(context).colorScheme.onPrimary,
-      );
+
       _precacheFutureImages = _precacheAssets();
       _initialized = true;
     }
+    _precacheFutureSvg = _loadAndReplaceSvgColor(
+      'assets/icons/rafiki.svg',
+      Theme.of(context).colorScheme.onPrimary,
+    );
   }
 
   Future<void> _precacheAssets() async {
@@ -101,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
   ) {
     return Scaffold(
       body: Container(
-        color: Theme.of(context).colorScheme.inverseSurface,
+        color: Theme.of(context).colorScheme.surface,
         child: Row(
           children: [
             Expanded(flex: 1, child: PresentationLogin(svgString: svgString, title: 'Seja bem-vindo!',)),
@@ -115,6 +117,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: Column(
                       spacing: 43,
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Column(
                           spacing: 7,
@@ -126,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                                   ?.copyWith(
                                     color: Theme.of(
                                       context,
-                                    ).colorScheme.surface,
+                                    ).colorScheme.onSurface,
                                   ),
                             ),
                             Text(
@@ -136,7 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                                   ?.copyWith(
                                     color: Theme.of(
                                       context,
-                                    ).colorScheme.surface,
+                                    ).colorScheme.onSurface,
                                   ),
                             ),
                           ],
@@ -168,7 +171,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Scaffold buildMobile(BuildContext context, String svgString) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: backGround,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -179,17 +182,23 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    PresentationLogin(svgString: svgString, title: 'Seja bem-vindo!'),
+                    Padding(
+                      padding: EdgeInsets.only(top: 67.0,bottom: 33),
+                      child: PresentationLogin(svgString: svgString, title: 'Seja bem-vindo!'),
+                    ),
                     FormLogin(formKey: _formKey),
-                    ButtonsLogin(
-                      googleLoginOnPressed: () {},
-                      loginOnPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Processing Data')),
-                          );
-                        }
-                      },
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 27.0,),
+                      child: ButtonsLogin(
+                        googleLoginOnPressed: () {},
+                        loginOnPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Processing Data')),
+                            );
+                          }
+                        },
+                      ),
                     ),
                   ],
                 ),
