@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nexus_multiplatform/data/repositories/auth_repository.dart';
+import 'package:nexus_multiplatform/domain/models/requests/gen_models.dart';
 import 'package:nexus_multiplatform/ui/core/theme/theme_mobile.dart';
 import 'package:nexus_multiplatform/ui/features/auth/login/widgets/ButtonsLogin.dart';
 import 'package:nexus_multiplatform/ui/features/auth/login/widgets/form_login.dart';
 import 'package:nexus_multiplatform/ui/features/auth/login/widgets/presentation_login.dart';
 import 'package:nexus_multiplatform/utils/responsive_ultils.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -67,6 +70,10 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    
+    final repository = context.read<AuthRepository>();
+    
+    repository.login(loginRequest: LoginRequest(email: 'pedro@example.com', password: '123456'));
     return FutureBuilder(
       future: Future.wait([_precacheFutureImages, _precacheFutureSvg]),
       builder: (context, snapshot) {

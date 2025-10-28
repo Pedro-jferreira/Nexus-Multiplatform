@@ -1,11 +1,12 @@
-
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../data/repositories/auth_repository.dart';
+
 class DioConfig {
-  static Dio createDio({required GoRouter router, required SharedPreferences prefs}) {
+  static Dio createBaseDio({required SharedPreferences prefs}) {
     final baseUrl = dotenv.env['API_BASE_URL'];
     if (baseUrl == null) {
       throw Exception("A variável BASE_URL não foi encontrada no arquivo .env");
@@ -28,6 +29,19 @@ class DioConfig {
           }
           return handler.next(options);
         },
+      ),
+    );
+
+    return dio;
+  }
+
+  static void attachInterceptors({
+    required Dio dio,
+    required GoRouter router,
+    required AuthRepository authRepository,
+  }) {
+    dio.interceptors.add(
+      InterceptorsWrapper(
         onError: (e, handler) {
           if (e.response != null) {
             if (e.response!.statusCode == 401) {
@@ -42,7 +56,5 @@ class DioConfig {
         },
       ),
     );
-
-    return dio;
   }
 }

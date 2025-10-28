@@ -9,8 +9,8 @@ class AppRoutes {
 
 
   // Permissões de acesso por rota
-  static final Map<String, List<Roles>> permissions = {
-    placeholder: Roles.values,
+  static final Map<String, List<Role>> permissions = {
+    placeholder: Role.values,
   };
 
   static final Set<String> publicRoutes = {

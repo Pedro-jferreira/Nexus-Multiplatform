@@ -1,10 +1,12 @@
-enum Roles{
-  ROLE_ADMIN,
-  ROLE_SEGURANCA;
+enum Role {
+  ADMIN,
+  SECURITY,
 }
-Roles roleFromString(String role) {
-  return Roles.values.firstWhere(
+
+
+Role roleFromString(String role) {
+  return Role.values.firstWhere(
         (e) => e.toString().split('.').last == role,
-    orElse: () => Roles.ROLE_ADMIN,
+    orElse: () => Role.ADMIN,
   );
 }
