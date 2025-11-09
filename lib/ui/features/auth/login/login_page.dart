@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:nexus_multiplatform/data/repositories/auth_repository.dart';
 import 'package:nexus_multiplatform/domain/models/requests/gen_models.dart';
 import 'package:nexus_multiplatform/domain/models/responses/gen_models.dart';
 import 'package:nexus_multiplatform/ui/core/theme/theme.dart';
@@ -11,9 +10,9 @@ import 'package:nexus_multiplatform/ui/features/auth/login/widgets/ButtonsLogin.
 import 'package:nexus_multiplatform/ui/features/auth/login/widgets/form_login.dart';
 import 'package:nexus_multiplatform/ui/features/auth/login/widgets/presentation_login.dart';
 import 'package:nexus_multiplatform/utils/responsive_utils.dart';
-import 'package:provider/provider.dart';
 import 'package:result_command/result_command.dart';
 
+import '../../../../config/notifications.dart';
 import '../../../../domain/validators/auth_validators.dart';
 import '../../../../exceptions/app_exceptions.dart';
 
@@ -62,6 +61,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     widget.viewModel.loginCmd.addListener(_handlerLoginCmd);
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await setupNotifications();
+    });
     super.initState();
   }
 
@@ -198,14 +200,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final repository = context.read<AuthRepository>();
-
-    repository.login(
-      loginRequest: LoginRequest(
-        email: 'pedro@example.com',
-        password: '123456',
-      ),
-    );
     return FutureBuilder(
       future: Future.wait([_precacheFutureImages, _precacheFutureSvg]),
       builder: (context, snapshot) {

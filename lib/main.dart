@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nexus_multiplatform/ui/core/theme/font.dart';
-import 'package:nexus_multiplatform/ui/core/theme/theme.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,6 +12,7 @@ import 'config/dependencies.dart';
 import 'config/dio_config.dart';
 import 'config/firebase_options.dart';
 import 'config/notifications.dart';
+import 'ui/core/theme/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,8 +21,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  await setupNotifications();
 
 
   final sharedPreferences = await SharedPreferences.getInstance();
@@ -53,13 +52,13 @@ class MyApp extends StatelessWidget {
       child: Builder(
         builder: (context) {
           final router = context.read<GoRouter>();
-          return MaterialApp.router(
+          return OverlaySupport.global(child:MaterialApp.router(
             title: 'Nexus',
             theme: theme.light(),
             darkTheme: theme.dark(),
             themeMode: ThemeMode.system,
             routerConfig: router,
-          );
+          ));
         },
       ),
     );

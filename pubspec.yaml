@@ -37,6 +37,7 @@ dependencies:
   jwt_decode: ^0.3.1
   firebase_messaging: ^16.0.4
   flutter_local_notifications: ^19.5.0
+  overlay_support: ^2.1.0
 
 dev_dependencies:
   flutter_test:

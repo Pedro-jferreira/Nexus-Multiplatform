@@ -1,8 +1,9 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'firebase_options.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -19,7 +20,14 @@ const AndroidNotificationChannel highImportanceChannel =
 Future<void> setupNotifications() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  await _requestPermission();
+  try {
+    await _requestPermission();
+  } catch (e, s) {
+    if (kDebugMode) {
+      print('⚠️ Erro ao pedir permissão: $e');
+      print(s);
+    }
+  }
 
   if (!kIsWeb) {
     await _createNotificationChannel();
@@ -29,15 +37,17 @@ Future<void> setupNotifications() async {
   _setupForegroundListener();
   _setupOpenedAppListener();
 
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
-  if (kIsWeb) {
-    await _setupWebNotifications();
+  try {
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  } catch (e) {
+    if (kDebugMode) print('⚠️ onBackgroundMessage não disponível no Web');
   }
 
-  final token = await FirebaseMessaging.instance.getToken();
-  if (kDebugMode) {
-    print('🔥 FCM Token: $token');
+  try {
+    final token = await FirebaseMessaging.instance.getToken();
+    if (kDebugMode) print('🔥 FCM Token: $token');
+  } catch (e) {
+    if (kDebugMode) print('⚠️ Erro ao obter token: $e');
   }
 }
 
@@ -54,7 +64,6 @@ Future<void> _requestPermission() async {
   }
 }
 
-/// Inicializa o plugin de notificações locais (Android/iOS)
 Future<void> _initializeLocalNotifications() async {
   const AndroidInitializationSettings androidSettings =
       AndroidInitializationSettings('@mipmap/ic_launcher');
@@ -81,7 +90,6 @@ Future<void> _createNotificationChannel() async {
       ?.createNotificationChannel(highImportanceChannel);
 }
 
-/// Listener para mensagens em foreground
 void _setupForegroundListener() {
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     if (kDebugMode) {
@@ -90,13 +98,15 @@ void _setupForegroundListener() {
       );
     }
 
-    if (kIsWeb) {
-      // No Web, o navegador exibe automaticamente as notificações
-      return;
-    }
-
     final notification = message.notification;
     final android = notification?.android;
+
+    if (notification != null && kIsWeb) {
+      showSimpleNotification(
+        Text(notification.title!),
+        subtitle: Text(notification.body!),
+      );
+    }
 
     if (notification != null && android != null) {
       flutterLocalNotificationsPlugin.show(
@@ -117,7 +127,6 @@ void _setupForegroundListener() {
   });
 }
 
-/// Listener para quando o app é aberto por uma notificação
 void _setupOpenedAppListener() {
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
     debugPrint('🚀 App aberto pela notificação: ${message.data}');
@@ -125,28 +134,8 @@ void _setupOpenedAppListener() {
   });
 }
 
-/// Handler de mensagens em background
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   debugPrint('🕓 Mensagem recebida em background: ${message.messageId}');
-}
-
-/// Configuração adicional para Web
-Future<void> _setupWebNotifications() async {
-  final vapidKey = dotenv.env['VAD_API_KEY_WEB'] ??
-      const String.fromEnvironment('VAD_API_KEY_WEB');
-
-  try {
-    final token = await FirebaseMessaging.instance.getToken(vapidKey: vapidKey);
-    debugPrint('🌐 Token Web FCM: $token');
-  } catch (e) {
-    debugPrint('❌ Erro ao obter token Web: $e');
-  }
-
-  // Foreground Web — o próprio Firebase Web SDK exibe a notificação
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    debugPrint('🌐 Mensagem foreground (Web): ${message.notification?.title}');
-    // O navegador já exibe as notificações via service worker.
-  });
 }

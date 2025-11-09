@@ -32,6 +32,7 @@ migrate_working_dir/
 .pub/
 /build/
 /coverage/
+/web/firebase-messaging-sw.js
 
 # Symbolication related
 app.*.symbols
