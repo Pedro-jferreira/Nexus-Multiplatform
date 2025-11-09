@@ -33,6 +33,21 @@
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
-  <script src="flutter_bootstrap.js" async></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker
+            .register('/firebase-messaging-sw.js')
+            .then((registration) => {
+              console.log('✅ Service Worker registrado:', registration.scope);
+            })
+            .catch((err) => {
+              console.error('❌ Erro ao registrar Service Worker:', err);
+            });
+  }
+</script>
+
+<script src="flutter_bootstrap.js" async></script>
+
 </body>
+
 </html>

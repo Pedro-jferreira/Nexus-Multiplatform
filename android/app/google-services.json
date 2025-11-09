@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "604472826727",
+    "project_id": "nexus-multiplataforma",
+    "storage_bucket": "nexus-multiplataforma.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:604472826727:android:633a7baab394fee6c22dc2",
+        "android_client_info": {
+          "package_name": "com.example.nexus_multiplatform"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKQ7uv4Hjfn8mgLpXonLPyBgK_bl3u858"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

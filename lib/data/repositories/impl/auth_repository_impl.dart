@@ -1,5 +1,6 @@
 // lib/data/repositories/auth_repository_impl.dart
 import 'dart:async';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:nexus_multiplatform/exceptions/parse_exception.dart';
 import 'package:result_dart/result_dart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -38,6 +39,9 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   AsyncResult<UserResponse> login({required LoginRequest loginRequest}) async {
     try {
+      final fcmToken = await FirebaseMessaging.instance.getToken();
+      print("🔥 FCM Token do usuário logado: $fcmToken");
+
       final data = await _authService.login(
         loginRequest: loginRequest.toJson(),
       );
@@ -55,6 +59,10 @@ class AuthRepositoryImpl implements AuthRepository {
       final user = UserResponse.fromJson(userData);
 
       _setUser(user);
+
+
+
+      // await _usersService.registerDeviceToken(userId: user.id, token: fcmToken);
 
       return Success(user);
     } catch (e) {

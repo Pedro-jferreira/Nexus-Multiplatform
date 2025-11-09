@@ -26,7 +26,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     super.didChangeDependencies();
     if (!_initialized) {
       _precacheFutureImages = _precacheAssets();
-      _initialized = true;
     }
     _precacheSvg = _precacheSvgFuture();
 
@@ -71,9 +70,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
     return device == DeviceScreenType.mobile
         ? FutureBuilder(
-            future: Future.wait([_precacheFutureImages]),
+            future: Future.wait([_precacheFutureImages,_precacheSvg]),
             builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
+              if (snapshot.connectionState == ConnectionState.waiting  && !_initialized) {
                 return Scaffold(
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   appBar: AppBar(
@@ -86,14 +85,15 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     ),
                   ),
                 );
-              }
+              }      _initialized = true;
+
               return buildContent(device, null);
             },
           )
         : FutureBuilder(
             future: Future.wait([_precacheFutureImages, _precacheSvg]),
             builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
+              if (snapshot.connectionState == ConnectionState.waiting && !_initialized) {
                 return Scaffold(
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   appBar: AppBar(
@@ -106,7 +106,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     ),
                   ),
                 );
-              }
+              }_initialized = true;
 
               final svgString = snapshot.data?[1] as String? ?? '';
 

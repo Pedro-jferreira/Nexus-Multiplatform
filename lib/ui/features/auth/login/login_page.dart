@@ -29,7 +29,6 @@ class _LoginPageState extends State<LoginPage> {
   late Future<String> _precacheFutureSvg;
   late Future<void> _precacheFutureImages;
   bool _initialized = false;
-  bool _builder = false;
 
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
@@ -95,6 +94,7 @@ class _LoginPageState extends State<LoginPage> {
         final message = (error is AppException)
             ? error.message
             : 'Erro desconhecido.';
+        print(message);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Error ao realizar login: $message'),
@@ -158,7 +158,6 @@ class _LoginPageState extends State<LoginPage> {
     super.didChangeDependencies();
     if (!_initialized) {
       _precacheFutureImages = _precacheAssets();
-      _initialized = true;
     }
     _precacheFutureSvg = _loadAndReplaceSvgColor(
       'assets/icons/rafiki.svg',
@@ -210,7 +209,7 @@ class _LoginPageState extends State<LoginPage> {
     return FutureBuilder(
       future: Future.wait([_precacheFutureImages, _precacheFutureSvg]),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting && !_builder) {
+        if (snapshot.connectionState == ConnectionState.waiting && !_initialized) {
           return Scaffold(
             backgroundColor: Theme.of(context).colorScheme.primary,
             body: Center(
@@ -220,7 +219,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           );
         }
-        _builder = true;
+        _initialized = true;
         final svgString = snapshot.data![1] as String; // o SVG processado
 
         final device = Responsive.getDeviceType(context);
