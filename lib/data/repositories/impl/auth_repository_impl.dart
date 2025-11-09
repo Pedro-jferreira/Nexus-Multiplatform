@@ -1,7 +1,7 @@
-// lib/data/repositories/auth_repository_impl.dart
 import 'dart:async';
+import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:nexus_multiplatform/exceptions/parse_exception.dart';
+import 'package:flutter/foundation.dart';
 import 'package:result_dart/result_dart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:jwt_decode/jwt_decode.dart';
@@ -11,12 +11,10 @@ import '../../../domain/models/responses/gen_models.dart';
 
 import '../../../exceptions/exception_mapper.dart';
 import '../../services/auth_service.dart';
-import '../../services/users_service.dart';
 import '../auth_repository.dart';
 
-class AuthRepositoryImpl implements AuthRepository {
+class AuthRepositoryImpl extends ChangeNotifier implements AuthRepository  {
   final AuthService _authService;
-  final UsersServices _usersService;
   final SharedPreferences _prefs;
 
   final _userController = StreamController<UserResponse?>.broadcast();
@@ -24,11 +22,9 @@ class AuthRepositoryImpl implements AuthRepository {
 
   AuthRepositoryImpl({
     required AuthService authService,
-    required UsersServices usersService,
     required SharedPreferences prefs,
   }) : _authService = authService,
-       _usersService = usersService,
-       _prefs = prefs;
+       _prefs = prefs{_initialize();}
 
   @override
   Stream<UserResponse?> get userStream => _userController.stream;
@@ -36,35 +32,48 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   UserResponse? get currentUser => _currentUser;
 
+  Future<void> _initialize() async {
+    final token = _prefs.getString('auth_token');
+    final userJson = _prefs.getString('user_data');
+
+    if (token == null || token.isEmpty) {
+      _setUser(null);
+      return;
+    }
+
+    try {
+      final isExpired = Jwt.isExpired(token);
+      if (isExpired) {
+        await logout();
+        return;
+      }
+
+      if (userJson != null) {
+        final user = UserResponse.fromJson(jsonDecode(userJson));
+        _setUser(user);
+      } else {
+        _setUser(null);
+      }
+    } catch (e) {
+      await logout();
+    }
+  }
+
   @override
   AsyncResult<UserResponse> login({required LoginRequest loginRequest}) async {
     try {
       final fcmToken = await FirebaseMessaging.instance.getToken();
-      print("🔥 FCM Token do usuário logado: $fcmToken");
 
       final data = await _authService.login(
-        loginRequest: loginRequest.toJson(),
+        loginRequest: loginRequest.copyWith(fcmToken: fcmToken).toJson(),
       );
 
       final token = AuthTokens.fromJson(data);
 
       await _saveTokens(token);
+      _setUser(token.user);
 
-      final int? userId = _decodeUserIdFromJwt(token.accessToken);
-      if (userId == null) {
-        throw ParseException('Falha ao decodificar o token JWT');
-      }
-
-      final userData = await _usersService.findByID(userID: userId);
-      final user = UserResponse.fromJson(userData);
-
-      _setUser(user);
-
-
-
-      // await _usersService.registerDeviceToken(userId: user.id, token: fcmToken);
-
-      return Success(user);
+      return Success(token.user);
     } catch (e) {
       return Failure(ExceptionMapper.map(e));
     }
@@ -73,8 +82,10 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   AsyncResult<void> logout() async {
     try {
+      await _authService.logout();
       await _prefs.remove('auth_token');
       await _prefs.remove('refresh_token');
+      await _prefs.remove('user_data');
       _setUser(null);
       return Success(Null);
     } catch (e) {
@@ -85,24 +96,19 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> _saveTokens(AuthTokens token) async {
     await _prefs.setString('auth_token', token.accessToken);
     await _prefs.setString('refresh_token', token.accessToken);
+    await _prefs.setString('user_data', jsonEncode(token.user.toJson()));
+    notifyListeners();
   }
 
-  int? _decodeUserIdFromJwt(String token) {
-    try {
-      final decoded = Jwt.parseJwt(token);
-      final sub = decoded['sub'];
-      return int.tryParse(sub?.toString() ?? '');
-    } catch (_) {
-      return null;
-    }
-  }
 
   void _setUser(UserResponse? user) {
     _currentUser = user;
     _userController.add(user);
+    notifyListeners();
   }
-
+  @override
   void dispose() {
     _userController.close();
+    super.dispose();
   }
 }
