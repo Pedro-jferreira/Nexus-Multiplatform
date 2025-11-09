@@ -17,7 +17,20 @@ part 'routes/placeholder_router.dart';
 
 GoRouter createRouter(AuthRepository authRepository) =>
     GoRouter(
+        refreshListenable: authRepository,
         initialLocation: LoginRoute().location,
-        routes: $appRoutes
-    );
+        routes: $appRoutes,
+        redirect: (BuildContext context, GoRouterState state) {
+            final isLoggedIn = authRepository.currentUser != null;
+            final isLoggingIn = state.uri.toString().startsWith(LoginRoute().location);
 
+            if (!isLoggedIn && !isLoggingIn) {
+                return LoginRoute().location;
+            }
+
+            if (isLoggedIn && isLoggingIn) {
+                return '/';
+            }
+            return null;
+        },
+    );

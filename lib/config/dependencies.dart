@@ -34,10 +34,9 @@ List<SingleChildWidget>  _initialization(prefs,dio) {
       create: (context) => UsersServiceImpl(dio: context.read()),
     ),
 
-    Provider<AuthRepository>(
+    ChangeNotifierProvider<AuthRepository>(
       create: (context) => AuthRepositoryImpl(
         authService: context.read(),
-        usersService: context.read(),
         prefs: context.read(),
       ),
     ),
