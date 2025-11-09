@@ -32,10 +32,12 @@ _$AuthTokensImpl _$$AuthTokensImplFromJson(Map<String, dynamic> json) =>
     _$AuthTokensImpl(
       accessToken: json['accessToken'] as String,
       refreshToken: json['refreshToken'] as String,
+      user: UserResponse.fromJson(json['user'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$AuthTokensImplToJson(_$AuthTokensImpl instance) =>
     <String, dynamic>{
       'accessToken': instance.accessToken,
       'refreshToken': instance.refreshToken,
+      'user': instance.user,
     };

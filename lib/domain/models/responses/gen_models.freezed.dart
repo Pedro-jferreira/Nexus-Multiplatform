@@ -287,6 +287,7 @@ AuthTokens _$AuthTokensFromJson(Map<String, dynamic> json) {
 mixin _$AuthTokens {
   String get accessToken => throw _privateConstructorUsedError;
   String get refreshToken => throw _privateConstructorUsedError;
+  UserResponse get user => throw _privateConstructorUsedError;
 
   /// Serializes this AuthTokens to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -305,7 +306,9 @@ abstract class $AuthTokensCopyWith<$Res> {
     $Res Function(AuthTokens) then,
   ) = _$AuthTokensCopyWithImpl<$Res, AuthTokens>;
   @useResult
-  $Res call({String accessToken, String refreshToken});
+  $Res call({String accessToken, String refreshToken, UserResponse user});
+
+  $UserResponseCopyWith<$Res> get user;
 }
 
 /// @nodoc
@@ -322,7 +325,11 @@ class _$AuthTokensCopyWithImpl<$Res, $Val extends AuthTokens>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? accessToken = null, Object? refreshToken = null}) {
+  $Res call({
+    Object? accessToken = null,
+    Object? refreshToken = null,
+    Object? user = null,
+  }) {
     return _then(
       _value.copyWith(
             accessToken: null == accessToken
@@ -333,9 +340,23 @@ class _$AuthTokensCopyWithImpl<$Res, $Val extends AuthTokens>
                 ? _value.refreshToken
                 : refreshToken // ignore: cast_nullable_to_non_nullable
                       as String,
+            user: null == user
+                ? _value.user
+                : user // ignore: cast_nullable_to_non_nullable
+                      as UserResponse,
           )
           as $Val,
     );
+  }
+
+  /// Create a copy of AuthTokens
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $UserResponseCopyWith<$Res> get user {
+    return $UserResponseCopyWith<$Res>(_value.user, (value) {
+      return _then(_value.copyWith(user: value) as $Val);
+    });
   }
 }
 
@@ -348,7 +369,10 @@ abstract class _$$AuthTokensImplCopyWith<$Res>
   ) = __$$AuthTokensImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String accessToken, String refreshToken});
+  $Res call({String accessToken, String refreshToken, UserResponse user});
+
+  @override
+  $UserResponseCopyWith<$Res> get user;
 }
 
 /// @nodoc
@@ -364,7 +388,11 @@ class __$$AuthTokensImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? accessToken = null, Object? refreshToken = null}) {
+  $Res call({
+    Object? accessToken = null,
+    Object? refreshToken = null,
+    Object? user = null,
+  }) {
     return _then(
       _$AuthTokensImpl(
         accessToken: null == accessToken
@@ -375,6 +403,10 @@ class __$$AuthTokensImplCopyWithImpl<$Res>
             ? _value.refreshToken
             : refreshToken // ignore: cast_nullable_to_non_nullable
                   as String,
+        user: null == user
+            ? _value.user
+            : user // ignore: cast_nullable_to_non_nullable
+                  as UserResponse,
       ),
     );
   }
@@ -386,6 +418,7 @@ class _$AuthTokensImpl implements _AuthTokens {
   const _$AuthTokensImpl({
     required this.accessToken,
     required this.refreshToken,
+    required this.user,
   });
 
   factory _$AuthTokensImpl.fromJson(Map<String, dynamic> json) =>
@@ -395,10 +428,12 @@ class _$AuthTokensImpl implements _AuthTokens {
   final String accessToken;
   @override
   final String refreshToken;
+  @override
+  final UserResponse user;
 
   @override
   String toString() {
-    return 'AuthTokens(accessToken: $accessToken, refreshToken: $refreshToken)';
+    return 'AuthTokens(accessToken: $accessToken, refreshToken: $refreshToken, user: $user)';
   }
 
   @override
@@ -409,12 +444,13 @@ class _$AuthTokensImpl implements _AuthTokens {
             (identical(other.accessToken, accessToken) ||
                 other.accessToken == accessToken) &&
             (identical(other.refreshToken, refreshToken) ||
-                other.refreshToken == refreshToken));
+                other.refreshToken == refreshToken) &&
+            (identical(other.user, user) || other.user == user));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, accessToken, refreshToken);
+  int get hashCode => Object.hash(runtimeType, accessToken, refreshToken, user);
 
   /// Create a copy of AuthTokens
   /// with the given fields replaced by the non-null parameter values.
@@ -434,6 +470,7 @@ abstract class _AuthTokens implements AuthTokens {
   const factory _AuthTokens({
     required final String accessToken,
     required final String refreshToken,
+    required final UserResponse user,
   }) = _$AuthTokensImpl;
 
   factory _AuthTokens.fromJson(Map<String, dynamic> json) =
@@ -443,6 +480,8 @@ abstract class _AuthTokens implements AuthTokens {
   String get accessToken;
   @override
   String get refreshToken;
+  @override
+  UserResponse get user;
 
   /// Create a copy of AuthTokens
   /// with the given fields replaced by the non-null parameter values.
