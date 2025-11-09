@@ -108,45 +108,7 @@ class _LoginPageState extends State<LoginPage> {
         cmd.reset();
         break;
       case SuccessCommand<UserResponse>():
-        showDialog(
-          context: context,
-          builder: (BuildContext dialogContext) {
-            Future.delayed(const Duration(seconds: 2), () {
-              if (Navigator.of(dialogContext).canPop()) {
-                Navigator.of(dialogContext).pop();
-              }
-            });
-
-            return Dialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16.0),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // Ícone de check 80x80
-                    Icon(
-                      Icons.check_circle,
-                      color: Theme.of(context)
-                          .extension<ExtendedColorsTheme>()!
-                          .getFamily(Theme.of(context).brightness)
-                          .color,
-                      size: 80.0,
-                    ),
-                    const SizedBox(height: 20.0), // Espaçamento
-                    Text(
-                      'Bem vindo de Volta ${status.value.name}!',
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        );
+        _showSuccessOverlay(status.value.name);
         cmd.reset();
         break;
 
@@ -154,6 +116,76 @@ class _LoginPageState extends State<LoginPage> {
         return;
     }
   }
+  void _showSuccessOverlay(String userName) {
+    final overlay = Overlay.of(context);
+    if (overlay == null) return;
+
+    late OverlayEntry entry;
+
+    entry = OverlayEntry(
+      builder: (context) {
+        final theme = Theme.of(context);
+        return Positioned(
+          top: MediaQuery.of(context).size.height * 0.25,
+          left: 0,
+          right: 0,
+          child: Center(
+            child: Material(
+              color: Colors.transparent,
+              child: AnimatedOpacity(
+                opacity: 1.0,
+                duration: const Duration(milliseconds: 300),
+                child: Container(
+                  constraints: const BoxConstraints(
+                    maxWidth: 320, // limite máximo da largura
+                    minWidth: 200,
+                  ),
+                  padding: const EdgeInsets.all(24),
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.surface,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.25),
+                        blurRadius: 12,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.check_circle,
+                        color: theme
+                            .extension<ExtendedColorsTheme>()!
+                            .getFamily(theme.brightness)
+                            .color,
+                        size: 72,
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        'Bem-vindo de volta, $userName!',
+                        style: theme.textTheme.titleMedium,
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+
+    overlay.insert(entry);
+
+    Future.delayed(const Duration(seconds: 2), () {
+      entry.remove();
+    });
+  }
+
 
   @override
   void didChangeDependencies() {
