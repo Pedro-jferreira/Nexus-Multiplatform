@@ -12,4 +12,10 @@ class AuthServiceImpl implements AuthService{
     return response.data;
   }
 
+  @override
+  Future<void> logout() async {
+    final response = await _dio.post('$path/logout',);
+    return response.data;
+  }
+
 }
