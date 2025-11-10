@@ -117,10 +117,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   buildContent(device, String? svg) {
     return Scaffold(
-      backgroundColor:device == DeviceScreenType.mobile ? backGround: Theme.of(context).colorScheme.surface,
+      backgroundColor:device == DeviceScreenType.mobile ? context.colors.background: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        foregroundColor: text,
+        foregroundColor: context.colors.text,
       ),
       body: SizedBox(
         width: double.infinity,
@@ -158,7 +158,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                               textAlign: TextAlign.center,
                               style: Theme.of(context).textTheme.labelLarge
                                   ?.copyWith(
-                                    color: text,
+                                    color: context.colors.text,
                                     fontWeight: FontWeight.w600,
                                   ),
                             ),
@@ -189,8 +189,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                 },
                                 style: ElevatedButton.styleFrom(
                                   padding: EdgeInsets.symmetric(vertical: 10),
-                                  backgroundColor: secondaryMain,
-                                  foregroundColor: surface,
+                                  backgroundColor: context.colors.secondaryMain,
+                                  foregroundColor: context.colors.surface,
                                 ),
                                 child: const Text('Abrir e-mail'),
                               ),

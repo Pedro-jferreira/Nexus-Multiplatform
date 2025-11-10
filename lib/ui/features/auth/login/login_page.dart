@@ -15,6 +15,8 @@ import 'package:result_command/result_command.dart';
 import '../../../../config/notifications.dart';
 import '../../../../domain/validators/auth_validators.dart';
 import '../../../../exceptions/app_exceptions.dart';
+import 'package:nexus_multiplatform/ui/core/theme/theme_mobile.dart';
+
 
 class LoginPage extends StatefulWidget {
   final LoginViewModel viewModel;
@@ -360,7 +362,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Scaffold buildMobile(BuildContext context, String svgString) {
     return Scaffold(
-      backgroundColor: backGround,
+      backgroundColor:  context.colors.background,
       body: ListenableBuilder(
         listenable: widget.viewModel.loginCmd,
         builder: (context, _) {

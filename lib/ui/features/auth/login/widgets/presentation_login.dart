@@ -41,15 +41,21 @@ class PresentationLogin extends StatelessWidget {
   }
 
    buildMobile(BuildContext context) {
-    return Column(
+     final isDark = Theme.of(context).brightness == Brightness.dark;
+
+     return Column(
       spacing: 57,
       children: [
-        Image.asset('assets/logos/Logo_sigla_horizontal.png', height: 38),
+        if(isDark)
+          Image.asset('assets/logos/Logo_sigla_branco.png', height: 38)
+        else
+          Image.asset('assets/logos/Logo_sigla_horizontal.png', height: 38),
+
         Image.asset(imgPath??'assets/images/password.png', height: 187,),
         Text(
           title,
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
-            color: text,
+            color: context.colors.text,
             fontWeight: FontWeight.w600,
           ),
         ),

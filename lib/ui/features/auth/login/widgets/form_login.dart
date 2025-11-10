@@ -245,51 +245,51 @@ class FormLogin extends StatelessWidget {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25),
                         borderSide: BorderSide(
-                          color: primaryEmphasis, // cor da borda padrão
+                          color:context.colors.primaryEmphasis, // cor da borda padrão
                           width: 1,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25),
                         borderSide: BorderSide(
-                          color: primaryMain, // cor quando estiver em foco
+                          color: context.colors.primaryMain, // cor quando estiver em foco
                           width: 2, // deixa mais espesso ao focar
                         ),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25),
                         borderSide: BorderSide(
-                          color: error, // cor da borda no erro
+                          color: context.colors.error, // cor da borda no erro
                           width: 1.5,
                         ),
                       ),
                       errorStyle: Theme.of(
                         context,
-                      ).textTheme.bodySmall?.copyWith(color: error),
+                      ).textTheme.bodySmall?.copyWith(color: context.colors.error),
                       // borda quando há erro e o campo está em foco
                       focusedErrorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25),
                         borderSide: BorderSide(
-                          color: error, // cor mais forte com foco
+                          color: context.colors.error, // cor mais forte com foco
                           width: 2,
                         ),
                       ),
 
                       prefixIcon: Icon(Icons.email_outlined),
                       prefixIconColor: WidgetStateColor.resolveWith((states) {
-                        if (states.contains(WidgetState.error)) return error;
+                        if (states.contains(WidgetState.error)) return context.colors.error;
                         if (states.contains(WidgetState.focused)) {
-                          return primaryMain;
+                          return context.colors.primaryMain;
                         }
-                        return primaryEmphasis;
+                        return context.colors.primaryEmphasis;
                       }),
                       hintText: 'Email',
                       filled: true,
-                      fillColor: surface,
+                      fillColor: context.colors.surface,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25),
                         borderSide: BorderSide(
-                          color: primaryEmphasis,
+                          color: context.colors.primaryEmphasis,
                           width: 1,
                         ),
                       ),
@@ -329,42 +329,42 @@ class FormLogin extends StatelessWidget {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25),
                         borderSide: BorderSide(
-                          color: primaryEmphasis,
+                          color: context.colors.primaryEmphasis,
                           width: 1,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25),
-                        borderSide: BorderSide(color: primaryMain, width: 2),
+                        borderSide: BorderSide(color: context.colors.primaryMain, width: 2),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25),
-                        borderSide: BorderSide(color: error, width: 1.5),
+                        borderSide: BorderSide(color: context.colors.error, width: 1.5),
                       ),
                       errorStyle: Theme.of(
                         context,
-                      ).textTheme.bodySmall?.copyWith(color: error),
+                      ).textTheme.bodySmall?.copyWith(color: context.colors.error),
 
                       focusedErrorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25),
-                        borderSide: BorderSide(color: error, width: 2),
+                        borderSide: BorderSide(color: context.colors.error, width: 2),
                       ),
 
                       prefixIcon: Icon(Icons.keyboard_alt_outlined),
                       prefixIconColor: WidgetStateColor.resolveWith((states) {
-                        if (states.contains(WidgetState.error)) return error;
+                        if (states.contains(WidgetState.error)) return context.colors.error;
                         if (states.contains(WidgetState.focused)) {
-                          return primaryMain;
+                          return context.colors.primaryMain;
                         }
-                        return primaryEmphasis;
+                        return context.colors.primaryEmphasis;
                       }),
                       hintText: 'Senha',
                       filled: true,
-                      fillColor: surface,
+                      fillColor: context.colors.surface,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25),
                         borderSide: BorderSide(
-                          color: primaryEmphasis,
+                          color: context.colors.primaryEmphasis,
                           width: 1,
                         ),
                       ),
@@ -380,8 +380,8 @@ class FormLogin extends StatelessWidget {
                   child: Center(
                     child: IconButton(
                       style: IconButton.styleFrom(
-                        backgroundColor: surface,
-                        foregroundColor: primaryEmphasis,
+                        backgroundColor: context.colors.surface,
+                        foregroundColor: context.colors.primaryEmphasis,
                         alignment: AlignmentGeometry.center,
                         padding: EdgeInsets.zero,
                         shape: RoundedRectangleBorder(
@@ -389,7 +389,7 @@ class FormLogin extends StatelessWidget {
                             50,
                           ), // controla o arredondamento
                           side: BorderSide(
-                            color: primaryEmphasis,
+                            color: context.colors.primaryEmphasis,
                           ), // define a cor da borda
                         ),
                       ),
