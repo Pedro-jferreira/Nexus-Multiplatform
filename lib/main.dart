@@ -55,10 +55,10 @@ class MyApp extends StatelessWidget {
           return OverlaySupport.global(child:MaterialApp.router(
             title: 'Nexus',
             theme: theme.light().copyWith(
-              extensions: const [AppColors.light],
+              extensions: const [AppColors.light, ExtendedColorsTheme.light,],
             ),
             darkTheme: theme.dark().copyWith(
-              extensions: const [AppColors.dark],
+              extensions: const [AppColors.dark,  ExtendedColorsTheme.dark,],
             ),
             themeMode: ThemeMode.system,
             routerConfig: router,

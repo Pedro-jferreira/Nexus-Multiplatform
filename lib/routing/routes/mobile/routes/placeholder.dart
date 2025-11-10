@@ -1,4 +1,6 @@
-part of '../app_router.dart';
+part of '../app_router_mobile.dart';
+
+
 
 
 @TypedGoRoute<PlaceholderRouter>(path: AppRoutes.placeholder)

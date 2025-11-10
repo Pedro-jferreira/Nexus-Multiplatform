@@ -159,10 +159,7 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       Icon(
                         Icons.check_circle,
-                        color: theme
-                            .extension<ExtendedColorsTheme>()!
-                            .getFamily(theme.brightness)
-                            .color,
+                        color: context.successColor,
                         size: 72,
                       ),
                       const SizedBox(height: 16),

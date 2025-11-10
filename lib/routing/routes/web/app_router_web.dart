@@ -1,0 +1,17 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:nexus_multiplatform/ui/features/shell_web/shell_app.dart';
+
+import '../../app_routes.dart';
+
+part 'app_router_web.g.dart';
+
+part 'routes/placeholder.dart';
+part 'routes/shell_route.dart';
+part 'routes/dashboard_route.dart';
+part 'routes/fugitives_route.dart';
+part 'routes/users_route.dart';
+part 'routes/chat_route.dart';
+part 'routes/incidents_route.dart';
+part 'routes/contacts_route.dart';
+part 'routes/profile_route.dart';

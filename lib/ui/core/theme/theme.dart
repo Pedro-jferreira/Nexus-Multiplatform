@@ -361,31 +361,7 @@ class MaterialTheme {
       colorContainer: Color(0xff4c8429),
       onColorContainer: Color(0xffffffff),
     ),
-    lightMediumContrast: ColorFamily(
-      color: Color(0xff346a10),
-      onColor: Color(0xffffffff),
-      colorContainer: Color(0xff4c8429),
-      onColorContainer: Color(0xffffffff),
-    ),
-    lightHighContrast: ColorFamily(
-      color: Color(0xff346a10),
-      onColor: Color(0xffffffff),
-      colorContainer: Color(0xff4c8429),
-      onColorContainer: Color(0xffffffff),
-    ),
     dark: ColorFamily(
-      color: Color(0xff99d771),
-      onColor: Color(0xff153800),
-      colorContainer: Color(0xff4c8429),
-      onColorContainer: Color(0xffffffff),
-    ),
-    darkMediumContrast: ColorFamily(
-      color: Color(0xff99d771),
-      onColor: Color(0xff153800),
-      colorContainer: Color(0xff4c8429),
-      onColorContainer: Color(0xffffffff),
-    ),
-    darkHighContrast: ColorFamily(
       color: Color(0xff99d771),
       onColor: Color(0xff153800),
       colorContainer: Color(0xff4c8429),
@@ -400,48 +376,42 @@ class MaterialTheme {
 }
 
 
-class ExtendedColor {
-  final Color seed, value;
-  final ColorFamily light;
-  final ColorFamily lightHighContrast;
-  final ColorFamily lightMediumContrast;
-  final ColorFamily dark;
-  final ColorFamily darkHighContrast;
-  final ColorFamily darkMediumContrast;
-
-  const ExtendedColor({
-    required this.seed,
-    required this.value,
-    required this.light,
-    required this.lightHighContrast,
-    required this.lightMediumContrast,
-    required this.dark,
-    required this.darkHighContrast,
-    required this.darkMediumContrast,
-  });
-}
-
+/// 🌿 Família de cores (principal, onColor, container etc)
 class ColorFamily {
+  final Color color;
+  final Color onColor;
+  final Color colorContainer;
+  final Color onColorContainer;
+
   const ColorFamily({
     required this.color,
     required this.onColor,
     required this.colorContainer,
     required this.onColorContainer,
   });
-
-  final Color color;
-  final Color onColor;
-  final Color colorContainer;
-  final Color onColorContainer;
 }
 
-class ExtendedColors {
-  final ExtendedColor success;
+/// 🌿 Estrutura para uma cor estendida com suas variantes
+class ExtendedColor {
+  final Color seed;
+  final Color value;
+  final ColorFamily light;
+  final ColorFamily dark;
 
-  const ExtendedColors({
-    required this.success,
+  const ExtendedColor({
+    required this.seed,
+    required this.value,
+    required this.light,
+    required this.dark,
   });
+
+  /// Retorna automaticamente a família correta
+  ColorFamily resolve(Brightness brightness) =>
+      brightness == Brightness.dark ? dark : light;
 }
+
+/// 🌿 ThemeExtension para integrar no ThemeData
+@immutable
 class ExtendedColorsTheme extends ThemeExtension<ExtendedColorsTheme> {
   final ExtendedColor success;
 
@@ -453,14 +423,67 @@ class ExtendedColorsTheme extends ThemeExtension<ExtendedColorsTheme> {
   }
 
   @override
-  ExtendedColorsTheme lerp(ThemeExtension<ExtendedColorsTheme>? other, double t) {
+  ExtendedColorsTheme lerp(
+      ThemeExtension<ExtendedColorsTheme>? other, double t) {
     if (other is! ExtendedColorsTheme) return this;
     return ExtendedColorsTheme(success: other.success);
   }
 
-  /// 🔥 Getter que escolhe automaticamente a cor conforme o modo atual
-  ColorFamily getFamily(Brightness brightness) {
-    return brightness == Brightness.dark ? success.dark : success.light;
-  }
+  /// Instâncias pré-definidas para tema claro e escuro
+  static const light = ExtendedColorsTheme(success: _successLight);
+  static const dark = ExtendedColorsTheme(success: _successDark);
+
+  /// 🔹 Sucesso (modo claro)
+  static const _successLight = ExtendedColor(
+    seed: Color(0xff4c8429),
+    value: Color(0xff4c8429),
+    light: ColorFamily(
+      color: Color(0xff346a10),
+      onColor: Color(0xffffffff),
+      colorContainer: Color(0xff4c8429),
+      onColorContainer: Color(0xffffffff),
+    ),
+    dark: ColorFamily(
+      color: Color(0xff99d771),
+      onColor: Color(0xff153800),
+      colorContainer: Color(0xff4c8429),
+      onColorContainer: Color(0xffffffff),
+    ),
+  );
+
+  /// 🔹 Sucesso (modo escuro)
+  static const _successDark = ExtendedColor(
+    seed: Color(0xff4c8429),
+    value: Color(0xff4c8429),
+    light: ColorFamily(
+      color: Color(0xff346a10),
+      onColor: Color(0xffffffff),
+      colorContainer: Color(0xff4c8429),
+      onColorContainer: Color(0xffffffff),
+    ),
+    dark: ColorFamily(
+      color: Color(0xff99d771),
+      onColor: Color(0xff153800),
+      colorContainer: Color(0xff4c8429),
+      onColorContainer: Color(0xffffffff),
+    ),
+  );
 }
+extension ThemeExtras on BuildContext {
+  ExtendedColorsTheme get extended =>
+      Theme.of(this).extension<ExtendedColorsTheme>()!;
+
+  Color get successColor =>
+      extended.success.resolve(Theme.of(this).brightness).color;
+
+  Color get onSuccessColor =>
+      extended.success.resolve(Theme.of(this).brightness).onColor;
+  Color get successColorContainer =>
+      extended.success.resolve(Theme.of(this).brightness).colorContainer;
+
+  Color get onSuccessColorContainer =>
+      extended.success.resolve(Theme.of(this).brightness).onColorContainer;
+}
+
+
 
