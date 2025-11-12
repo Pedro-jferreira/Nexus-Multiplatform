@@ -211,3 +211,441 @@ abstract class _LoginRequest implements LoginRequest {
   _$$LoginRequestImplCopyWith<_$LoginRequestImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+CreateEmergencyContactRequest _$CreateEmergencyContactRequestFromJson(
+  Map<String, dynamic> json,
+) {
+  return _CreateEmergencyContactRequest.fromJson(json);
+}
+
+/// @nodoc
+mixin _$CreateEmergencyContactRequest {
+  String get name => throw _privateConstructorUsedError;
+  String get phone => throw _privateConstructorUsedError;
+  ServiceType get serviceType => throw _privateConstructorUsedError;
+
+  /// Serializes this CreateEmergencyContactRequest to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of CreateEmergencyContactRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $CreateEmergencyContactRequestCopyWith<CreateEmergencyContactRequest>
+  get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CreateEmergencyContactRequestCopyWith<$Res> {
+  factory $CreateEmergencyContactRequestCopyWith(
+    CreateEmergencyContactRequest value,
+    $Res Function(CreateEmergencyContactRequest) then,
+  ) =
+      _$CreateEmergencyContactRequestCopyWithImpl<
+        $Res,
+        CreateEmergencyContactRequest
+      >;
+  @useResult
+  $Res call({String name, String phone, ServiceType serviceType});
+}
+
+/// @nodoc
+class _$CreateEmergencyContactRequestCopyWithImpl<
+  $Res,
+  $Val extends CreateEmergencyContactRequest
+>
+    implements $CreateEmergencyContactRequestCopyWith<$Res> {
+  _$CreateEmergencyContactRequestCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of CreateEmergencyContactRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? phone = null,
+    Object? serviceType = null,
+  }) {
+    return _then(
+      _value.copyWith(
+            name: null == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                      as String,
+            phone: null == phone
+                ? _value.phone
+                : phone // ignore: cast_nullable_to_non_nullable
+                      as String,
+            serviceType: null == serviceType
+                ? _value.serviceType
+                : serviceType // ignore: cast_nullable_to_non_nullable
+                      as ServiceType,
+          )
+          as $Val,
+    );
+  }
+}
+
+/// @nodoc
+abstract class _$$CreateEmergencyContactRequestImplCopyWith<$Res>
+    implements $CreateEmergencyContactRequestCopyWith<$Res> {
+  factory _$$CreateEmergencyContactRequestImplCopyWith(
+    _$CreateEmergencyContactRequestImpl value,
+    $Res Function(_$CreateEmergencyContactRequestImpl) then,
+  ) = __$$CreateEmergencyContactRequestImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String name, String phone, ServiceType serviceType});
+}
+
+/// @nodoc
+class __$$CreateEmergencyContactRequestImplCopyWithImpl<$Res>
+    extends
+        _$CreateEmergencyContactRequestCopyWithImpl<
+          $Res,
+          _$CreateEmergencyContactRequestImpl
+        >
+    implements _$$CreateEmergencyContactRequestImplCopyWith<$Res> {
+  __$$CreateEmergencyContactRequestImplCopyWithImpl(
+    _$CreateEmergencyContactRequestImpl _value,
+    $Res Function(_$CreateEmergencyContactRequestImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of CreateEmergencyContactRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? phone = null,
+    Object? serviceType = null,
+  }) {
+    return _then(
+      _$CreateEmergencyContactRequestImpl(
+        name: null == name
+            ? _value.name
+            : name // ignore: cast_nullable_to_non_nullable
+                  as String,
+        phone: null == phone
+            ? _value.phone
+            : phone // ignore: cast_nullable_to_non_nullable
+                  as String,
+        serviceType: null == serviceType
+            ? _value.serviceType
+            : serviceType // ignore: cast_nullable_to_non_nullable
+                  as ServiceType,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$CreateEmergencyContactRequestImpl
+    implements _CreateEmergencyContactRequest {
+  const _$CreateEmergencyContactRequestImpl({
+    required this.name,
+    required this.phone,
+    required this.serviceType,
+  });
+
+  factory _$CreateEmergencyContactRequestImpl.fromJson(
+    Map<String, dynamic> json,
+  ) => _$$CreateEmergencyContactRequestImplFromJson(json);
+
+  @override
+  final String name;
+  @override
+  final String phone;
+  @override
+  final ServiceType serviceType;
+
+  @override
+  String toString() {
+    return 'CreateEmergencyContactRequest(name: $name, phone: $phone, serviceType: $serviceType)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CreateEmergencyContactRequestImpl &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.phone, phone) || other.phone == phone) &&
+            (identical(other.serviceType, serviceType) ||
+                other.serviceType == serviceType));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, name, phone, serviceType);
+
+  /// Create a copy of CreateEmergencyContactRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CreateEmergencyContactRequestImplCopyWith<
+    _$CreateEmergencyContactRequestImpl
+  >
+  get copyWith =>
+      __$$CreateEmergencyContactRequestImplCopyWithImpl<
+        _$CreateEmergencyContactRequestImpl
+      >(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$CreateEmergencyContactRequestImplToJson(this);
+  }
+}
+
+abstract class _CreateEmergencyContactRequest
+    implements CreateEmergencyContactRequest {
+  const factory _CreateEmergencyContactRequest({
+    required final String name,
+    required final String phone,
+    required final ServiceType serviceType,
+  }) = _$CreateEmergencyContactRequestImpl;
+
+  factory _CreateEmergencyContactRequest.fromJson(Map<String, dynamic> json) =
+      _$CreateEmergencyContactRequestImpl.fromJson;
+
+  @override
+  String get name;
+  @override
+  String get phone;
+  @override
+  ServiceType get serviceType;
+
+  /// Create a copy of CreateEmergencyContactRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$CreateEmergencyContactRequestImplCopyWith<
+    _$CreateEmergencyContactRequestImpl
+  >
+  get copyWith => throw _privateConstructorUsedError;
+}
+
+UpdateEmergencyContactRequest _$UpdateEmergencyContactRequestFromJson(
+  Map<String, dynamic> json,
+) {
+  return _UpdateEmergencyContactRequest.fromJson(json);
+}
+
+/// @nodoc
+mixin _$UpdateEmergencyContactRequest {
+  String get name => throw _privateConstructorUsedError;
+  String get phone => throw _privateConstructorUsedError;
+  ServiceType get serviceType => throw _privateConstructorUsedError;
+
+  /// Serializes this UpdateEmergencyContactRequest to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of UpdateEmergencyContactRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $UpdateEmergencyContactRequestCopyWith<UpdateEmergencyContactRequest>
+  get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $UpdateEmergencyContactRequestCopyWith<$Res> {
+  factory $UpdateEmergencyContactRequestCopyWith(
+    UpdateEmergencyContactRequest value,
+    $Res Function(UpdateEmergencyContactRequest) then,
+  ) =
+      _$UpdateEmergencyContactRequestCopyWithImpl<
+        $Res,
+        UpdateEmergencyContactRequest
+      >;
+  @useResult
+  $Res call({String name, String phone, ServiceType serviceType});
+}
+
+/// @nodoc
+class _$UpdateEmergencyContactRequestCopyWithImpl<
+  $Res,
+  $Val extends UpdateEmergencyContactRequest
+>
+    implements $UpdateEmergencyContactRequestCopyWith<$Res> {
+  _$UpdateEmergencyContactRequestCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of UpdateEmergencyContactRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? phone = null,
+    Object? serviceType = null,
+  }) {
+    return _then(
+      _value.copyWith(
+            name: null == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                      as String,
+            phone: null == phone
+                ? _value.phone
+                : phone // ignore: cast_nullable_to_non_nullable
+                      as String,
+            serviceType: null == serviceType
+                ? _value.serviceType
+                : serviceType // ignore: cast_nullable_to_non_nullable
+                      as ServiceType,
+          )
+          as $Val,
+    );
+  }
+}
+
+/// @nodoc
+abstract class _$$UpdateEmergencyContactRequestImplCopyWith<$Res>
+    implements $UpdateEmergencyContactRequestCopyWith<$Res> {
+  factory _$$UpdateEmergencyContactRequestImplCopyWith(
+    _$UpdateEmergencyContactRequestImpl value,
+    $Res Function(_$UpdateEmergencyContactRequestImpl) then,
+  ) = __$$UpdateEmergencyContactRequestImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String name, String phone, ServiceType serviceType});
+}
+
+/// @nodoc
+class __$$UpdateEmergencyContactRequestImplCopyWithImpl<$Res>
+    extends
+        _$UpdateEmergencyContactRequestCopyWithImpl<
+          $Res,
+          _$UpdateEmergencyContactRequestImpl
+        >
+    implements _$$UpdateEmergencyContactRequestImplCopyWith<$Res> {
+  __$$UpdateEmergencyContactRequestImplCopyWithImpl(
+    _$UpdateEmergencyContactRequestImpl _value,
+    $Res Function(_$UpdateEmergencyContactRequestImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of UpdateEmergencyContactRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? phone = null,
+    Object? serviceType = null,
+  }) {
+    return _then(
+      _$UpdateEmergencyContactRequestImpl(
+        name: null == name
+            ? _value.name
+            : name // ignore: cast_nullable_to_non_nullable
+                  as String,
+        phone: null == phone
+            ? _value.phone
+            : phone // ignore: cast_nullable_to_non_nullable
+                  as String,
+        serviceType: null == serviceType
+            ? _value.serviceType
+            : serviceType // ignore: cast_nullable_to_non_nullable
+                  as ServiceType,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$UpdateEmergencyContactRequestImpl
+    implements _UpdateEmergencyContactRequest {
+  const _$UpdateEmergencyContactRequestImpl({
+    required this.name,
+    required this.phone,
+    required this.serviceType,
+  });
+
+  factory _$UpdateEmergencyContactRequestImpl.fromJson(
+    Map<String, dynamic> json,
+  ) => _$$UpdateEmergencyContactRequestImplFromJson(json);
+
+  @override
+  final String name;
+  @override
+  final String phone;
+  @override
+  final ServiceType serviceType;
+
+  @override
+  String toString() {
+    return 'UpdateEmergencyContactRequest(name: $name, phone: $phone, serviceType: $serviceType)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UpdateEmergencyContactRequestImpl &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.phone, phone) || other.phone == phone) &&
+            (identical(other.serviceType, serviceType) ||
+                other.serviceType == serviceType));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, name, phone, serviceType);
+
+  /// Create a copy of UpdateEmergencyContactRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UpdateEmergencyContactRequestImplCopyWith<
+    _$UpdateEmergencyContactRequestImpl
+  >
+  get copyWith =>
+      __$$UpdateEmergencyContactRequestImplCopyWithImpl<
+        _$UpdateEmergencyContactRequestImpl
+      >(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$UpdateEmergencyContactRequestImplToJson(this);
+  }
+}
+
+abstract class _UpdateEmergencyContactRequest
+    implements UpdateEmergencyContactRequest {
+  const factory _UpdateEmergencyContactRequest({
+    required final String name,
+    required final String phone,
+    required final ServiceType serviceType,
+  }) = _$UpdateEmergencyContactRequestImpl;
+
+  factory _UpdateEmergencyContactRequest.fromJson(Map<String, dynamic> json) =
+      _$UpdateEmergencyContactRequestImpl.fromJson;
+
+  @override
+  String get name;
+  @override
+  String get phone;
+  @override
+  ServiceType get serviceType;
+
+  /// Create a copy of UpdateEmergencyContactRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$UpdateEmergencyContactRequestImplCopyWith<
+    _$UpdateEmergencyContactRequestImpl
+  >
+  get copyWith => throw _privateConstructorUsedError;
+}
