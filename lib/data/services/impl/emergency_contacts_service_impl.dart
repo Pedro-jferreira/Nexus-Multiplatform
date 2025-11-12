@@ -8,8 +8,14 @@ class EmergencyContactsServiceImpl implements EmergencyContactsService{
   EmergencyContactsServiceImpl({required Dio dio}) : _dio = dio;
 
   @override
-  Future<Map<String, dynamic>> getEmergencyContacts() async {
-    final response = await _dio.get(path);
+  Future<Map<String, dynamic>> getEmergencyContacts({int page = 0, int size = 5,}) async {
+    final queryParams = <String, dynamic>{};
+
+    queryParams['pages'] = page;
+    queryParams['size'] = size;
+
+    final response = await _dio.get(path, queryParameters: queryParams);
+    print('dentro do service $response.data');
     return response.data;
   }
 }

@@ -1,12 +1,5 @@
 part of 'gen_models.dart';
 
-enum ServiceType{
-  SAMU,
-  BOMBEIROS,
-  PM,
-  OUTRO
-}
-
 @freezed
 class EmergencyContactsResponse with _$EmergencyContactsResponse{
   const factory EmergencyContactsResponse({
