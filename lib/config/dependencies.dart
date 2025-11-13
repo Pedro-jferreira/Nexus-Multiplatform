@@ -1,9 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nexus_multiplatform/data/repositories/auth_repository.dart';
+import 'package:nexus_multiplatform/data/repositories/emergency_contact_repository.dart';
 import 'package:nexus_multiplatform/data/repositories/impl/auth_repository_impl.dart';
+import 'package:nexus_multiplatform/data/repositories/impl/emergency_contact_repository_impl.dart';
 import 'package:nexus_multiplatform/data/services/auth_service.dart';
+import 'package:nexus_multiplatform/data/services/emergency_contacts_service.dart';
 import 'package:nexus_multiplatform/data/services/impl/auth_service_impl.dart';
+import 'package:nexus_multiplatform/data/services/impl/emergency_contacts_impl.dart';
 import 'package:nexus_multiplatform/data/services/impl/users_service_impl.dart';
 import 'package:nexus_multiplatform/data/services/users_service.dart';
 import 'package:nexus_multiplatform/routing/app_router.dart';
@@ -23,8 +27,9 @@ List<SingleChildWidget> providers(SharedPreferences prefs, Dio dio) {
 }
 
 //services
-List<SingleChildWidget>  _initialization(prefs,dio) {
-  return [Provider<SharedPreferences>.value(value: prefs),
+List<SingleChildWidget> _initialization(prefs, dio) {
+  return [
+    Provider<SharedPreferences>.value(value: prefs),
     Provider<Dio>.value(value: dio),
 
     Provider<AuthService>(
@@ -56,20 +61,24 @@ List<SingleChildWidget>  _initialization(prefs,dio) {
         return dioInstance;
       },
     ),
-
   ];
 }
 
 List<SingleChildWidget> get _servicesData {
   return [
-
+    Provider<EmergencyContactsService>(
+      create: (context) => EmergencyContactsServiceImpl(dio: context.read()),
+    ),
   ];
 }
 
 // repositories
 List<SingleChildWidget> get _repositoriesData {
   return [
-
+    Provider<EmergencyContactsRepository>(
+      create: (context) =>
+          EmergencyContactsRepositoryImpl(service: context.read()),
+    ),
   ];
 }
 

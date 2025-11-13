@@ -15,6 +15,6 @@ class EmergencyContactsRoute extends GoRouteData with _$EmergencyContactsRoute{
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return Placeholder();
+    return EmergencyContactPage();
   }
 }

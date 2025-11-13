@@ -491,36 +491,36 @@ abstract class _AuthTokens implements AuthTokens {
       throw _privateConstructorUsedError;
 }
 
-EmergencyContactsResponse _$EmergencyContactsResponseFromJson(
+EmergencyContactResponse _$EmergencyContactResponseFromJson(
   Map<String, dynamic> json,
 ) {
-  return _EmeregencyContactResponse.fromJson(json);
+  return _EmergencyContactResponse.fromJson(json);
 }
 
 /// @nodoc
-mixin _$EmergencyContactsResponse {
+mixin _$EmergencyContactResponse {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get phone => throw _privateConstructorUsedError;
   ServiceType get serviceType => throw _privateConstructorUsedError;
   List<ImageResponse> get images => throw _privateConstructorUsedError;
 
-  /// Serializes this EmergencyContactsResponse to a JSON map.
+  /// Serializes this EmergencyContactResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of EmergencyContactsResponse
+  /// Create a copy of EmergencyContactResponse
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $EmergencyContactsResponseCopyWith<EmergencyContactsResponse> get copyWith =>
+  $EmergencyContactResponseCopyWith<EmergencyContactResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $EmergencyContactsResponseCopyWith<$Res> {
-  factory $EmergencyContactsResponseCopyWith(
-    EmergencyContactsResponse value,
-    $Res Function(EmergencyContactsResponse) then,
-  ) = _$EmergencyContactsResponseCopyWithImpl<$Res, EmergencyContactsResponse>;
+abstract class $EmergencyContactResponseCopyWith<$Res> {
+  factory $EmergencyContactResponseCopyWith(
+    EmergencyContactResponse value,
+    $Res Function(EmergencyContactResponse) then,
+  ) = _$EmergencyContactResponseCopyWithImpl<$Res, EmergencyContactResponse>;
   @useResult
   $Res call({
     int id,
@@ -532,19 +532,19 @@ abstract class $EmergencyContactsResponseCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$EmergencyContactsResponseCopyWithImpl<
+class _$EmergencyContactResponseCopyWithImpl<
   $Res,
-  $Val extends EmergencyContactsResponse
+  $Val extends EmergencyContactResponse
 >
-    implements $EmergencyContactsResponseCopyWith<$Res> {
-  _$EmergencyContactsResponseCopyWithImpl(this._value, this._then);
+    implements $EmergencyContactResponseCopyWith<$Res> {
+  _$EmergencyContactResponseCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of EmergencyContactsResponse
+  /// Create a copy of EmergencyContactResponse
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -584,12 +584,12 @@ class _$EmergencyContactsResponseCopyWithImpl<
 }
 
 /// @nodoc
-abstract class _$$EmeregencyContactResponseImplCopyWith<$Res>
-    implements $EmergencyContactsResponseCopyWith<$Res> {
-  factory _$$EmeregencyContactResponseImplCopyWith(
-    _$EmeregencyContactResponseImpl value,
-    $Res Function(_$EmeregencyContactResponseImpl) then,
-  ) = __$$EmeregencyContactResponseImplCopyWithImpl<$Res>;
+abstract class _$$EmergencyContactResponseImplCopyWith<$Res>
+    implements $EmergencyContactResponseCopyWith<$Res> {
+  factory _$$EmergencyContactResponseImplCopyWith(
+    _$EmergencyContactResponseImpl value,
+    $Res Function(_$EmergencyContactResponseImpl) then,
+  ) = __$$EmergencyContactResponseImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({
@@ -602,19 +602,19 @@ abstract class _$$EmeregencyContactResponseImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$EmeregencyContactResponseImplCopyWithImpl<$Res>
+class __$$EmergencyContactResponseImplCopyWithImpl<$Res>
     extends
-        _$EmergencyContactsResponseCopyWithImpl<
+        _$EmergencyContactResponseCopyWithImpl<
           $Res,
-          _$EmeregencyContactResponseImpl
+          _$EmergencyContactResponseImpl
         >
-    implements _$$EmeregencyContactResponseImplCopyWith<$Res> {
-  __$$EmeregencyContactResponseImplCopyWithImpl(
-    _$EmeregencyContactResponseImpl _value,
-    $Res Function(_$EmeregencyContactResponseImpl) _then,
+    implements _$$EmergencyContactResponseImplCopyWith<$Res> {
+  __$$EmergencyContactResponseImplCopyWithImpl(
+    _$EmergencyContactResponseImpl _value,
+    $Res Function(_$EmergencyContactResponseImpl) _then,
   ) : super(_value, _then);
 
-  /// Create a copy of EmergencyContactsResponse
+  /// Create a copy of EmergencyContactResponse
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -626,7 +626,7 @@ class __$$EmeregencyContactResponseImplCopyWithImpl<$Res>
     Object? images = null,
   }) {
     return _then(
-      _$EmeregencyContactResponseImpl(
+      _$EmergencyContactResponseImpl(
         id: null == id
             ? _value.id
             : id // ignore: cast_nullable_to_non_nullable
@@ -654,8 +654,8 @@ class __$$EmeregencyContactResponseImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$EmeregencyContactResponseImpl implements _EmeregencyContactResponse {
-  const _$EmeregencyContactResponseImpl({
+class _$EmergencyContactResponseImpl implements _EmergencyContactResponse {
+  const _$EmergencyContactResponseImpl({
     required this.id,
     required this.name,
     required this.phone,
@@ -663,8 +663,8 @@ class _$EmeregencyContactResponseImpl implements _EmeregencyContactResponse {
     required final List<ImageResponse> images,
   }) : _images = images;
 
-  factory _$EmeregencyContactResponseImpl.fromJson(Map<String, dynamic> json) =>
-      _$$EmeregencyContactResponseImplFromJson(json);
+  factory _$EmergencyContactResponseImpl.fromJson(Map<String, dynamic> json) =>
+      _$$EmergencyContactResponseImplFromJson(json);
 
   @override
   final int id;
@@ -684,14 +684,14 @@ class _$EmeregencyContactResponseImpl implements _EmeregencyContactResponse {
 
   @override
   String toString() {
-    return 'EmergencyContactsResponse(id: $id, name: $name, phone: $phone, serviceType: $serviceType, images: $images)';
+    return 'EmergencyContactResponse(id: $id, name: $name, phone: $phone, serviceType: $serviceType, images: $images)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$EmeregencyContactResponseImpl &&
+            other is _$EmergencyContactResponseImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.phone, phone) || other.phone == phone) &&
@@ -711,34 +711,34 @@ class _$EmeregencyContactResponseImpl implements _EmeregencyContactResponse {
     const DeepCollectionEquality().hash(_images),
   );
 
-  /// Create a copy of EmergencyContactsResponse
+  /// Create a copy of EmergencyContactResponse
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$EmeregencyContactResponseImplCopyWith<_$EmeregencyContactResponseImpl>
+  _$$EmergencyContactResponseImplCopyWith<_$EmergencyContactResponseImpl>
   get copyWith =>
-      __$$EmeregencyContactResponseImplCopyWithImpl<
-        _$EmeregencyContactResponseImpl
+      __$$EmergencyContactResponseImplCopyWithImpl<
+        _$EmergencyContactResponseImpl
       >(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$EmeregencyContactResponseImplToJson(this);
+    return _$$EmergencyContactResponseImplToJson(this);
   }
 }
 
-abstract class _EmeregencyContactResponse implements EmergencyContactsResponse {
-  const factory _EmeregencyContactResponse({
+abstract class _EmergencyContactResponse implements EmergencyContactResponse {
+  const factory _EmergencyContactResponse({
     required final int id,
     required final String name,
     required final String phone,
     required final ServiceType serviceType,
     required final List<ImageResponse> images,
-  }) = _$EmeregencyContactResponseImpl;
+  }) = _$EmergencyContactResponseImpl;
 
-  factory _EmeregencyContactResponse.fromJson(Map<String, dynamic> json) =
-      _$EmeregencyContactResponseImpl.fromJson;
+  factory _EmergencyContactResponse.fromJson(Map<String, dynamic> json) =
+      _$EmergencyContactResponseImpl.fromJson;
 
   @override
   int get id;
@@ -751,12 +751,346 @@ abstract class _EmeregencyContactResponse implements EmergencyContactsResponse {
   @override
   List<ImageResponse> get images;
 
-  /// Create a copy of EmergencyContactsResponse
+  /// Create a copy of EmergencyContactResponse
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$EmeregencyContactResponseImplCopyWith<_$EmeregencyContactResponseImpl>
+  _$$EmergencyContactResponseImplCopyWith<_$EmergencyContactResponseImpl>
   get copyWith => throw _privateConstructorUsedError;
+}
+
+PageResponse<T> _$PageResponseFromJson<T>(
+  Map<String, dynamic> json,
+  T Function(Object?) fromJsonT,
+) {
+  return _PageResponse<T>.fromJson(json, fromJsonT);
+}
+
+/// @nodoc
+mixin _$PageResponse<T> {
+  List<T> get content => throw _privateConstructorUsedError;
+  int get totalPages => throw _privateConstructorUsedError;
+  int get totalElements => throw _privateConstructorUsedError;
+  int get size => throw _privateConstructorUsedError;
+  int get number =>
+      throw _privateConstructorUsedError; // Número da página atual
+  bool get last => throw _privateConstructorUsedError;
+  bool get first => throw _privateConstructorUsedError;
+  bool get empty => throw _privateConstructorUsedError;
+
+  /// Serializes this PageResponse to a JSON map.
+  Map<String, dynamic> toJson(Object? Function(T) toJsonT) =>
+      throw _privateConstructorUsedError;
+
+  /// Create a copy of PageResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $PageResponseCopyWith<T, PageResponse<T>> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PageResponseCopyWith<T, $Res> {
+  factory $PageResponseCopyWith(
+    PageResponse<T> value,
+    $Res Function(PageResponse<T>) then,
+  ) = _$PageResponseCopyWithImpl<T, $Res, PageResponse<T>>;
+  @useResult
+  $Res call({
+    List<T> content,
+    int totalPages,
+    int totalElements,
+    int size,
+    int number,
+    bool last,
+    bool first,
+    bool empty,
+  });
+}
+
+/// @nodoc
+class _$PageResponseCopyWithImpl<T, $Res, $Val extends PageResponse<T>>
+    implements $PageResponseCopyWith<T, $Res> {
+  _$PageResponseCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of PageResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? content = null,
+    Object? totalPages = null,
+    Object? totalElements = null,
+    Object? size = null,
+    Object? number = null,
+    Object? last = null,
+    Object? first = null,
+    Object? empty = null,
+  }) {
+    return _then(
+      _value.copyWith(
+            content: null == content
+                ? _value.content
+                : content // ignore: cast_nullable_to_non_nullable
+                      as List<T>,
+            totalPages: null == totalPages
+                ? _value.totalPages
+                : totalPages // ignore: cast_nullable_to_non_nullable
+                      as int,
+            totalElements: null == totalElements
+                ? _value.totalElements
+                : totalElements // ignore: cast_nullable_to_non_nullable
+                      as int,
+            size: null == size
+                ? _value.size
+                : size // ignore: cast_nullable_to_non_nullable
+                      as int,
+            number: null == number
+                ? _value.number
+                : number // ignore: cast_nullable_to_non_nullable
+                      as int,
+            last: null == last
+                ? _value.last
+                : last // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            first: null == first
+                ? _value.first
+                : first // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            empty: null == empty
+                ? _value.empty
+                : empty // ignore: cast_nullable_to_non_nullable
+                      as bool,
+          )
+          as $Val,
+    );
+  }
+}
+
+/// @nodoc
+abstract class _$$PageResponseImplCopyWith<T, $Res>
+    implements $PageResponseCopyWith<T, $Res> {
+  factory _$$PageResponseImplCopyWith(
+    _$PageResponseImpl<T> value,
+    $Res Function(_$PageResponseImpl<T>) then,
+  ) = __$$PageResponseImplCopyWithImpl<T, $Res>;
+  @override
+  @useResult
+  $Res call({
+    List<T> content,
+    int totalPages,
+    int totalElements,
+    int size,
+    int number,
+    bool last,
+    bool first,
+    bool empty,
+  });
+}
+
+/// @nodoc
+class __$$PageResponseImplCopyWithImpl<T, $Res>
+    extends _$PageResponseCopyWithImpl<T, $Res, _$PageResponseImpl<T>>
+    implements _$$PageResponseImplCopyWith<T, $Res> {
+  __$$PageResponseImplCopyWithImpl(
+    _$PageResponseImpl<T> _value,
+    $Res Function(_$PageResponseImpl<T>) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of PageResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? content = null,
+    Object? totalPages = null,
+    Object? totalElements = null,
+    Object? size = null,
+    Object? number = null,
+    Object? last = null,
+    Object? first = null,
+    Object? empty = null,
+  }) {
+    return _then(
+      _$PageResponseImpl<T>(
+        content: null == content
+            ? _value._content
+            : content // ignore: cast_nullable_to_non_nullable
+                  as List<T>,
+        totalPages: null == totalPages
+            ? _value.totalPages
+            : totalPages // ignore: cast_nullable_to_non_nullable
+                  as int,
+        totalElements: null == totalElements
+            ? _value.totalElements
+            : totalElements // ignore: cast_nullable_to_non_nullable
+                  as int,
+        size: null == size
+            ? _value.size
+            : size // ignore: cast_nullable_to_non_nullable
+                  as int,
+        number: null == number
+            ? _value.number
+            : number // ignore: cast_nullable_to_non_nullable
+                  as int,
+        last: null == last
+            ? _value.last
+            : last // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        first: null == first
+            ? _value.first
+            : first // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        empty: null == empty
+            ? _value.empty
+            : empty // ignore: cast_nullable_to_non_nullable
+                  as bool,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable(genericArgumentFactories: true)
+class _$PageResponseImpl<T> implements _PageResponse<T> {
+  const _$PageResponseImpl({
+    required final List<T> content,
+    required this.totalPages,
+    required this.totalElements,
+    required this.size,
+    required this.number,
+    required this.last,
+    required this.first,
+    required this.empty,
+  }) : _content = content;
+
+  factory _$PageResponseImpl.fromJson(
+    Map<String, dynamic> json,
+    T Function(Object?) fromJsonT,
+  ) => _$$PageResponseImplFromJson(json, fromJsonT);
+
+  final List<T> _content;
+  @override
+  List<T> get content {
+    if (_content is EqualUnmodifiableListView) return _content;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_content);
+  }
+
+  @override
+  final int totalPages;
+  @override
+  final int totalElements;
+  @override
+  final int size;
+  @override
+  final int number;
+  // Número da página atual
+  @override
+  final bool last;
+  @override
+  final bool first;
+  @override
+  final bool empty;
+
+  @override
+  String toString() {
+    return 'PageResponse<$T>(content: $content, totalPages: $totalPages, totalElements: $totalElements, size: $size, number: $number, last: $last, first: $first, empty: $empty)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PageResponseImpl<T> &&
+            const DeepCollectionEquality().equals(other._content, _content) &&
+            (identical(other.totalPages, totalPages) ||
+                other.totalPages == totalPages) &&
+            (identical(other.totalElements, totalElements) ||
+                other.totalElements == totalElements) &&
+            (identical(other.size, size) || other.size == size) &&
+            (identical(other.number, number) || other.number == number) &&
+            (identical(other.last, last) || other.last == last) &&
+            (identical(other.first, first) || other.first == first) &&
+            (identical(other.empty, empty) || other.empty == empty));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+    runtimeType,
+    const DeepCollectionEquality().hash(_content),
+    totalPages,
+    totalElements,
+    size,
+    number,
+    last,
+    first,
+    empty,
+  );
+
+  /// Create a copy of PageResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PageResponseImplCopyWith<T, _$PageResponseImpl<T>> get copyWith =>
+      __$$PageResponseImplCopyWithImpl<T, _$PageResponseImpl<T>>(
+        this,
+        _$identity,
+      );
+
+  @override
+  Map<String, dynamic> toJson(Object? Function(T) toJsonT) {
+    return _$$PageResponseImplToJson<T>(this, toJsonT);
+  }
+}
+
+abstract class _PageResponse<T> implements PageResponse<T> {
+  const factory _PageResponse({
+    required final List<T> content,
+    required final int totalPages,
+    required final int totalElements,
+    required final int size,
+    required final int number,
+    required final bool last,
+    required final bool first,
+    required final bool empty,
+  }) = _$PageResponseImpl<T>;
+
+  factory _PageResponse.fromJson(
+    Map<String, dynamic> json,
+    T Function(Object?) fromJsonT,
+  ) = _$PageResponseImpl<T>.fromJson;
+
+  @override
+  List<T> get content;
+  @override
+  int get totalPages;
+  @override
+  int get totalElements;
+  @override
+  int get size;
+  @override
+  int get number; // Número da página atual
+  @override
+  bool get last;
+  @override
+  bool get first;
+  @override
+  bool get empty;
+
+  /// Create a copy of PageResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$PageResponseImplCopyWith<T, _$PageResponseImpl<T>> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 ImageResponse _$ImageResponseFromJson(Map<String, dynamic> json) {
@@ -972,278 +1306,4 @@ abstract class _ImageResponse implements ImageResponse {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ImageResponseImplCopyWith<_$ImageResponseImpl> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-PaginatedResponse<T> _$PaginatedResponseFromJson<T>(
-  Map<String, dynamic> json,
-  T Function(Object?) fromJsonT,
-) {
-  return _PaginatedResponse<T>.fromJson(json, fromJsonT);
-}
-
-/// @nodoc
-mixin _$PaginatedResponse<T> {
-  List<T> get content => throw _privateConstructorUsedError;
-  int get totalPages => throw _privateConstructorUsedError;
-  int get totalElements => throw _privateConstructorUsedError;
-  int get size => throw _privateConstructorUsedError;
-  int get number => throw _privateConstructorUsedError;
-
-  /// Serializes this PaginatedResponse to a JSON map.
-  Map<String, dynamic> toJson(Object? Function(T) toJsonT) =>
-      throw _privateConstructorUsedError;
-
-  /// Create a copy of PaginatedResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $PaginatedResponseCopyWith<T, PaginatedResponse<T>> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $PaginatedResponseCopyWith<T, $Res> {
-  factory $PaginatedResponseCopyWith(
-    PaginatedResponse<T> value,
-    $Res Function(PaginatedResponse<T>) then,
-  ) = _$PaginatedResponseCopyWithImpl<T, $Res, PaginatedResponse<T>>;
-  @useResult
-  $Res call({
-    List<T> content,
-    int totalPages,
-    int totalElements,
-    int size,
-    int number,
-  });
-}
-
-/// @nodoc
-class _$PaginatedResponseCopyWithImpl<
-  T,
-  $Res,
-  $Val extends PaginatedResponse<T>
->
-    implements $PaginatedResponseCopyWith<T, $Res> {
-  _$PaginatedResponseCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of PaginatedResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? content = null,
-    Object? totalPages = null,
-    Object? totalElements = null,
-    Object? size = null,
-    Object? number = null,
-  }) {
-    return _then(
-      _value.copyWith(
-            content: null == content
-                ? _value.content
-                : content // ignore: cast_nullable_to_non_nullable
-                      as List<T>,
-            totalPages: null == totalPages
-                ? _value.totalPages
-                : totalPages // ignore: cast_nullable_to_non_nullable
-                      as int,
-            totalElements: null == totalElements
-                ? _value.totalElements
-                : totalElements // ignore: cast_nullable_to_non_nullable
-                      as int,
-            size: null == size
-                ? _value.size
-                : size // ignore: cast_nullable_to_non_nullable
-                      as int,
-            number: null == number
-                ? _value.number
-                : number // ignore: cast_nullable_to_non_nullable
-                      as int,
-          )
-          as $Val,
-    );
-  }
-}
-
-/// @nodoc
-abstract class _$$PaginatedResponseImplCopyWith<T, $Res>
-    implements $PaginatedResponseCopyWith<T, $Res> {
-  factory _$$PaginatedResponseImplCopyWith(
-    _$PaginatedResponseImpl<T> value,
-    $Res Function(_$PaginatedResponseImpl<T>) then,
-  ) = __$$PaginatedResponseImplCopyWithImpl<T, $Res>;
-  @override
-  @useResult
-  $Res call({
-    List<T> content,
-    int totalPages,
-    int totalElements,
-    int size,
-    int number,
-  });
-}
-
-/// @nodoc
-class __$$PaginatedResponseImplCopyWithImpl<T, $Res>
-    extends _$PaginatedResponseCopyWithImpl<T, $Res, _$PaginatedResponseImpl<T>>
-    implements _$$PaginatedResponseImplCopyWith<T, $Res> {
-  __$$PaginatedResponseImplCopyWithImpl(
-    _$PaginatedResponseImpl<T> _value,
-    $Res Function(_$PaginatedResponseImpl<T>) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of PaginatedResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? content = null,
-    Object? totalPages = null,
-    Object? totalElements = null,
-    Object? size = null,
-    Object? number = null,
-  }) {
-    return _then(
-      _$PaginatedResponseImpl<T>(
-        content: null == content
-            ? _value._content
-            : content // ignore: cast_nullable_to_non_nullable
-                  as List<T>,
-        totalPages: null == totalPages
-            ? _value.totalPages
-            : totalPages // ignore: cast_nullable_to_non_nullable
-                  as int,
-        totalElements: null == totalElements
-            ? _value.totalElements
-            : totalElements // ignore: cast_nullable_to_non_nullable
-                  as int,
-        size: null == size
-            ? _value.size
-            : size // ignore: cast_nullable_to_non_nullable
-                  as int,
-        number: null == number
-            ? _value.number
-            : number // ignore: cast_nullable_to_non_nullable
-                  as int,
-      ),
-    );
-  }
-}
-
-/// @nodoc
-@JsonSerializable(genericArgumentFactories: true)
-class _$PaginatedResponseImpl<T> implements _PaginatedResponse<T> {
-  const _$PaginatedResponseImpl({
-    required final List<T> content,
-    required this.totalPages,
-    required this.totalElements,
-    required this.size,
-    required this.number,
-  }) : _content = content;
-
-  factory _$PaginatedResponseImpl.fromJson(
-    Map<String, dynamic> json,
-    T Function(Object?) fromJsonT,
-  ) => _$$PaginatedResponseImplFromJson(json, fromJsonT);
-
-  final List<T> _content;
-  @override
-  List<T> get content {
-    if (_content is EqualUnmodifiableListView) return _content;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_content);
-  }
-
-  @override
-  final int totalPages;
-  @override
-  final int totalElements;
-  @override
-  final int size;
-  @override
-  final int number;
-
-  @override
-  String toString() {
-    return 'PaginatedResponse<$T>(content: $content, totalPages: $totalPages, totalElements: $totalElements, size: $size, number: $number)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PaginatedResponseImpl<T> &&
-            const DeepCollectionEquality().equals(other._content, _content) &&
-            (identical(other.totalPages, totalPages) ||
-                other.totalPages == totalPages) &&
-            (identical(other.totalElements, totalElements) ||
-                other.totalElements == totalElements) &&
-            (identical(other.size, size) || other.size == size) &&
-            (identical(other.number, number) || other.number == number));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    const DeepCollectionEquality().hash(_content),
-    totalPages,
-    totalElements,
-    size,
-    number,
-  );
-
-  /// Create a copy of PaginatedResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$PaginatedResponseImplCopyWith<T, _$PaginatedResponseImpl<T>>
-  get copyWith =>
-      __$$PaginatedResponseImplCopyWithImpl<T, _$PaginatedResponseImpl<T>>(
-        this,
-        _$identity,
-      );
-
-  @override
-  Map<String, dynamic> toJson(Object? Function(T) toJsonT) {
-    return _$$PaginatedResponseImplToJson<T>(this, toJsonT);
-  }
-}
-
-abstract class _PaginatedResponse<T> implements PaginatedResponse<T> {
-  const factory _PaginatedResponse({
-    required final List<T> content,
-    required final int totalPages,
-    required final int totalElements,
-    required final int size,
-    required final int number,
-  }) = _$PaginatedResponseImpl<T>;
-
-  factory _PaginatedResponse.fromJson(
-    Map<String, dynamic> json,
-    T Function(Object?) fromJsonT,
-  ) = _$PaginatedResponseImpl<T>.fromJson;
-
-  @override
-  List<T> get content;
-  @override
-  int get totalPages;
-  @override
-  int get totalElements;
-  @override
-  int get size;
-  @override
-  int get number;
-
-  /// Create a copy of PaginatedResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PaginatedResponseImplCopyWith<T, _$PaginatedResponseImpl<T>>
-  get copyWith => throw _privateConstructorUsedError;
 }

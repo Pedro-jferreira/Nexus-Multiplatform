@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nexus_multiplatform/ui/features/emergency_contacts_web/emergency_contact_page.dart';
 import 'package:nexus_multiplatform/ui/features/shell_web/shell_app.dart';
 
 import '../../app_routes.dart';

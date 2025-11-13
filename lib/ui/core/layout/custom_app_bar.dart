@@ -23,6 +23,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
+      scrolledUnderElevation: 0,
+      surfaceTintColor: Colors.transparent,
       title: Text(
         title,
         style: theme.textTheme.headlineSmall?.copyWith(
@@ -32,25 +34,19 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: [
         if (secondaryActionButton != null)
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: _wrapWithDefaultStyle(
-              context,
-              secondaryActionButton!,
-              backgroundColor: colorScheme.secondary,
-              foregroundColor: colorScheme.onSecondary,
-            ),
+          _wrapWithDefaultStyle(
+            context,
+            secondaryActionButton!,
+            backgroundColor: colorScheme.secondary,
+            foregroundColor: colorScheme.onSecondary,
           ),
         if(primaryActionButton != null && secondaryActionButton != null) SizedBox(width: 15,),
         if (primaryActionButton != null)
-          Padding(
-            padding: const EdgeInsets.only(right: 12),
-            child: _wrapWithDefaultStyle(
-              context,
-              primaryActionButton!,
-              backgroundColor: colorScheme.primary,
-              foregroundColor: colorScheme.onPrimary,
-            ),
+          _wrapWithDefaultStyle(
+            context,
+            primaryActionButton!,
+            backgroundColor: colorScheme.primary,
+            foregroundColor: colorScheme.onPrimary,
           ),
       ],
     );
@@ -67,9 +63,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: backgroundColor,
       foregroundColor: foregroundColor,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      textStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
-        fontWeight: FontWeight.w600,
-      ),
+      textStyle: Theme.of(context).textTheme.labelLarge
     );
 
     return Theme(

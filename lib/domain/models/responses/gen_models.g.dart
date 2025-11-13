@@ -42,26 +42,20 @@ Map<String, dynamic> _$$AuthTokensImplToJson(_$AuthTokensImpl instance) =>
       'user': instance.user,
     };
 
-_$EmeregencyContactResponseImpl _$$EmeregencyContactResponseImplFromJson(
+_$EmergencyContactResponseImpl _$$EmergencyContactResponseImplFromJson(
   Map<String, dynamic> json,
-) => _$EmeregencyContactResponseImpl(
+) => _$EmergencyContactResponseImpl(
   id: (json['id'] as num).toInt(),
   name: json['name'] as String,
   phone: json['phone'] as String,
   serviceType: $enumDecode(_$ServiceTypeEnumMap, json['serviceType']),
   images: (json['images'] as List<dynamic>)
-      .map(
-        (e) => ImageResponse.fromJson(
-          (e as Map<String, dynamic>).map(
-            (k, e) => MapEntry(k, (e as num).toDouble()),
-          ),
-        ),
-      )
+      .map((e) => ImageResponse.fromJson(e as Map<String, dynamic>))
       .toList(),
 );
 
-Map<String, dynamic> _$$EmeregencyContactResponseImplToJson(
-  _$EmeregencyContactResponseImpl instance,
+Map<String, dynamic> _$$EmergencyContactResponseImplToJson(
+  _$EmergencyContactResponseImpl instance,
 ) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
@@ -75,6 +69,34 @@ const _$ServiceTypeEnumMap = {
   ServiceType.BOMBEIROS: 'BOMBEIROS',
   ServiceType.PM: 'PM',
   ServiceType.OUTRO: 'OUTRO',
+};
+
+_$PageResponseImpl<T> _$$PageResponseImplFromJson<T>(
+  Map<String, dynamic> json,
+  T Function(Object? json) fromJsonT,
+) => _$PageResponseImpl<T>(
+  content: (json['content'] as List<dynamic>).map(fromJsonT).toList(),
+  totalPages: (json['totalPages'] as num).toInt(),
+  totalElements: (json['totalElements'] as num).toInt(),
+  size: (json['size'] as num).toInt(),
+  number: (json['number'] as num).toInt(),
+  last: json['last'] as bool,
+  first: json['first'] as bool,
+  empty: json['empty'] as bool,
+);
+
+Map<String, dynamic> _$$PageResponseImplToJson<T>(
+  _$PageResponseImpl<T> instance,
+  Object? Function(T value) toJsonT,
+) => <String, dynamic>{
+  'content': instance.content.map(toJsonT).toList(),
+  'totalPages': instance.totalPages,
+  'totalElements': instance.totalElements,
+  'size': instance.size,
+  'number': instance.number,
+  'last': instance.last,
+  'first': instance.first,
+  'empty': instance.empty,
 };
 
 _$ImageResponseImpl _$$ImageResponseImplFromJson(Map<String, dynamic> json) =>
@@ -92,25 +114,3 @@ Map<String, dynamic> _$$ImageResponseImplToJson(_$ImageResponseImpl instance) =>
       'contentType': instance.contentType,
       'sizeBytes': instance.sizeBytes,
     };
-
-_$PaginatedResponseImpl<T> _$$PaginatedResponseImplFromJson<T>(
-  Map<String, dynamic> json,
-  T Function(Object? json) fromJsonT,
-) => _$PaginatedResponseImpl<T>(
-  content: (json['content'] as List<dynamic>).map(fromJsonT).toList(),
-  totalPages: (json['totalPages'] as num).toInt(),
-  totalElements: (json['totalElements'] as num).toInt(),
-  size: (json['size'] as num).toInt(),
-  number: (json['number'] as num).toInt(),
-);
-
-Map<String, dynamic> _$$PaginatedResponseImplToJson<T>(
-  _$PaginatedResponseImpl<T> instance,
-  Object? Function(T value) toJsonT,
-) => <String, dynamic>{
-  'content': instance.content.map(toJsonT).toList(),
-  'totalPages': instance.totalPages,
-  'totalElements': instance.totalElements,
-  'size': instance.size,
-  'number': instance.number,
-};
