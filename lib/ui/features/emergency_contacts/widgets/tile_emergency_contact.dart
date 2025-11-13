@@ -5,14 +5,13 @@ class TileEmergencyContact extends StatelessWidget {
   final String img;
   final String contactName;
   final String contactNumber;
-  final ElevatedButton callButton;
+  final GestureTapCallback onTap;
 
   const TileEmergencyContact({
     super.key,
     required this.img,
     required this.contactName,
-    required this.contactNumber,
-    required this.callButton,
+    required this.contactNumber, required this.onTap,
   });
 
   @override
@@ -30,7 +29,8 @@ class TileEmergencyContact extends StatelessWidget {
             ],
           ),
         ),
-        callButton
+        ElevatedButton.icon(onPressed: onTap, label: Text('Ligar'), icon: Icon(Icons.phone_outlined),)
+        
       ],
     );
   }

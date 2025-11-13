@@ -9,4 +9,4 @@ part 'gen_models.g.dart';
 
 part 'users_response_models.dart';
 part 'emergency_contacts_response_model.dart';
-part 'page.dart';
+part '../page.dart';

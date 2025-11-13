@@ -987,11 +987,7 @@ mixin _$PaginatedResponse<T> {
   int get totalPages => throw _privateConstructorUsedError;
   int get totalElements => throw _privateConstructorUsedError;
   int get size => throw _privateConstructorUsedError;
-  int get number =>
-      throw _privateConstructorUsedError; // Número da página atual
-  bool get last => throw _privateConstructorUsedError;
-  bool get first => throw _privateConstructorUsedError;
-  bool get empty => throw _privateConstructorUsedError;
+  int get number => throw _privateConstructorUsedError;
 
   /// Serializes this PaginatedResponse to a JSON map.
   Map<String, dynamic> toJson(Object? Function(T) toJsonT) =>
@@ -1017,9 +1013,6 @@ abstract class $PaginatedResponseCopyWith<T, $Res> {
     int totalElements,
     int size,
     int number,
-    bool last,
-    bool first,
-    bool empty,
   });
 }
 
@@ -1047,9 +1040,6 @@ class _$PaginatedResponseCopyWithImpl<
     Object? totalElements = null,
     Object? size = null,
     Object? number = null,
-    Object? last = null,
-    Object? first = null,
-    Object? empty = null,
   }) {
     return _then(
       _value.copyWith(
@@ -1073,18 +1063,6 @@ class _$PaginatedResponseCopyWithImpl<
                 ? _value.number
                 : number // ignore: cast_nullable_to_non_nullable
                       as int,
-            last: null == last
-                ? _value.last
-                : last // ignore: cast_nullable_to_non_nullable
-                      as bool,
-            first: null == first
-                ? _value.first
-                : first // ignore: cast_nullable_to_non_nullable
-                      as bool,
-            empty: null == empty
-                ? _value.empty
-                : empty // ignore: cast_nullable_to_non_nullable
-                      as bool,
           )
           as $Val,
     );
@@ -1106,9 +1084,6 @@ abstract class _$$PaginatedResponseImplCopyWith<T, $Res>
     int totalElements,
     int size,
     int number,
-    bool last,
-    bool first,
-    bool empty,
   });
 }
 
@@ -1131,9 +1106,6 @@ class __$$PaginatedResponseImplCopyWithImpl<T, $Res>
     Object? totalElements = null,
     Object? size = null,
     Object? number = null,
-    Object? last = null,
-    Object? first = null,
-    Object? empty = null,
   }) {
     return _then(
       _$PaginatedResponseImpl<T>(
@@ -1157,18 +1129,6 @@ class __$$PaginatedResponseImplCopyWithImpl<T, $Res>
             ? _value.number
             : number // ignore: cast_nullable_to_non_nullable
                   as int,
-        last: null == last
-            ? _value.last
-            : last // ignore: cast_nullable_to_non_nullable
-                  as bool,
-        first: null == first
-            ? _value.first
-            : first // ignore: cast_nullable_to_non_nullable
-                  as bool,
-        empty: null == empty
-            ? _value.empty
-            : empty // ignore: cast_nullable_to_non_nullable
-                  as bool,
       ),
     );
   }
@@ -1183,9 +1143,6 @@ class _$PaginatedResponseImpl<T> implements _PaginatedResponse<T> {
     required this.totalElements,
     required this.size,
     required this.number,
-    required this.last,
-    required this.first,
-    required this.empty,
   }) : _content = content;
 
   factory _$PaginatedResponseImpl.fromJson(
@@ -1209,17 +1166,10 @@ class _$PaginatedResponseImpl<T> implements _PaginatedResponse<T> {
   final int size;
   @override
   final int number;
-  // Número da página atual
-  @override
-  final bool last;
-  @override
-  final bool first;
-  @override
-  final bool empty;
 
   @override
   String toString() {
-    return 'PaginatedResponse<$T>(content: $content, totalPages: $totalPages, totalElements: $totalElements, size: $size, number: $number, last: $last, first: $first, empty: $empty)';
+    return 'PaginatedResponse<$T>(content: $content, totalPages: $totalPages, totalElements: $totalElements, size: $size, number: $number)';
   }
 
   @override
@@ -1233,10 +1183,7 @@ class _$PaginatedResponseImpl<T> implements _PaginatedResponse<T> {
             (identical(other.totalElements, totalElements) ||
                 other.totalElements == totalElements) &&
             (identical(other.size, size) || other.size == size) &&
-            (identical(other.number, number) || other.number == number) &&
-            (identical(other.last, last) || other.last == last) &&
-            (identical(other.first, first) || other.first == first) &&
-            (identical(other.empty, empty) || other.empty == empty));
+            (identical(other.number, number) || other.number == number));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1248,9 +1195,6 @@ class _$PaginatedResponseImpl<T> implements _PaginatedResponse<T> {
     totalElements,
     size,
     number,
-    last,
-    first,
-    empty,
   );
 
   /// Create a copy of PaginatedResponse
@@ -1278,9 +1222,6 @@ abstract class _PaginatedResponse<T> implements PaginatedResponse<T> {
     required final int totalElements,
     required final int size,
     required final int number,
-    required final bool last,
-    required final bool first,
-    required final bool empty,
   }) = _$PaginatedResponseImpl<T>;
 
   factory _PaginatedResponse.fromJson(
@@ -1297,13 +1238,7 @@ abstract class _PaginatedResponse<T> implements PaginatedResponse<T> {
   @override
   int get size;
   @override
-  int get number; // Número da página atual
-  @override
-  bool get last;
-  @override
-  bool get first;
-  @override
-  bool get empty;
+  int get number;
 
   /// Create a copy of PaginatedResponse
   /// with the given fields replaced by the non-null parameter values.

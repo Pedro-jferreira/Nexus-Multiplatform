@@ -102,9 +102,6 @@ _$PaginatedResponseImpl<T> _$$PaginatedResponseImplFromJson<T>(
   totalElements: (json['totalElements'] as num).toInt(),
   size: (json['size'] as num).toInt(),
   number: (json['number'] as num).toInt(),
-  last: json['last'] as bool,
-  first: json['first'] as bool,
-  empty: json['empty'] as bool,
 );
 
 Map<String, dynamic> _$$PaginatedResponseImplToJson<T>(
@@ -116,7 +113,4 @@ Map<String, dynamic> _$$PaginatedResponseImplToJson<T>(
   'totalElements': instance.totalElements,
   'size': instance.size,
   'number': instance.number,
-  'last': instance.last,
-  'first': instance.first,
-  'empty': instance.empty,
 };

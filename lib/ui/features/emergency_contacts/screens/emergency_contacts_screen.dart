@@ -1,25 +1,31 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nexus_multiplatform/ui/features/emergency_contacts/widgets/tile_emergency_contact.dart';
 
 import '../viewmodel/emergency_contacts_viewmodel.dart';
 
-class EmergencyContactsScreen extends StatelessWidget{
-  const EmergencyContactsScreen({super.key, required this.viewModel});
+class EmergencyContactsScreen extends StatefulWidget{
+  const EmergencyContactsScreen({super.key, required this.viewModel, required this.tiles});
 
   final EmergencyContactsViewModel viewModel;
+  final TileEmergencyContact tiles;
 
+  @override
+  State<EmergencyContactsScreen> createState() => _EmergencyContactsScreenState();
+}
+
+class _EmergencyContactsScreenState extends State<EmergencyContactsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(child: CustomScrollView(
         slivers: [
           SliverList.builder(
-            itemCount: viewModel.emergencies.length,
-            itemBuilder: (_, index) => ,
+            itemCount: widget.viewModel.emergencies.length,
+            itemBuilder: (_, index) => widget.tiles
           )
         ],
       )),
     );
   }
-
 }
