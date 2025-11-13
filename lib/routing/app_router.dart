@@ -34,6 +34,11 @@ GoRouter createRouter(AuthRepository authRepository) => GoRouter(
       if (kIsWeb) {
         return web.DashboardRoute().location;
       } else {
+        // retornar para tela principal (mobile)
+        // pensar em uma forma onde, caso a senha logada seja temporária
+        // entrar na tela de perfil temporário, caso não, entrar na tela principal
+        // do mobile.
+        // ATENÇÃO: meu viewmodel terá que ser global.
         return '/';
       }
     }
