@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nexus_multiplatform/domain/validators/emergency_validator.dart';
+import 'package:Nexus/domain/validators/emergency_validator.dart';
 
 import '../../../../domain/models/enums/api_enums.dart';
 

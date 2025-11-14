@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:nexus_multiplatform/data/services/auth_service.dart';
+import 'package:Nexus/data/services/auth_service.dart';
 
 class AuthServiceImpl implements AuthService{
   final Dio _dio;

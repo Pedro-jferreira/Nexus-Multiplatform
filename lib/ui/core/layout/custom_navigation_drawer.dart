@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nexus_multiplatform/data/repositories/auth_repository.dart';
+import 'package:Nexus/data/repositories/auth_repository.dart';
 import 'package:provider/provider.dart';
 
 class CustomNavigationDrawer extends StatelessWidget {
@@ -79,14 +79,12 @@ class CustomNavigationDrawer extends StatelessWidget {
                           padding: const EdgeInsets.only(top: 8, bottom: 16),
                           child: InkWell(
                             borderRadius: BorderRadius.circular(100),
-                            hoverColor: colorScheme.secondary..withValues(alpha: 0.15),
+                            hoverColor: colorScheme.secondary.withValues(alpha: 0.15),
                             onTap: () => onItemSelected(items.length - 1),
                             child: Container(
                               decoration: BoxDecoration(
                                 color: currentIndex == (items.length - 1)
-                                    ? colorScheme.secondaryContainer.withValues(
-                                        alpha: 0.3,
-                                      )
+                                    ? colorScheme.secondaryContainer
                                     : null,
                                 borderRadius: BorderRadius.circular(100),
                               ),
@@ -113,8 +111,8 @@ class CustomNavigationDrawer extends StatelessWidget {
                                               color:
                                                   currentIndex ==
                                                       items.length - 1
-                                                  ? colorScheme.onSurface
-                                                  : colorScheme.secondary,
+                                                  ? colorScheme.onSecondaryContainer
+                                                  : colorScheme.onSurface
                                             ),
                                       ),
                                       if (items.last.subtitle != null)
@@ -126,8 +124,8 @@ class CustomNavigationDrawer extends StatelessWidget {
                                                     currentIndex ==
                                                         items.length - 1
                                                     ? colorScheme
-                                                          .onSurfaceVariant
-                                                    : colorScheme.secondary,
+                                                          .onSecondary
+                                                    : colorScheme.onSurfaceVariant,
                                                 fontWeight: FontWeight.bold,
                                               ),
                                         ),
@@ -168,7 +166,7 @@ class CustomNavigationDrawer extends StatelessWidget {
   }
 }
 
-/// 🔹 Widget individual do item
+
 class _DrawerTile extends StatelessWidget {
   final _DrawerItem item;
   final bool selected;
@@ -184,40 +182,59 @@ class _DrawerTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    return ListTile(
-      leading: Icon(
-        item.icon,
-        color: selected
-            ? colorScheme.onSecondaryContainer
-            : colorScheme.onSurfaceVariant,
+    final bgColor = selected
+        ? colorScheme.secondaryContainer
+        : Colors.transparent;
+
+    final iconColor = selected
+        ? colorScheme.onSecondaryContainer
+        : colorScheme.onSurfaceVariant;
+
+    final textColor = iconColor;
+
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 250),
+      curve: Curves.easeOut,
+      decoration: BoxDecoration(
+        color: bgColor,
+        borderRadius: BorderRadius.circular(100),
       ),
-      title: Text(
-        item.title,
-        style: Theme.of(context).textTheme.labelLarge?.copyWith(
-          color: selected
-              ? colorScheme.onSecondaryContainer
-              : colorScheme.onSurfaceVariant,
+      child: ListTile(
+        onTap: onTap,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+        hoverColor: colorScheme.secondary.withValues(alpha: 0.15),
+        leading: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 250),
+          child: Icon(
+            item.icon,
+            key: ValueKey(selected),
+            color: iconColor,
+          ),
+        ),
+
+        title: AnimatedDefaultTextStyle(
+          duration: const Duration(milliseconds: 200),
+          style: Theme.of(context).textTheme.labelLarge!.copyWith(
+            color: textColor,
+          ),
+          child: Text(item.title),
+        ),
+
+        subtitle: item.subtitle == null
+            ? null
+            : AnimatedDefaultTextStyle(
+          duration: const Duration(milliseconds: 200),
+          style: Theme.of(context).textTheme.bodySmall!.copyWith(
+            color: textColor,
+            fontWeight: FontWeight.bold,
+          ),
+          child: Text(item.subtitle!),
         ),
       ),
-      onTap: onTap,
-      subtitle: item.subtitle == null
-          ? null
-          : Text(
-              item.subtitle!,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: selected
-                    ? colorScheme.onSecondaryContainer
-                    : colorScheme.onSurfaceVariant,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-      selected: selected,
-      selectedTileColor: colorScheme.secondaryContainer,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-      hoverColor: colorScheme.secondary.withValues(alpha: 0.15),
     );
   }
 }
+
 
 class _DrawerItem {
   final String title;

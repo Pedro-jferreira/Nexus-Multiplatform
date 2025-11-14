@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:Nexus/ui/core/widgets/custom_circle_avatar.dart';
 
 class ContactTile extends StatelessWidget {
   final String contactName;
   final String contactNumber;
-  final String contactImgUrl;
+  final String? contactImgUrl;
   final void Function()? onCallPressed;
   final void Function()? onEditPressed;
   final void Function()? onDeletePressed;
@@ -11,7 +12,7 @@ class ContactTile extends StatelessWidget {
     super.key,
     required this.contactName,
     required this.contactNumber,
-    required this.contactImgUrl,
+    this.contactImgUrl,
     required this.onCallPressed,
     required this.onEditPressed,
     required this.onDeletePressed,
@@ -36,7 +37,7 @@ class ContactTile extends StatelessWidget {
                 contactNumber,
               ),
             ),
-            Expanded(flex: 1, child: _buildActionsButtons(colorScheme)),
+            _buildActionsButtons(colorScheme),
           ],
         ),
       ),
@@ -47,17 +48,7 @@ class ContactTile extends StatelessWidget {
     return Row(
       spacing: 15,
       children: [
-        SizedBox(
-          width: 50,
-          height: 50,
-          child: CircleAvatar(
-            radius: 24,
-            backgroundImage: NetworkImage(contactImgUrl),
-            onBackgroundImageError: (_, __) {},
-
-            child:contactImgUrl.isEmpty?  Icon(Icons.broken_image):null, // fallback
-          ),
-        ),
+        CustomCircleAvatar(iconData: Icons.emergency, imageUrl: contactImgUrl,),
         Expanded(child: _buildInfo(textTheme, colorScheme, 'Nome', contactName)),
       ],
     );
