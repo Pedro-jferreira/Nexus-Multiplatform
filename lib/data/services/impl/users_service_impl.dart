@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:nexus_multiplatform/data/services/users_service.dart';
+import 'package:Nexus/data/services/users_service.dart';
 
 class UsersServiceImpl implements UsersServices{
   final Dio _dio;

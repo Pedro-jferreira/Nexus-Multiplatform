@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nexus_multiplatform/routing/app_router.dart';
-import 'package:nexus_multiplatform/ui/core/theme/theme_mobile.dart';
+import 'package:Nexus/routing/app_router.dart';
+import 'package:Nexus/ui/core/theme/theme_mobile.dart';
 
 import '../../../../../routing/routes/web/app_router_web.dart';
 import '../../../../../utils/responsive_utils.dart';

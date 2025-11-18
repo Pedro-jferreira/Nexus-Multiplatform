@@ -15,6 +15,6 @@ class UsersRoute extends GoRouteData with _$UsersRoute{
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return Placeholder();
+    return UserPage();
   }
 }

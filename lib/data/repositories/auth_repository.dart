@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:nexus_multiplatform/domain/models/requests/gen_models.dart';
+import 'package:Nexus/domain/models/requests/gen_models.dart';
 import 'package:result_dart/result_dart.dart';
 
 import '../../domain/models/responses/gen_models.dart';

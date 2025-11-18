@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:nexus_multiplatform/domain/models/enums/api_enums.dart';
+import 'package:Nexus/domain/models/enums/api_enums.dart';
 
 import '../../../guards/roles.dart';
 

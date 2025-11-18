@@ -1,22 +1,25 @@
+
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:nexus_multiplatform/domain/models/requests/gen_models.dart';
-import 'package:nexus_multiplatform/domain/models/responses/gen_models.dart';
-import 'package:nexus_multiplatform/ui/core/theme/theme.dart';
-import 'package:nexus_multiplatform/ui/core/theme/theme_mobile.dart';
-import 'package:nexus_multiplatform/ui/features/auth/login/viewmodel/login_view_model.dart';
-import 'package:nexus_multiplatform/ui/features/auth/login/widgets/ButtonsLogin.dart';
-import 'package:nexus_multiplatform/ui/features/auth/login/widgets/form_login.dart';
-import 'package:nexus_multiplatform/ui/features/auth/login/widgets/presentation_login.dart';
-import 'package:nexus_multiplatform/utils/responsive_utils.dart';
+import 'package:Nexus/domain/models/requests/gen_models.dart';
+import 'package:Nexus/domain/models/responses/gen_models.dart';
+import 'package:Nexus/ui/core/theme/theme.dart';
+import 'package:Nexus/ui/core/theme/theme_mobile.dart';
+import 'package:Nexus/ui/features/auth/login/viewmodel/login_view_model.dart';
+import 'package:Nexus/ui/features/auth/login/widgets/ButtonsLogin.dart';
+import 'package:Nexus/ui/features/auth/login/widgets/form_login.dart';
+import 'package:Nexus/ui/features/auth/login/widgets/presentation_login.dart';
+import 'package:Nexus/utils/responsive_utils.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:result_command/result_command.dart';
+import 'package:web_browser_detect/web_browser_detect.dart';
 
 import '../../../../config/notifications.dart';
 import '../../../../domain/validators/auth_validators.dart';
 import '../../../../exceptions/app_exceptions.dart';
-import 'package:nexus_multiplatform/ui/core/theme/theme_mobile.dart';
-
 
 class LoginPage extends StatefulWidget {
   final LoginViewModel viewModel;
@@ -63,8 +66,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     widget.viewModel.loginCmd.addListener(_handlerLoginCmd);
+
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await setupNotifications();
+      await _checkNotificationPermission();
     });
     super.initState();
   }
@@ -118,6 +122,7 @@ class _LoginPageState extends State<LoginPage> {
         return;
     }
   }
+
   void _showSuccessOverlay(String userName) {
     final overlay = Overlay.of(context);
     if (overlay == null) return;
@@ -185,7 +190,6 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -229,12 +233,102 @@ class _LoginPageState extends State<LoginPage> {
         .replaceAll('#E0E0E0', color);
   }
 
+  void _showNotificationRequiredModal() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return WillPopScope(
+          onWillPop: () async => false,
+          child: AlertDialog(
+            title: const Text("Permissão Obrigatória"),
+            content: Text(
+              kIsWeb
+                  ? "Para receber alertas urgentes, ative as notificações no navegador.\n\n"
+                        "Chrome: cadeado ao lado da URL → Permissões → Notificações → Permitir\n"
+                        "Firefox: ícone de permissões → Notificações → Permitir"
+                  : "Para receber alertas urgentes, você precisa ativar as notificações no dispositivo.",
+            ),
+            actions: [
+              TextButton(
+                child: const Text(kIsWeb?'Já aceitei':"Ativar"),
+                onPressed: () async {
+                  final settings = await FirebaseMessaging.instance
+                      .requestPermission();
+
+                  if (settings.authorizationStatus ==
+                      AuthorizationStatus.authorized) {
+                    await setupNotifications();
+                    Navigator.pop(context);
+                    return;
+                  }
+
+                  // WEB → apenas instrução
+                  if (kIsWeb) {
+                    _showSettingsDialog();
+                    return;
+                  }
+
+                  // MOBILE → abre configurações
+                  _showSettingsDialog();
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _showSettingsDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Ativar Notificações"),
+        content: Text(
+          kIsWeb
+              ? "Vá nas configurações do navegador e permita notificações para este site."
+              : "Para permitir as notificações, abra as configurações do app.",
+        ),
+        actions: [
+          TextButton(
+            child: const Text("Abrir Configurações"),
+            onPressed: () async {
+              if (!kIsWeb) {
+                // MOBILE
+                await openAppSettings();
+              }
+              Navigator.pop(context);
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _checkNotificationPermission() async {
+    if (kIsWeb) {
+       setupNotifications();
+    } else {
+      await setupNotifications();
+    }
+
+    final settings = await FirebaseMessaging.instance.getNotificationSettings();
+
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      return; // Tudo certo
+    }
+
+    _showNotificationRequiredModal();
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: Future.wait([_precacheFutureImages, _precacheFutureSvg]),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting && !_initialized) {
+        if (snapshot.connectionState == ConnectionState.waiting &&
+            !_initialized) {
           return Scaffold(
             backgroundColor: Theme.of(context).colorScheme.primary,
             body: Center(
@@ -359,7 +453,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Scaffold buildMobile(BuildContext context, String svgString) {
     return Scaffold(
-      backgroundColor:  context.colors.background,
+      backgroundColor: context.colors.background,
       body: ListenableBuilder(
         listenable: widget.viewModel.loginCmd,
         builder: (context, _) {
