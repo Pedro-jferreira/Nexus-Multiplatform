@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
-import 'package:nexus_multiplatform/domain/models/requests/gen_models.dart';
-import 'package:nexus_multiplatform/domain/models/responses/gen_models.dart';
+import 'package:Nexus/domain/models/requests/gen_models.dart';
+import 'package:Nexus/domain/models/responses/gen_models.dart';
 import 'package:result_dart/result_dart.dart';
 
 abstract class EmergencyContactsRepository {

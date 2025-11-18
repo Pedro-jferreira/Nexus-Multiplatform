@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nexus_multiplatform/ui/core/layout/custom_app_bar.dart';
-import 'package:nexus_multiplatform/ui/features/emergency_contacts_web/view_models/emergency_contact_view_model.dart';
-import 'package:nexus_multiplatform/ui/features/emergency_contacts_web/widgets/contact_tile.dart';
-import 'package:nexus_multiplatform/ui/features/emergency_contacts_web/widgets/modal_create_contact.dart';
-import 'package:nexus_multiplatform/ui/features/emergency_contacts_web/widgets/modal_delete_contact.dart';
-import 'package:nexus_multiplatform/ui/features/emergency_contacts_web/widgets/modal_update_contact.dart';
+import 'package:Nexus/ui/core/layout/custom_app_bar.dart';
+import 'package:Nexus/ui/features/emergency_contacts_web/view_models/emergency_contact_view_model.dart';
+import 'package:Nexus/ui/features/emergency_contacts_web/widgets/contact_tile.dart';
+import 'package:Nexus/ui/features/emergency_contacts_web/widgets/modal_create_contact.dart';
+import 'package:Nexus/ui/features/emergency_contacts_web/widgets/modal_delete_contact.dart';
+import 'package:Nexus/ui/features/emergency_contacts_web/widgets/modal_update_contact.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -150,7 +150,7 @@ class _EmergencyContactPageState extends State<EmergencyContactPage> {
                           child: Center(child: CircularProgressIndicator()),
                         );
                       }
-                      String imageUrl = '';
+                      String? imageUrl;
                       if (item.images.isNotEmpty) {
                         imageUrl = item.images.first.url;
                       }

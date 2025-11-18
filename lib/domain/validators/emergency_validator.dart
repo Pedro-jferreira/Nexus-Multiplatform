@@ -1,5 +1,6 @@
+import 'package:Nexus/domain/models/enums/api_enums.dart';
 import 'package:lucid_validation/lucid_validation.dart';
-import 'package:nexus_multiplatform/domain/models/enums/api_enums.dart';
+
 
 class ContactRequestDTO {
   String nome;

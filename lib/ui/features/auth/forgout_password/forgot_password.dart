@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:nexus_multiplatform/ui/core/theme/theme_mobile.dart';
-import 'package:nexus_multiplatform/ui/features/auth/forgout_password/widgets/request_forgot.dart';
-import 'package:nexus_multiplatform/ui/features/auth/login/widgets/presentation_login.dart';
+import 'package:Nexus/ui/core/theme/theme_mobile.dart';
+import 'package:Nexus/ui/features/auth/forgout_password/widgets/request_forgot.dart';
+import 'package:Nexus/ui/features/auth/login/widgets/presentation_login.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../utils/responsive_utils.dart';

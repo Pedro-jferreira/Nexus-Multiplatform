@@ -1,11 +1,11 @@
 
 import 'package:flutter/material.dart';
-import 'package:nexus_multiplatform/domain/models/requests/gen_models.dart';
-import 'package:nexus_multiplatform/domain/models/responses/gen_models.dart';
-import 'package:nexus_multiplatform/domain/validators/emergency_validator.dart';
-import 'package:nexus_multiplatform/ui/core/modal/custom_modal.dart';
-import 'package:nexus_multiplatform/ui/features/emergency_contacts_web/view_models/emergency_contact_view_model.dart';
-import 'package:nexus_multiplatform/ui/features/emergency_contacts_web/widgets/snack_bar_dialog.dart';
+import 'package:Nexus/domain/models/requests/gen_models.dart';
+import 'package:Nexus/domain/models/responses/gen_models.dart';
+import 'package:Nexus/domain/validators/emergency_validator.dart';
+import 'package:Nexus/ui/core/modal/custom_modal.dart';
+import 'package:Nexus/ui/features/emergency_contacts_web/view_models/emergency_contact_view_model.dart';
+import 'package:Nexus/ui/features/emergency_contacts_web/widgets/snack_bar_dialog.dart';
 import 'package:result_command/result_command.dart';
 
 import '../../../core/widgets/image_uploader.dart';

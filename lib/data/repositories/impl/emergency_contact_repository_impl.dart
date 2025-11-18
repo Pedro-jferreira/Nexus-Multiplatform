@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:nexus_multiplatform/data/repositories/emergency_contact_repository.dart';
-import 'package:nexus_multiplatform/data/services/emergency_contacts_service.dart';
-import 'package:nexus_multiplatform/domain/models/requests/gen_models.dart';
-import 'package:nexus_multiplatform/domain/models/responses/gen_models.dart';
+import 'package:Nexus/data/repositories/emergency_contact_repository.dart';
+import 'package:Nexus/data/services/emergency_contacts_service.dart';
+import 'package:Nexus/domain/models/requests/gen_models.dart';
+import 'package:Nexus/domain/models/responses/gen_models.dart';
 import 'package:result_dart/result_dart.dart';
 
 import '../../../exceptions/exception_mapper.dart';
