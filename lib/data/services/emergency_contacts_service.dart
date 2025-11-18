@@ -17,4 +17,6 @@ abstract class EmergencyContactsService {
   Future<Map<String, dynamic>> update(int id, Map<String, dynamic> data);
 
   Future<void> delete(int id);
+
+  Future getEmergencyContacts() async {}
 }
