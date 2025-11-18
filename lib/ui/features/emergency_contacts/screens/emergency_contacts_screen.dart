@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nexus_multiplatform/ui/features/emergency_contacts/widgets/tile_emergency_contact.dart';
 
 import '../viewmodel/emergency_contacts_viewmodel.dart';
+import '../widgets/tile_emergency_contact.dart';
 
 class EmergencyContactsScreen extends StatefulWidget{
   const EmergencyContactsScreen({super.key, required this.viewModel, required this.tiles});

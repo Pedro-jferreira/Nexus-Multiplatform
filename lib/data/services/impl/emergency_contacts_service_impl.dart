@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:nexus_multiplatform/data/services/emergency_contacts_service.dart';
-import 'package:nexus_multiplatform/domain/models/requests/gen_models.dart';
+
+import '../../../domain/models/requests/gen_models.dart';
+import '../emergency_contacts_service.dart';
 
 class EmergencyContactsServiceImpl implements EmergencyContactsService{
   final Dio _dio;
@@ -8,6 +9,7 @@ class EmergencyContactsServiceImpl implements EmergencyContactsService{
 
   EmergencyContactsServiceImpl({required Dio dio}) : _dio = dio;
 
+  @override
   Future<Map<String, dynamic>> getEmergencyContacts({int page = 0, int size = 5,}) async {
     final queryParams = <String, dynamic>{};
 

@@ -1,9 +1,11 @@
+import 'package:Nexus/domain/models/requests/gen_models.dart';
 import 'package:dio/dio.dart';
-import 'package:nexus_multiplatform/data/repositories/emergency_contacts_repository.dart';
-import 'package:nexus_multiplatform/data/services/emergency_contacts_service.dart';
-import 'package:nexus_multiplatform/domain/models/responses/gen_models.dart';
+import 'package:result_dart/src/types.dart';
 
+import '../../../domain/models/responses/gen_models.dart';
 import '../../../exceptions/api_exceptions.dart';
+import '../../services/emergency_contacts_service.dart';
+import '../emergency_contact_repository.dart';
 
 class EmergencyContactsRepositoryImpl implements EmergencyContactsRepository{
   final EmergencyContactsService _emergencyService;
@@ -43,5 +45,35 @@ class EmergencyContactsRepositoryImpl implements EmergencyContactsRepository{
         'falha de conexão, verifique sua internet e tente mais tarde. fora $e',
       );
     }
+  }
+
+  @override
+  AsyncResult<EmergencyContactResponse> create({required CreateEmergencyContactRequest model, required FileRequest file}) {
+    // TODO: implement create
+    throw UnimplementedError();
+  }
+
+  @override
+  AsyncResult<void> delete(int id) {
+    // TODO: implement delete
+    throw UnimplementedError();
+  }
+
+  @override
+  AsyncResult<EmergencyContactResponse> getById(int id) {
+    // TODO: implement getById
+    throw UnimplementedError();
+  }
+
+  @override
+  AsyncResult<PageResponse<EmergencyContactResponse>> list({int page = 0, int size = 10}) {
+    // TODO: implement list
+    throw UnimplementedError();
+  }
+
+  @override
+  AsyncResult<EmergencyContactResponse> update(int id, UpdateEmergencyContactRequest model) {
+    // TODO: implement update
+    throw UnimplementedError();
   }
 }
