@@ -7,6 +7,6 @@ class PlaceholderRouter extends GoRouteData with _$PlaceholderRouter {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const Placeholder();
+    return ShellAppMobile(content: Placeholder(color: Colors.red,));
   }
 }
