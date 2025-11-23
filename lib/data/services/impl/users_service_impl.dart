@@ -3,7 +3,7 @@ import 'package:Nexus/data/services/users_service.dart';
 
 class UsersServiceImpl implements UsersServices{
   final Dio _dio;
-  static const String path = '/api/nexus/user';
+  static const String path = '/user';
   UsersServiceImpl({required Dio dio}) : _dio = dio;
 
 

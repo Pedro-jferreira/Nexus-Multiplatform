@@ -3,7 +3,7 @@ import 'package:Nexus/data/services/auth_service.dart';
 
 class AuthServiceImpl implements AuthService{
   final Dio _dio;
-  static const String path = '/api/nexus/auth';
+  static const String path = '/auth';
   AuthServiceImpl({required Dio dio}) : _dio = dio;
 
   @override
