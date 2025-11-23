@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:Nexus/domain/models/requests/gen_models.dart';
 import 'package:Nexus/domain/models/responses/gen_models.dart';
@@ -11,33 +10,75 @@ import 'package:result_command/result_command.dart';
 import '../../../core/widgets/image_uploader.dart';
 import 'emergency_contact_form.dart';
 
-class ModalCratedContact extends StatefulWidget {
+class ContactEditorModal extends StatefulWidget {
   final EmergencyContactViewModel viewModel;
+  final EmergencyContactResponse? model;
 
-  const ModalCratedContact({super.key, required this.viewModel});
+  const ContactEditorModal._({
+    super.key,
+    required this.viewModel,
+    required this.model,
+  });
+
+  factory ContactEditorModal.create({
+    Key? key,
+    required EmergencyContactViewModel viewModel,
+  }) {
+    return ContactEditorModal._(key: key, viewModel: viewModel, model: null);
+  }
+
+  factory ContactEditorModal.edit({
+    Key? key,
+    required EmergencyContactViewModel viewModel,
+    required EmergencyContactResponse model,
+  }) {
+    return ContactEditorModal._(key: key, viewModel: viewModel, model: model);
+  }
+
+  bool get isEdit => model != null;
 
   @override
-  State<ModalCratedContact> createState() => _ModalCratedContactState();
+  State<ContactEditorModal> createState() => _ContactEditorModalState();
 }
 
-class _ModalCratedContactState extends State<ModalCratedContact> {
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
-  final _imageController = ImageUploadController();
+class _ContactEditorModalState extends State<ContactEditorModal> {
+  late final TextEditingController _nameController;
+  late final TextEditingController _phoneController;
+  late final ImageUploadController _imageController;
+  late final ContactRequestDTO _model;
+
   final ContactValidador _validador = ContactValidador();
   final _formKey = GlobalKey<FormState>();
-  final ContactRequestDTO _model = ContactRequestDTO.empty();
   String? _error;
 
   @override
   void initState() {
+    if (widget.isEdit) {
+      final model = widget.model!;
+      _nameController = TextEditingController(text: model.name);
+      _phoneController = TextEditingController(text: model.phone);
+      _model = ContactRequestDTO(
+        nome: model.name,
+        phone: model.phone,
+        type: model.serviceType,
+      );
+      _imageController = ImageUploadController.fromUrl(model.images.first.url);
+    } else {
+      _nameController = TextEditingController();
+      _phoneController = TextEditingController();
+      _model = ContactRequestDTO.empty();
+      _imageController = ImageUploadController();
+    }
+
     widget.viewModel.createCmd.addListener(_handleCreate);
+    widget.viewModel.updateCmd.addListener(_handleUpdate);
     super.initState();
   }
 
   @override
   void dispose() {
     widget.viewModel.createCmd.removeListener(_handleCreate);
+    widget.viewModel.updateCmd.removeListener(_handleUpdate);
     _imageController.dispose();
     _nameController.dispose();
     _phoneController.dispose();
@@ -84,15 +125,71 @@ class _ModalCratedContactState extends State<ModalCratedContact> {
     }
   }
 
+  void _handleUpdate() {
+    final cmd = widget.viewModel.updateCmd;
+    final value = widget.viewModel.updateCmd.value;
+
+    switch (value) {
+      case IdleCommand<EmergencyContactResponse>():
+      case CancelledCommand<EmergencyContactResponse>():
+      case RunningCommand<EmergencyContactResponse>():
+        return;
+      case FailureCommand<EmergencyContactResponse>():
+        if (_error == null) {
+          Future.delayed(const Duration(milliseconds: 300), () {
+            if (mounted) setState(() => _error = value.error.toString());
+          });
+        }
+        Future.delayed(const Duration(seconds: 5), () {
+          _error = null;
+          cmd.reset();
+        });
+        break;
+      case SuccessCommand<EmergencyContactResponse>():
+        Navigator.of(context).pop();
+        Future.microtask(() {
+          if (!mounted) return;
+          showDialog(
+            context: context,
+            barrierDismissible: true,
+            builder: (_) => SuccessModal(
+              title: 'Contato Atualizado com sucesso!',
+              message: 'O contato foi atualizado na sua lista de emergência.',
+              onClose: () {
+                cmd.reset();
+              },
+            ),
+          );
+        });
+        break;
+    }
+  }
+
   bool _validateForm() {
     final isValid = _validador.validate(_model).isValid;
     return (_formKey.currentState!.validate() && isValid);
   }
 
   _saveForm() {
-    if (_validateForm()) {
+    if (!_validateForm()) return;
+    if (widget.isEdit) {
+      widget.viewModel.updateCmd.execute(
+        UpdateEmergency(
+          id: widget.model!.id,
+          request: UpdateEmergencyContactRequest(
+            name: _model.nome,
+            phone: _model.phone,
+            serviceType: _model.type!,
+          ),
+          file: FileRequest(
+            file: _imageController.bytes,
+            fileName: _imageController.fileName,
+          ),
+        ),
+      );
+    } else {
       widget.viewModel.createCmd.execute(
-        CreateEmegergency(
+        CreateEmergency(
           request: CreateEmergencyContactRequest(
             name: _model.nome,
             phone: _model.phone,
@@ -110,10 +207,17 @@ class _ModalCratedContactState extends State<ModalCratedContact> {
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
-      listenable: widget.viewModel.createCmd,
+      listenable: Listenable.merge([
+        widget.viewModel.createCmd,
+        widget.viewModel.updateCmd,
+      ]),
       builder: (context, _) {
-        final isLoading = widget.viewModel.createCmd.value.isRunning;
-        final value = widget.viewModel.createCmd.value;
+        final isLoading =
+            (widget.viewModel.createCmd.value.isRunning ||
+            widget.viewModel.updateCmd.value.isRunning);
+        final value = widget.isEdit
+            ? widget.viewModel.updateCmd.value
+            : widget.viewModel.createCmd.value;
 
         if (value.isSuccess) {
           return SizedBox.shrink();
@@ -124,7 +228,7 @@ class _ModalCratedContactState extends State<ModalCratedContact> {
           onClose: () async {
             widget.viewModel.createCmd.reset();
           },
-          title: 'Cadastrar contato',
+          title: widget.isEdit ? 'Editar contato' : 'Cadastrar contato',
           helperActionButton: FilledButton(
             onPressed: isLoading ? null : _imageController.pick,
             child: Text('Carregar imagem'),
