@@ -71,12 +71,13 @@ class EmergencyContactsRepositoryImpl implements EmergencyContactsRepository {
   }
 
   @override
-  AsyncResult<EmergencyContactResponse> update(
-    int id,
-    UpdateEmergencyContactRequest model,
-  ) async {
+  AsyncResult<EmergencyContactResponse> update({
+    required int id,
+    required UpdateEmergencyContactRequest model,
+    required FileRequest file,
+  }) async {
     try {
-      final json = await _service.update(id, model.toJson());
+      final json = await _service.update(id: id,data:  model.toJson(), file: file);
       final result = EmergencyContactResponse.fromJson(json);
       return Success(result);
     } catch (e) {

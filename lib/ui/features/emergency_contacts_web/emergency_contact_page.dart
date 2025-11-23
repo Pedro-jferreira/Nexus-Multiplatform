@@ -3,9 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:Nexus/ui/core/layout/custom_app_bar.dart';
 import 'package:Nexus/ui/features/emergency_contacts_web/view_models/emergency_contact_view_model.dart';
 import 'package:Nexus/ui/features/emergency_contacts_web/widgets/contact_tile.dart';
-import 'package:Nexus/ui/features/emergency_contacts_web/widgets/modal_create_contact.dart';
+import 'package:Nexus/ui/features/emergency_contacts_web/widgets/contact_editor_modal.dart';
 import 'package:Nexus/ui/features/emergency_contacts_web/widgets/modal_delete_contact.dart';
-import 'package:Nexus/ui/features/emergency_contacts_web/widgets/modal_update_contact.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -70,7 +69,7 @@ class _EmergencyContactPageState extends State<EmergencyContactPage> {
       context: context,
       barrierDismissible: false,
       builder: (_) {
-        return ModalUpdateContact(viewModel: _viewModel, model: model);
+        return ContactEditorModal.edit(viewModel: _viewModel, model: model);
       },
     );
   }
@@ -105,7 +104,7 @@ class _EmergencyContactPageState extends State<EmergencyContactPage> {
                 context: context,
                 barrierDismissible: false,
                 builder: (_) {
-                  return ModalCratedContact(viewModel: _viewModel);
+                  return ContactEditorModal.create(viewModel: _viewModel);
                 },
               );
             },
