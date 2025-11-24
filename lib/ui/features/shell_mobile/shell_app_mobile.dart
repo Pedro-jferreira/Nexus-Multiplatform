@@ -28,8 +28,11 @@ class _ShellAppMobileState extends State<ShellAppMobile> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Scaffold(
-      appBar: null,
+      appBar: AppBar(backgroundColor: colorScheme.surface, title: Text('aaa'),),
       body: IndexedStack(
         index: _selectedIndex,
         children: _pages,
