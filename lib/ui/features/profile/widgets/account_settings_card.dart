@@ -25,17 +25,16 @@ class AccountSettingsCard extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 2,
+      elevation: 3,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.only(left: 30.0,top: 15.0, bottom: 15.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
               'Configurações da conta',
             ),
-            const Divider(),
             _buildSettingOption(
               icon: Icons.lock_outline,
               text: 'Redefinir senha',
@@ -43,8 +42,8 @@ class AccountSettingsCard extends StatelessWidget{
               },
             ),
             _buildSettingOption(
-              icon: Icons.notifications_none_outlined,
-              text: 'Notificações',
+              icon: Icons.email,
+              text: 'Gerenciar Login com Google',
               onTap: () {
               },
             ),
