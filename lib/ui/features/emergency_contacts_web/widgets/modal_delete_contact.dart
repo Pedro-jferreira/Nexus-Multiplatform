@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:Nexus/ui/features/emergency_contacts_web/view_models/emergency_contact_view_model.dart';
 import 'package:Nexus/ui/features/emergency_contacts_web/widgets/snack_bar_dialog.dart';
 import 'package:result_command/result_command.dart';
-import 'modal_create_contact.dart';
+import 'contact_editor_modal.dart';
 
 class ModalDeleteContact extends StatefulWidget {
   final int id;

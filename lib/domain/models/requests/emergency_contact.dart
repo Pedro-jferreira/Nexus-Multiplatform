@@ -14,11 +14,18 @@ class CreateEmergencyContactRequest with _$CreateEmergencyContactRequest {
 }
 
 
-class CreateEmegergency{
+class CreateEmergency{
   final CreateEmergencyContactRequest request;
   final FileRequest file;
 
-  CreateEmegergency({required this.request, required this.file});
+  CreateEmergency({required this.request, required this.file});
+}
+
+class UpdateEmergency{
+  final int id;
+  final UpdateEmergencyContactRequest request;
+  final FileRequest file;
+  UpdateEmergency({required this.id,required this.request, required this.file});
 }
 
 class FileRequest{

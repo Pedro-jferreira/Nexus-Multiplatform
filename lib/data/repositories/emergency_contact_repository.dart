@@ -7,17 +7,21 @@ import 'package:result_dart/result_dart.dart';
 abstract class EmergencyContactsRepository {
   AsyncResult<EmergencyContactResponse> create({
     required CreateEmergencyContactRequest model,
-   required FileRequest file,
+    required FileRequest file,
   });
 
   AsyncResult<EmergencyContactResponse> getById(int id);
 
-  AsyncResult<PageResponse<EmergencyContactResponse>> list({int page = 0, int size = 10});
+  AsyncResult<PageResponse<EmergencyContactResponse>> list({
+    int page = 0,
+    int size = 10,
+  });
 
-  AsyncResult<EmergencyContactResponse> update(
-    int id,
-    UpdateEmergencyContactRequest model,
-  );
+  AsyncResult<EmergencyContactResponse> update({
+    required int id,
+    required UpdateEmergencyContactRequest model,
+    required FileRequest file,
+  });
 
   AsyncResult<void> delete(int id);
 }

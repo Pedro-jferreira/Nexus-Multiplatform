@@ -13,7 +13,7 @@ class EmergencyContactViewModel extends ChangeNotifier {
     fetchCmd = Command0(_fetch);
     fetchMoreCmd =Command0(_fetchMoreContacts);
     createCmd = Command1(_createContact);
-    updateCmd = Command2(_updateContact);
+    updateCmd = Command1(_updateContact);
     deleteCmd = Command1<bool, int>(_deleteContact);
   }
 
@@ -27,8 +27,8 @@ class EmergencyContactViewModel extends ChangeNotifier {
   final int _pageSize = 10;
   late final Command0<List<EmergencyContactResponse>> fetchCmd;
   late final Command0<List<EmergencyContactResponse>> fetchMoreCmd;
-  late final Command1<EmergencyContactResponse,CreateEmegergency> createCmd;
-  late final Command2<EmergencyContactResponse, int, UpdateEmergencyContactRequest> updateCmd;
+  late final Command1<EmergencyContactResponse,CreateEmergency> createCmd;
+  late final Command1<EmergencyContactResponse, UpdateEmergency> updateCmd;
   late final Command1<bool, int> deleteCmd;
 
   AsyncResult<List<EmergencyContactResponse>> _fetch() async {
@@ -61,8 +61,7 @@ class EmergencyContactViewModel extends ChangeNotifier {
 
   }
   AsyncResult<EmergencyContactResponse> _createContact(
-      CreateEmegergency model) async {
-    print('executando..');
+      CreateEmergency model) async {
     final result = await _repository.create(model: model.request, file: model.file);
     return result.mapFold((contact) {
       _contacts.insert(0, contact); // adiciona no topo
@@ -71,11 +70,10 @@ class EmergencyContactViewModel extends ChangeNotifier {
     }, (error) => error);
   }
 
-  AsyncResult<EmergencyContactResponse> _updateContact(
-      int id, UpdateEmergencyContactRequest model) async {
-    final result = await _repository.update(id, model);
+  AsyncResult<EmergencyContactResponse> _updateContact(UpdateEmergency model) async {
+    final result = await _repository.update(id: model.id, model: model.request, file: model.file);
     return result.mapFold((updated) {
-      final index = _contacts.indexWhere((c) => c.id == id);
+      final index = _contacts.indexWhere((c) => c.id == model.id);
       if (index != -1) {
         _contacts[index] = updated;
         notifyListeners();
