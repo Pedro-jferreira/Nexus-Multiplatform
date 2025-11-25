@@ -13,6 +13,6 @@ class ChatRouter extends GoRouteData with _$ChatRouter {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return Placeholder();
+    return Placeholder(color: Colors.red,);
   }
 }

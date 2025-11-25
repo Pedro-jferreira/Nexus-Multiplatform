@@ -11,6 +11,7 @@ class AppRoutes {
   static const String users ='/users';
   static const String chat ='/chat';
   static const String incidents ='/incidents';
+  static const String incidentsDetails ='incidents_details';
   static const String emergencyContacts ='/contacts';
   static const String profile ='/profile';
 

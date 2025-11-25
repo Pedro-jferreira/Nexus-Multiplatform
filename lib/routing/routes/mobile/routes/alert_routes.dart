@@ -1,7 +1,7 @@
 part of '../app_router_mobile.dart';
 
 const incidentsBranches = TypedStatefulShellBranch<StatefulShellBranchData>(
-  routes: <TypedRoute<RouteData>>[incidentsDetailsRouter],
+  routes: <TypedRoute<RouteData>>[incidentRoutes],
 );
 
 const incidentRoutes = TypedGoRoute<IncidentsRouter>(
@@ -14,12 +14,12 @@ class IncidentsRouter extends GoRouteData with _$IncidentsRouter {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return Placeholder();
+    return IncidentsPage();
   }
 }
 
 const incidentsDetailsRouter = TypedGoRoute<IncidentsDetailsRouter>(
-  path: AppRoutes.incidents,
+  path: AppRoutes.incidentsDetails,
 );
 
 class IncidentsDetailsRouter extends GoRouteData with _$IncidentsDetailsRouter {
@@ -29,6 +29,9 @@ class IncidentsDetailsRouter extends GoRouteData with _$IncidentsDetailsRouter {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return Placeholder();
+    return Scaffold(
+      appBar: AppBar(),
+      body: Placeholder(color: Colors.yellow),
+    );
   }
 }

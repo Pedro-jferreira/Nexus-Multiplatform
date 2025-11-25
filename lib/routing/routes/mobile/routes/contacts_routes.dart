@@ -13,6 +13,6 @@ class ContactsRouter extends GoRouteData with _$ContactsRouter {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return Placeholder();
+    return Placeholder(color: Colors.brown);
   }
 }
