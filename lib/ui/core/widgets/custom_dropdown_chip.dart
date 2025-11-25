@@ -30,7 +30,13 @@ class CustomDropdownChip<T> extends StatelessWidget {
       builder: (context, controller, child) {
         return InkWell(
           borderRadius: BorderRadius.circular(12),
-          onTap: controller.open,
+          onTap: (){
+            if(controller.isOpen){
+              controller.close();
+            }else{
+              controller.open();
+            }
+          },
           child: Ink(
             decoration: BoxDecoration(
               border: Border.all(
