@@ -37,7 +37,7 @@ class CustomDropdownChip<T> extends StatelessWidget {
               controller.open();
             }
           },
-          child: Ink(
+          child: Container(
             decoration: BoxDecoration(
               border: Border.all(
                 color: Theme.of(context)
