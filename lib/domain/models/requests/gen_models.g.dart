@@ -20,6 +20,22 @@ Map<String, dynamic> _$$LoginRequestImplToJson(_$LoginRequestImpl instance) =>
       'fcmToken': instance.fcmToken,
     };
 
+_$UpdatePasswordRequestImpl _$$UpdatePasswordRequestImplFromJson(
+  Map<String, dynamic> json,
+) => _$UpdatePasswordRequestImpl(
+  currentPassword: json['currentPassword'] as String,
+  newPassword: json['newPassword'] as String,
+  confirmNewPassword: json['confirmNewPassword'] as String,
+);
+
+Map<String, dynamic> _$$UpdatePasswordRequestImplToJson(
+  _$UpdatePasswordRequestImpl instance,
+) => <String, dynamic>{
+  'currentPassword': instance.currentPassword,
+  'newPassword': instance.newPassword,
+  'confirmNewPassword': instance.confirmNewPassword,
+};
+
 _$CreateEmergencyContactRequestImpl
 _$$CreateEmergencyContactRequestImplFromJson(Map<String, dynamic> json) =>
     _$CreateEmergencyContactRequestImpl(
