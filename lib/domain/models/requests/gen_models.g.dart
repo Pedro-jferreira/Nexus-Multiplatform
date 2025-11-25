@@ -58,3 +58,76 @@ Map<String, dynamic> _$$UpdateEmergencyContactRequestImplToJson(
   'phone': instance.phone,
   'serviceType': _$ServiceTypeEnumMap[instance.serviceType]!,
 };
+
+_$CreateUserRequestImpl _$$CreateUserRequestImplFromJson(
+  Map<String, dynamic> json,
+) => _$CreateUserRequestImpl(
+  name: json['name'] as String,
+  email: json['email'] as String,
+  role: $enumDecode(_$RoleEnumMap, json['role']),
+  authProvider:
+      $enumDecodeNullable(_$AuthProviderEnumMap, json['authProvider']) ??
+      AuthProvider.LOCAL,
+  provisionalPassword: json['provisionalPassword'] as bool? ?? true,
+);
+
+Map<String, dynamic> _$$CreateUserRequestImplToJson(
+  _$CreateUserRequestImpl instance,
+) => <String, dynamic>{
+  'name': instance.name,
+  'email': instance.email,
+  'role': _$RoleEnumMap[instance.role]!,
+  'authProvider': _$AuthProviderEnumMap[instance.authProvider]!,
+  'provisionalPassword': instance.provisionalPassword,
+};
+
+const _$RoleEnumMap = {Role.ADMIN: 'ADMIN', Role.SECURITY: 'SECURITY'};
+
+const _$AuthProviderEnumMap = {
+  AuthProvider.LOCAL: 'LOCAL',
+  AuthProvider.GOOGLE: 'GOOGLE',
+};
+
+_$UpdateUserRequestImpl _$$UpdateUserRequestImplFromJson(
+  Map<String, dynamic> json,
+) => _$UpdateUserRequestImpl(
+  name: json['name'] as String,
+  email: json['email'] as String,
+  role: $enumDecode(_$RoleEnumMap, json['role']),
+  enable: json['enable'] as bool,
+  locked: json['locked'] as bool,
+);
+
+Map<String, dynamic> _$$UpdateUserRequestImplToJson(
+  _$UpdateUserRequestImpl instance,
+) => <String, dynamic>{
+  'name': instance.name,
+  'email': instance.email,
+  'role': _$RoleEnumMap[instance.role]!,
+  'enable': instance.enable,
+  'locked': instance.locked,
+};
+
+_$UserFilterImpl _$$UserFilterImplFromJson(Map<String, dynamic> json) =>
+    _$UserFilterImpl(
+      role: $enumDecodeNullable(_$RoleEnumMap, json['role']),
+      query: json['query'] as String?,
+      status: $enumDecodeNullable(_$EnumStatusEnumMap, json['status']),
+      page: (json['page'] as num?)?.toInt() ?? 0,
+      size: (json['size'] as num?)?.toInt() ?? 10,
+    );
+
+Map<String, dynamic> _$$UserFilterImplToJson(_$UserFilterImpl instance) =>
+    <String, dynamic>{
+      'role': _$RoleEnumMap[instance.role],
+      'query': instance.query,
+      'status': _$EnumStatusEnumMap[instance.status],
+      'page': instance.page,
+      'size': instance.size,
+    };
+
+const _$EnumStatusEnumMap = {
+  EnumStatus.ATIVO: 'ATIVO',
+  EnumStatus.INATIVO: 'INATIVO',
+  EnumStatus.BLOQUEADO: 'BLOQUEADO',
+};

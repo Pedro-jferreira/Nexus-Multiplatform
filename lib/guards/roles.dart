@@ -10,3 +10,14 @@ Role roleFromString(String role) {
     orElse: () => Role.ADMIN,
   );
 }
+
+extension RoleExtension on Role {
+  String get label {
+    switch (this) {
+      case Role.ADMIN:
+        return 'Administrador';
+      case Role.SECURITY:
+        return 'Segurança';
+    }
+  }
+}

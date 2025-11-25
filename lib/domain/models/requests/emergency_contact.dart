@@ -14,26 +14,6 @@ class CreateEmergencyContactRequest with _$CreateEmergencyContactRequest {
 }
 
 
-class CreateEmergency{
-  final CreateEmergencyContactRequest request;
-  final FileRequest file;
-
-  CreateEmergency({required this.request, required this.file});
-}
-
-class UpdateEmergency{
-  final int id;
-  final UpdateEmergencyContactRequest request;
-  final FileRequest file;
-  UpdateEmergency({required this.id,required this.request, required this.file});
-}
-
-class FileRequest{
-  final Uint8List? file;
-  final String? fileName;
-
-  FileRequest({required this.file, required this.fileName});
-}
 
 
 @freezed

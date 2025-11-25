@@ -1,3 +1,4 @@
+import 'package:Nexus/domain/models/requests/gen_models.dart';
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -33,16 +34,9 @@ class _ImageUploaderState extends State<ImageUploader> {
     widget.controller
       .._setPickCallback(_pickFile)
       .._setClearCallback(_removeImage);
-    _loadInitialImageIfNeeded();
   }
 
-  Future<void> _loadInitialImageIfNeeded() async {
-    final c = widget.controller;
 
-    if (c.initialUrl != null && c.bytes == null) {
-      await c.loadFromUrl(c.initialUrl!);
-    }
-  }
 
   Future<void> _pickFile() async {
     const XTypeGroup typeGroup = XTypeGroup(
@@ -173,31 +167,34 @@ class _ImageUploaderState extends State<ImageUploader> {
 class ImageUploadController extends ChangeNotifier {
   ImageUploadController();
   ImageUploadController.fromUrl(String url) {
-    _initialUrl = url;
+    loadFromUrl(url);
   }
   ImageUploadController.fromBytes(Uint8List bytes, {String? name}) {
     _bytes = bytes;
     _fileName = name ?? "image.png";
   }
-
+  final List<FileRequest> _cache = [];
   Uint8List? _bytes;
   String? _fileName;
   void Function()? _pickFile;
   void Function()? _clearFile;
 
   bool _isLoading = false;
-  String? _initialUrl;
 
   Uint8List? get bytes => _bytes;
   String? get fileName => _fileName;
 
   bool get isLoading => _isLoading;
-  String? get initialUrl => _initialUrl;
+  List<FileRequest> get cache => _cache;
+
 
   void _setPickCallback(void Function() pick) => _pickFile = pick;
   void _setClearCallback(void Function() clear) => _clearFile = clear;
 
   void _updateFile(Uint8List? bytes, String? name) {
+    if(bytes!= null ) {
+      _cache.add(FileRequest(file: bytes, fileName: name));
+    }
     _bytes = bytes;
     _fileName = name;
     notifyListeners();
@@ -225,12 +222,10 @@ class ImageUploadController extends ChangeNotifier {
 
   /// Carregar imagem inicial por URL (faz download)
   Future<void> loadFromUrl(String url, {String? name}) async {
-    _initialUrl = url;
     _startLoading();
     try {
       final uri = Uri.parse(url);
 
-      // Compatível com Web, Mobile e Desktop
       final response = await http.get(uri);
       if (response.statusCode == 200) {
         final bytes = response.bodyBytes;

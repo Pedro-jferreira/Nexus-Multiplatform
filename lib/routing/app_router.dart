@@ -25,6 +25,13 @@ GoRouter createRouter(AuthRepository authRepository) => GoRouter(
   redirect: (BuildContext context, GoRouterState state) {
     final isLoggedIn = authRepository.currentUser != null;
     final isLoggingIn = state.uri.toString().startsWith(LoginRoute().location);
+    if(authRepository.isTemporaryPassword == true){
+      if (kIsWeb) {
+        return web.ProfileRoute().location;
+      } else {
+        return '/';
+      }
+    }
 
     if (!isLoggedIn && !isLoggingIn) {
       return LoginRoute().location;

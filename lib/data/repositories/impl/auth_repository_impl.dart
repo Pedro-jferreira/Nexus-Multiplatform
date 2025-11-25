@@ -19,6 +19,7 @@ class AuthRepositoryImpl extends ChangeNotifier implements AuthRepository  {
 
   final _userController = StreamController<UserResponse?>.broadcast();
   UserResponse? _currentUser;
+  bool? _isTemporaryPassword = false;
 
   AuthRepositoryImpl({
     required AuthService authService,
@@ -31,6 +32,8 @@ class AuthRepositoryImpl extends ChangeNotifier implements AuthRepository  {
 
   @override
   UserResponse? get currentUser => _currentUser;
+  @override
+  bool? get isTemporaryPassword => _isTemporaryPassword;
 
   Future<void> _initialize() async {
     final token = _prefs.getString('auth_token');
@@ -71,6 +74,7 @@ class AuthRepositoryImpl extends ChangeNotifier implements AuthRepository  {
       final token = AuthTokens.fromJson(data);
 
       await _saveTokens(token);
+      _isTemporaryPassword = token.mustChangePassword;
       _setUser(token.user);
 
       return Success(token.user);
@@ -86,6 +90,7 @@ class AuthRepositoryImpl extends ChangeNotifier implements AuthRepository  {
       await _prefs.remove('auth_token');
       await _prefs.remove('refresh_token');
       await _prefs.remove('user_data');
+      _isTemporaryPassword = null;
       _setUser(null);
       return Success(Null);
     } catch (e) {
@@ -111,4 +116,6 @@ class AuthRepositoryImpl extends ChangeNotifier implements AuthRepository  {
     _userController.close();
     super.dispose();
   }
+
+
 }

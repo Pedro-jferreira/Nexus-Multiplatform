@@ -33,6 +33,7 @@ mixin _$PlaceholderRouter on GoRouteData {
 }
 
 RouteBase get $shellAppRouter => StatefulShellRouteData.$route(
+  navigatorContainerBuilder: ShellAppRouter.$navigatorContainerBuilder,
   factory: $ShellAppRouterExtension._fromState,
   branches: [
     StatefulShellBranchData.$branch(

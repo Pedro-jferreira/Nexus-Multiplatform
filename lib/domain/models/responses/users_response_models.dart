@@ -7,8 +7,11 @@ class UserResponse with _$UserResponse {
     required String name,
     required String email,
     required Role role,
+    required AuthProvider provider,
     required bool enabled,
     required bool locked,
+    required String? profileImageUrl,
+    required EnumStatus  status,
   }) = _UserResponse;
 
   factory UserResponse.fromJson(Map<String, dynamic> json) => _$UserResponseFromJson(json);
@@ -19,7 +22,8 @@ class AuthTokens with _$AuthTokens {
   const factory AuthTokens({
     required String accessToken,
     required String refreshToken,
-    required UserResponse user
+    required UserResponse user,
+    required bool mustChangePassword
   }) = _AuthTokens;
 
   factory AuthTokens.fromJson(Map<String, dynamic> json) => _$AuthTokensFromJson(json);

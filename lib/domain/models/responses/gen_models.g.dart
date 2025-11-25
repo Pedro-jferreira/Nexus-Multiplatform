@@ -12,8 +12,11 @@ _$UserResponseImpl _$$UserResponseImplFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       email: json['email'] as String,
       role: $enumDecode(_$RoleEnumMap, json['role']),
+      provider: $enumDecode(_$AuthProviderEnumMap, json['provider']),
       enabled: json['enabled'] as bool,
       locked: json['locked'] as bool,
+      profileImageUrl: json['profileImageUrl'] as String?,
+      status: $enumDecode(_$EnumStatusEnumMap, json['status']),
     );
 
 Map<String, dynamic> _$$UserResponseImplToJson(_$UserResponseImpl instance) =>
@@ -22,17 +25,32 @@ Map<String, dynamic> _$$UserResponseImplToJson(_$UserResponseImpl instance) =>
       'name': instance.name,
       'email': instance.email,
       'role': _$RoleEnumMap[instance.role]!,
+      'provider': _$AuthProviderEnumMap[instance.provider]!,
       'enabled': instance.enabled,
       'locked': instance.locked,
+      'profileImageUrl': instance.profileImageUrl,
+      'status': _$EnumStatusEnumMap[instance.status]!,
     };
 
 const _$RoleEnumMap = {Role.ADMIN: 'ADMIN', Role.SECURITY: 'SECURITY'};
+
+const _$AuthProviderEnumMap = {
+  AuthProvider.LOCAL: 'LOCAL',
+  AuthProvider.GOOGLE: 'GOOGLE',
+};
+
+const _$EnumStatusEnumMap = {
+  EnumStatus.ATIVO: 'ATIVO',
+  EnumStatus.INATIVO: 'INATIVO',
+  EnumStatus.BLOQUEADO: 'BLOQUEADO',
+};
 
 _$AuthTokensImpl _$$AuthTokensImplFromJson(Map<String, dynamic> json) =>
     _$AuthTokensImpl(
       accessToken: json['accessToken'] as String,
       refreshToken: json['refreshToken'] as String,
       user: UserResponse.fromJson(json['user'] as Map<String, dynamic>),
+      mustChangePassword: json['mustChangePassword'] as bool,
     );
 
 Map<String, dynamic> _$$AuthTokensImplToJson(_$AuthTokensImpl instance) =>
@@ -40,6 +58,7 @@ Map<String, dynamic> _$$AuthTokensImplToJson(_$AuthTokensImpl instance) =>
       'accessToken': instance.accessToken,
       'refreshToken': instance.refreshToken,
       'user': instance.user,
+      'mustChangePassword': instance.mustChangePassword,
     };
 
 _$EmergencyContactResponseImpl _$$EmergencyContactResponseImplFromJson(
