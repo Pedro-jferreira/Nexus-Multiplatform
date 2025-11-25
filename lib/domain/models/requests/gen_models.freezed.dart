@@ -649,3 +649,1269 @@ abstract class _UpdateEmergencyContactRequest
   >
   get copyWith => throw _privateConstructorUsedError;
 }
+
+CreateUserRequest _$CreateUserRequestFromJson(Map<String, dynamic> json) {
+  return _CreateUserRequest.fromJson(json);
+}
+
+/// @nodoc
+mixin _$CreateUserRequest {
+  String get name => throw _privateConstructorUsedError;
+  String get email => throw _privateConstructorUsedError;
+  Role get role => throw _privateConstructorUsedError;
+  AuthProvider get authProvider => throw _privateConstructorUsedError;
+  bool get provisionalPassword => throw _privateConstructorUsedError;
+
+  /// Serializes this CreateUserRequest to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of CreateUserRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $CreateUserRequestCopyWith<CreateUserRequest> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CreateUserRequestCopyWith<$Res> {
+  factory $CreateUserRequestCopyWith(
+    CreateUserRequest value,
+    $Res Function(CreateUserRequest) then,
+  ) = _$CreateUserRequestCopyWithImpl<$Res, CreateUserRequest>;
+  @useResult
+  $Res call({
+    String name,
+    String email,
+    Role role,
+    AuthProvider authProvider,
+    bool provisionalPassword,
+  });
+}
+
+/// @nodoc
+class _$CreateUserRequestCopyWithImpl<$Res, $Val extends CreateUserRequest>
+    implements $CreateUserRequestCopyWith<$Res> {
+  _$CreateUserRequestCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of CreateUserRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? email = null,
+    Object? role = null,
+    Object? authProvider = null,
+    Object? provisionalPassword = null,
+  }) {
+    return _then(
+      _value.copyWith(
+            name: null == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                      as String,
+            email: null == email
+                ? _value.email
+                : email // ignore: cast_nullable_to_non_nullable
+                      as String,
+            role: null == role
+                ? _value.role
+                : role // ignore: cast_nullable_to_non_nullable
+                      as Role,
+            authProvider: null == authProvider
+                ? _value.authProvider
+                : authProvider // ignore: cast_nullable_to_non_nullable
+                      as AuthProvider,
+            provisionalPassword: null == provisionalPassword
+                ? _value.provisionalPassword
+                : provisionalPassword // ignore: cast_nullable_to_non_nullable
+                      as bool,
+          )
+          as $Val,
+    );
+  }
+}
+
+/// @nodoc
+abstract class _$$CreateUserRequestImplCopyWith<$Res>
+    implements $CreateUserRequestCopyWith<$Res> {
+  factory _$$CreateUserRequestImplCopyWith(
+    _$CreateUserRequestImpl value,
+    $Res Function(_$CreateUserRequestImpl) then,
+  ) = __$$CreateUserRequestImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({
+    String name,
+    String email,
+    Role role,
+    AuthProvider authProvider,
+    bool provisionalPassword,
+  });
+}
+
+/// @nodoc
+class __$$CreateUserRequestImplCopyWithImpl<$Res>
+    extends _$CreateUserRequestCopyWithImpl<$Res, _$CreateUserRequestImpl>
+    implements _$$CreateUserRequestImplCopyWith<$Res> {
+  __$$CreateUserRequestImplCopyWithImpl(
+    _$CreateUserRequestImpl _value,
+    $Res Function(_$CreateUserRequestImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of CreateUserRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? email = null,
+    Object? role = null,
+    Object? authProvider = null,
+    Object? provisionalPassword = null,
+  }) {
+    return _then(
+      _$CreateUserRequestImpl(
+        name: null == name
+            ? _value.name
+            : name // ignore: cast_nullable_to_non_nullable
+                  as String,
+        email: null == email
+            ? _value.email
+            : email // ignore: cast_nullable_to_non_nullable
+                  as String,
+        role: null == role
+            ? _value.role
+            : role // ignore: cast_nullable_to_non_nullable
+                  as Role,
+        authProvider: null == authProvider
+            ? _value.authProvider
+            : authProvider // ignore: cast_nullable_to_non_nullable
+                  as AuthProvider,
+        provisionalPassword: null == provisionalPassword
+            ? _value.provisionalPassword
+            : provisionalPassword // ignore: cast_nullable_to_non_nullable
+                  as bool,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$CreateUserRequestImpl implements _CreateUserRequest {
+  const _$CreateUserRequestImpl({
+    required this.name,
+    required this.email,
+    required this.role,
+    this.authProvider = AuthProvider.LOCAL,
+    this.provisionalPassword = true,
+  });
+
+  factory _$CreateUserRequestImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CreateUserRequestImplFromJson(json);
+
+  @override
+  final String name;
+  @override
+  final String email;
+  @override
+  final Role role;
+  @override
+  @JsonKey()
+  final AuthProvider authProvider;
+  @override
+  @JsonKey()
+  final bool provisionalPassword;
+
+  @override
+  String toString() {
+    return 'CreateUserRequest(name: $name, email: $email, role: $role, authProvider: $authProvider, provisionalPassword: $provisionalPassword)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CreateUserRequestImpl &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.role, role) || other.role == role) &&
+            (identical(other.authProvider, authProvider) ||
+                other.authProvider == authProvider) &&
+            (identical(other.provisionalPassword, provisionalPassword) ||
+                other.provisionalPassword == provisionalPassword));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+    runtimeType,
+    name,
+    email,
+    role,
+    authProvider,
+    provisionalPassword,
+  );
+
+  /// Create a copy of CreateUserRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CreateUserRequestImplCopyWith<_$CreateUserRequestImpl> get copyWith =>
+      __$$CreateUserRequestImplCopyWithImpl<_$CreateUserRequestImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$CreateUserRequestImplToJson(this);
+  }
+}
+
+abstract class _CreateUserRequest implements CreateUserRequest {
+  const factory _CreateUserRequest({
+    required final String name,
+    required final String email,
+    required final Role role,
+    final AuthProvider authProvider,
+    final bool provisionalPassword,
+  }) = _$CreateUserRequestImpl;
+
+  factory _CreateUserRequest.fromJson(Map<String, dynamic> json) =
+      _$CreateUserRequestImpl.fromJson;
+
+  @override
+  String get name;
+  @override
+  String get email;
+  @override
+  Role get role;
+  @override
+  AuthProvider get authProvider;
+  @override
+  bool get provisionalPassword;
+
+  /// Create a copy of CreateUserRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$CreateUserRequestImplCopyWith<_$CreateUserRequestImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+UpdateUserRequest _$UpdateUserRequestFromJson(Map<String, dynamic> json) {
+  return _UpdateUserRequest.fromJson(json);
+}
+
+/// @nodoc
+mixin _$UpdateUserRequest {
+  String get name => throw _privateConstructorUsedError;
+  String get email => throw _privateConstructorUsedError;
+  Role get role => throw _privateConstructorUsedError;
+  bool get enable => throw _privateConstructorUsedError;
+  bool get locked => throw _privateConstructorUsedError;
+
+  /// Serializes this UpdateUserRequest to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of UpdateUserRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $UpdateUserRequestCopyWith<UpdateUserRequest> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $UpdateUserRequestCopyWith<$Res> {
+  factory $UpdateUserRequestCopyWith(
+    UpdateUserRequest value,
+    $Res Function(UpdateUserRequest) then,
+  ) = _$UpdateUserRequestCopyWithImpl<$Res, UpdateUserRequest>;
+  @useResult
+  $Res call({String name, String email, Role role, bool enable, bool locked});
+}
+
+/// @nodoc
+class _$UpdateUserRequestCopyWithImpl<$Res, $Val extends UpdateUserRequest>
+    implements $UpdateUserRequestCopyWith<$Res> {
+  _$UpdateUserRequestCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of UpdateUserRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? email = null,
+    Object? role = null,
+    Object? enable = null,
+    Object? locked = null,
+  }) {
+    return _then(
+      _value.copyWith(
+            name: null == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                      as String,
+            email: null == email
+                ? _value.email
+                : email // ignore: cast_nullable_to_non_nullable
+                      as String,
+            role: null == role
+                ? _value.role
+                : role // ignore: cast_nullable_to_non_nullable
+                      as Role,
+            enable: null == enable
+                ? _value.enable
+                : enable // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            locked: null == locked
+                ? _value.locked
+                : locked // ignore: cast_nullable_to_non_nullable
+                      as bool,
+          )
+          as $Val,
+    );
+  }
+}
+
+/// @nodoc
+abstract class _$$UpdateUserRequestImplCopyWith<$Res>
+    implements $UpdateUserRequestCopyWith<$Res> {
+  factory _$$UpdateUserRequestImplCopyWith(
+    _$UpdateUserRequestImpl value,
+    $Res Function(_$UpdateUserRequestImpl) then,
+  ) = __$$UpdateUserRequestImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String name, String email, Role role, bool enable, bool locked});
+}
+
+/// @nodoc
+class __$$UpdateUserRequestImplCopyWithImpl<$Res>
+    extends _$UpdateUserRequestCopyWithImpl<$Res, _$UpdateUserRequestImpl>
+    implements _$$UpdateUserRequestImplCopyWith<$Res> {
+  __$$UpdateUserRequestImplCopyWithImpl(
+    _$UpdateUserRequestImpl _value,
+    $Res Function(_$UpdateUserRequestImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of UpdateUserRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? email = null,
+    Object? role = null,
+    Object? enable = null,
+    Object? locked = null,
+  }) {
+    return _then(
+      _$UpdateUserRequestImpl(
+        name: null == name
+            ? _value.name
+            : name // ignore: cast_nullable_to_non_nullable
+                  as String,
+        email: null == email
+            ? _value.email
+            : email // ignore: cast_nullable_to_non_nullable
+                  as String,
+        role: null == role
+            ? _value.role
+            : role // ignore: cast_nullable_to_non_nullable
+                  as Role,
+        enable: null == enable
+            ? _value.enable
+            : enable // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        locked: null == locked
+            ? _value.locked
+            : locked // ignore: cast_nullable_to_non_nullable
+                  as bool,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$UpdateUserRequestImpl implements _UpdateUserRequest {
+  const _$UpdateUserRequestImpl({
+    required this.name,
+    required this.email,
+    required this.role,
+    required this.enable,
+    required this.locked,
+  });
+
+  factory _$UpdateUserRequestImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UpdateUserRequestImplFromJson(json);
+
+  @override
+  final String name;
+  @override
+  final String email;
+  @override
+  final Role role;
+  @override
+  final bool enable;
+  @override
+  final bool locked;
+
+  @override
+  String toString() {
+    return 'UpdateUserRequest(name: $name, email: $email, role: $role, enable: $enable, locked: $locked)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UpdateUserRequestImpl &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.role, role) || other.role == role) &&
+            (identical(other.enable, enable) || other.enable == enable) &&
+            (identical(other.locked, locked) || other.locked == locked));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, name, email, role, enable, locked);
+
+  /// Create a copy of UpdateUserRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UpdateUserRequestImplCopyWith<_$UpdateUserRequestImpl> get copyWith =>
+      __$$UpdateUserRequestImplCopyWithImpl<_$UpdateUserRequestImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$UpdateUserRequestImplToJson(this);
+  }
+}
+
+abstract class _UpdateUserRequest implements UpdateUserRequest {
+  const factory _UpdateUserRequest({
+    required final String name,
+    required final String email,
+    required final Role role,
+    required final bool enable,
+    required final bool locked,
+  }) = _$UpdateUserRequestImpl;
+
+  factory _UpdateUserRequest.fromJson(Map<String, dynamic> json) =
+      _$UpdateUserRequestImpl.fromJson;
+
+  @override
+  String get name;
+  @override
+  String get email;
+  @override
+  Role get role;
+  @override
+  bool get enable;
+  @override
+  bool get locked;
+
+  /// Create a copy of UpdateUserRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$UpdateUserRequestImplCopyWith<_$UpdateUserRequestImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+UserFilter _$UserFilterFromJson(Map<String, dynamic> json) {
+  return _UserFilter.fromJson(json);
+}
+
+/// @nodoc
+mixin _$UserFilter {
+  Role? get role => throw _privateConstructorUsedError;
+  String? get query => throw _privateConstructorUsedError;
+  EnumStatus? get status => throw _privateConstructorUsedError;
+  int get page => throw _privateConstructorUsedError;
+  int get size => throw _privateConstructorUsedError;
+
+  /// Serializes this UserFilter to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of UserFilter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $UserFilterCopyWith<UserFilter> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $UserFilterCopyWith<$Res> {
+  factory $UserFilterCopyWith(
+    UserFilter value,
+    $Res Function(UserFilter) then,
+  ) = _$UserFilterCopyWithImpl<$Res, UserFilter>;
+  @useResult
+  $Res call({
+    Role? role,
+    String? query,
+    EnumStatus? status,
+    int page,
+    int size,
+  });
+}
+
+/// @nodoc
+class _$UserFilterCopyWithImpl<$Res, $Val extends UserFilter>
+    implements $UserFilterCopyWith<$Res> {
+  _$UserFilterCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of UserFilter
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? role = freezed,
+    Object? query = freezed,
+    Object? status = freezed,
+    Object? page = null,
+    Object? size = null,
+  }) {
+    return _then(
+      _value.copyWith(
+            role: freezed == role
+                ? _value.role
+                : role // ignore: cast_nullable_to_non_nullable
+                      as Role?,
+            query: freezed == query
+                ? _value.query
+                : query // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            status: freezed == status
+                ? _value.status
+                : status // ignore: cast_nullable_to_non_nullable
+                      as EnumStatus?,
+            page: null == page
+                ? _value.page
+                : page // ignore: cast_nullable_to_non_nullable
+                      as int,
+            size: null == size
+                ? _value.size
+                : size // ignore: cast_nullable_to_non_nullable
+                      as int,
+          )
+          as $Val,
+    );
+  }
+}
+
+/// @nodoc
+abstract class _$$UserFilterImplCopyWith<$Res>
+    implements $UserFilterCopyWith<$Res> {
+  factory _$$UserFilterImplCopyWith(
+    _$UserFilterImpl value,
+    $Res Function(_$UserFilterImpl) then,
+  ) = __$$UserFilterImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({
+    Role? role,
+    String? query,
+    EnumStatus? status,
+    int page,
+    int size,
+  });
+}
+
+/// @nodoc
+class __$$UserFilterImplCopyWithImpl<$Res>
+    extends _$UserFilterCopyWithImpl<$Res, _$UserFilterImpl>
+    implements _$$UserFilterImplCopyWith<$Res> {
+  __$$UserFilterImplCopyWithImpl(
+    _$UserFilterImpl _value,
+    $Res Function(_$UserFilterImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of UserFilter
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? role = freezed,
+    Object? query = freezed,
+    Object? status = freezed,
+    Object? page = null,
+    Object? size = null,
+  }) {
+    return _then(
+      _$UserFilterImpl(
+        role: freezed == role
+            ? _value.role
+            : role // ignore: cast_nullable_to_non_nullable
+                  as Role?,
+        query: freezed == query
+            ? _value.query
+            : query // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        status: freezed == status
+            ? _value.status
+            : status // ignore: cast_nullable_to_non_nullable
+                  as EnumStatus?,
+        page: null == page
+            ? _value.page
+            : page // ignore: cast_nullable_to_non_nullable
+                  as int,
+        size: null == size
+            ? _value.size
+            : size // ignore: cast_nullable_to_non_nullable
+                  as int,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$UserFilterImpl implements _UserFilter {
+  const _$UserFilterImpl({
+    this.role,
+    this.query,
+    this.status,
+    this.page = 0,
+    this.size = 10,
+  });
+
+  factory _$UserFilterImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UserFilterImplFromJson(json);
+
+  @override
+  final Role? role;
+  @override
+  final String? query;
+  @override
+  final EnumStatus? status;
+  @override
+  @JsonKey()
+  final int page;
+  @override
+  @JsonKey()
+  final int size;
+
+  @override
+  String toString() {
+    return 'UserFilter(role: $role, query: $query, status: $status, page: $page, size: $size)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UserFilterImpl &&
+            (identical(other.role, role) || other.role == role) &&
+            (identical(other.query, query) || other.query == query) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.page, page) || other.page == page) &&
+            (identical(other.size, size) || other.size == size));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, role, query, status, page, size);
+
+  /// Create a copy of UserFilter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UserFilterImplCopyWith<_$UserFilterImpl> get copyWith =>
+      __$$UserFilterImplCopyWithImpl<_$UserFilterImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$UserFilterImplToJson(this);
+  }
+}
+
+abstract class _UserFilter implements UserFilter {
+  const factory _UserFilter({
+    final Role? role,
+    final String? query,
+    final EnumStatus? status,
+    final int page,
+    final int size,
+  }) = _$UserFilterImpl;
+
+  factory _UserFilter.fromJson(Map<String, dynamic> json) =
+      _$UserFilterImpl.fromJson;
+
+  @override
+  Role? get role;
+  @override
+  String? get query;
+  @override
+  EnumStatus? get status;
+  @override
+  int get page;
+  @override
+  int get size;
+
+  /// Create a copy of UserFilter
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$UserFilterImplCopyWith<_$UserFilterImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$FileRequest {
+  Uint8List? get file => throw _privateConstructorUsedError;
+  String? get fileName => throw _privateConstructorUsedError;
+
+  /// Create a copy of FileRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $FileRequestCopyWith<FileRequest> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $FileRequestCopyWith<$Res> {
+  factory $FileRequestCopyWith(
+    FileRequest value,
+    $Res Function(FileRequest) then,
+  ) = _$FileRequestCopyWithImpl<$Res, FileRequest>;
+  @useResult
+  $Res call({Uint8List? file, String? fileName});
+}
+
+/// @nodoc
+class _$FileRequestCopyWithImpl<$Res, $Val extends FileRequest>
+    implements $FileRequestCopyWith<$Res> {
+  _$FileRequestCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of FileRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? file = freezed, Object? fileName = freezed}) {
+    return _then(
+      _value.copyWith(
+            file: freezed == file
+                ? _value.file
+                : file // ignore: cast_nullable_to_non_nullable
+                      as Uint8List?,
+            fileName: freezed == fileName
+                ? _value.fileName
+                : fileName // ignore: cast_nullable_to_non_nullable
+                      as String?,
+          )
+          as $Val,
+    );
+  }
+}
+
+/// @nodoc
+abstract class _$$FileRequestImplCopyWith<$Res>
+    implements $FileRequestCopyWith<$Res> {
+  factory _$$FileRequestImplCopyWith(
+    _$FileRequestImpl value,
+    $Res Function(_$FileRequestImpl) then,
+  ) = __$$FileRequestImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({Uint8List? file, String? fileName});
+}
+
+/// @nodoc
+class __$$FileRequestImplCopyWithImpl<$Res>
+    extends _$FileRequestCopyWithImpl<$Res, _$FileRequestImpl>
+    implements _$$FileRequestImplCopyWith<$Res> {
+  __$$FileRequestImplCopyWithImpl(
+    _$FileRequestImpl _value,
+    $Res Function(_$FileRequestImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of FileRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? file = freezed, Object? fileName = freezed}) {
+    return _then(
+      _$FileRequestImpl(
+        file: freezed == file
+            ? _value.file
+            : file // ignore: cast_nullable_to_non_nullable
+                  as Uint8List?,
+        fileName: freezed == fileName
+            ? _value.fileName
+            : fileName // ignore: cast_nullable_to_non_nullable
+                  as String?,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+
+class _$FileRequestImpl implements _FileRequest {
+  const _$FileRequestImpl({required this.file, required this.fileName});
+
+  @override
+  final Uint8List? file;
+  @override
+  final String? fileName;
+
+  @override
+  String toString() {
+    return 'FileRequest(file: $file, fileName: $fileName)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$FileRequestImpl &&
+            const DeepCollectionEquality().equals(other.file, file) &&
+            (identical(other.fileName, fileName) ||
+                other.fileName == fileName));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    runtimeType,
+    const DeepCollectionEquality().hash(file),
+    fileName,
+  );
+
+  /// Create a copy of FileRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$FileRequestImplCopyWith<_$FileRequestImpl> get copyWith =>
+      __$$FileRequestImplCopyWithImpl<_$FileRequestImpl>(this, _$identity);
+}
+
+abstract class _FileRequest implements FileRequest {
+  const factory _FileRequest({
+    required final Uint8List? file,
+    required final String? fileName,
+  }) = _$FileRequestImpl;
+
+  @override
+  Uint8List? get file;
+  @override
+  String? get fileName;
+
+  /// Create a copy of FileRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$FileRequestImplCopyWith<_$FileRequestImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$FilePayload<T> {
+  T get request => throw _privateConstructorUsedError;
+  FileRequest get file => throw _privateConstructorUsedError;
+
+  /// Create a copy of FilePayload
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $FilePayloadCopyWith<T, FilePayload<T>> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $FilePayloadCopyWith<T, $Res> {
+  factory $FilePayloadCopyWith(
+    FilePayload<T> value,
+    $Res Function(FilePayload<T>) then,
+  ) = _$FilePayloadCopyWithImpl<T, $Res, FilePayload<T>>;
+  @useResult
+  $Res call({T request, FileRequest file});
+
+  $FileRequestCopyWith<$Res> get file;
+}
+
+/// @nodoc
+class _$FilePayloadCopyWithImpl<T, $Res, $Val extends FilePayload<T>>
+    implements $FilePayloadCopyWith<T, $Res> {
+  _$FilePayloadCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of FilePayload
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? request = freezed, Object? file = null}) {
+    return _then(
+      _value.copyWith(
+            request: freezed == request
+                ? _value.request
+                : request // ignore: cast_nullable_to_non_nullable
+                      as T,
+            file: null == file
+                ? _value.file
+                : file // ignore: cast_nullable_to_non_nullable
+                      as FileRequest,
+          )
+          as $Val,
+    );
+  }
+
+  /// Create a copy of FilePayload
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $FileRequestCopyWith<$Res> get file {
+    return $FileRequestCopyWith<$Res>(_value.file, (value) {
+      return _then(_value.copyWith(file: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$FilePayloadImplCopyWith<T, $Res>
+    implements $FilePayloadCopyWith<T, $Res> {
+  factory _$$FilePayloadImplCopyWith(
+    _$FilePayloadImpl<T> value,
+    $Res Function(_$FilePayloadImpl<T>) then,
+  ) = __$$FilePayloadImplCopyWithImpl<T, $Res>;
+  @override
+  @useResult
+  $Res call({T request, FileRequest file});
+
+  @override
+  $FileRequestCopyWith<$Res> get file;
+}
+
+/// @nodoc
+class __$$FilePayloadImplCopyWithImpl<T, $Res>
+    extends _$FilePayloadCopyWithImpl<T, $Res, _$FilePayloadImpl<T>>
+    implements _$$FilePayloadImplCopyWith<T, $Res> {
+  __$$FilePayloadImplCopyWithImpl(
+    _$FilePayloadImpl<T> _value,
+    $Res Function(_$FilePayloadImpl<T>) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of FilePayload
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? request = freezed, Object? file = null}) {
+    return _then(
+      _$FilePayloadImpl<T>(
+        request: freezed == request
+            ? _value.request
+            : request // ignore: cast_nullable_to_non_nullable
+                  as T,
+        file: null == file
+            ? _value.file
+            : file // ignore: cast_nullable_to_non_nullable
+                  as FileRequest,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+
+class _$FilePayloadImpl<T> implements _FilePayload<T> {
+  const _$FilePayloadImpl({required this.request, required this.file});
+
+  @override
+  final T request;
+  @override
+  final FileRequest file;
+
+  @override
+  String toString() {
+    return 'FilePayload<$T>(request: $request, file: $file)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$FilePayloadImpl<T> &&
+            const DeepCollectionEquality().equals(other.request, request) &&
+            (identical(other.file, file) || other.file == file));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    runtimeType,
+    const DeepCollectionEquality().hash(request),
+    file,
+  );
+
+  /// Create a copy of FilePayload
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$FilePayloadImplCopyWith<T, _$FilePayloadImpl<T>> get copyWith =>
+      __$$FilePayloadImplCopyWithImpl<T, _$FilePayloadImpl<T>>(
+        this,
+        _$identity,
+      );
+}
+
+abstract class _FilePayload<T> implements FilePayload<T> {
+  const factory _FilePayload({
+    required final T request,
+    required final FileRequest file,
+  }) = _$FilePayloadImpl<T>;
+
+  @override
+  T get request;
+  @override
+  FileRequest get file;
+
+  /// Create a copy of FilePayload
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$FilePayloadImplCopyWith<T, _$FilePayloadImpl<T>> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$FilePayloadUpdate<T> {
+  int get id => throw _privateConstructorUsedError;
+  T get request => throw _privateConstructorUsedError;
+  FileRequest get file => throw _privateConstructorUsedError;
+
+  /// Create a copy of FilePayloadUpdate
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $FilePayloadUpdateCopyWith<T, FilePayloadUpdate<T>> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $FilePayloadUpdateCopyWith<T, $Res> {
+  factory $FilePayloadUpdateCopyWith(
+    FilePayloadUpdate<T> value,
+    $Res Function(FilePayloadUpdate<T>) then,
+  ) = _$FilePayloadUpdateCopyWithImpl<T, $Res, FilePayloadUpdate<T>>;
+  @useResult
+  $Res call({int id, T request, FileRequest file});
+
+  $FileRequestCopyWith<$Res> get file;
+}
+
+/// @nodoc
+class _$FilePayloadUpdateCopyWithImpl<
+  T,
+  $Res,
+  $Val extends FilePayloadUpdate<T>
+>
+    implements $FilePayloadUpdateCopyWith<T, $Res> {
+  _$FilePayloadUpdateCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of FilePayloadUpdate
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? request = freezed,
+    Object? file = null,
+  }) {
+    return _then(
+      _value.copyWith(
+            id: null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                      as int,
+            request: freezed == request
+                ? _value.request
+                : request // ignore: cast_nullable_to_non_nullable
+                      as T,
+            file: null == file
+                ? _value.file
+                : file // ignore: cast_nullable_to_non_nullable
+                      as FileRequest,
+          )
+          as $Val,
+    );
+  }
+
+  /// Create a copy of FilePayloadUpdate
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $FileRequestCopyWith<$Res> get file {
+    return $FileRequestCopyWith<$Res>(_value.file, (value) {
+      return _then(_value.copyWith(file: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$FilePayloadUpdateImplCopyWith<T, $Res>
+    implements $FilePayloadUpdateCopyWith<T, $Res> {
+  factory _$$FilePayloadUpdateImplCopyWith(
+    _$FilePayloadUpdateImpl<T> value,
+    $Res Function(_$FilePayloadUpdateImpl<T>) then,
+  ) = __$$FilePayloadUpdateImplCopyWithImpl<T, $Res>;
+  @override
+  @useResult
+  $Res call({int id, T request, FileRequest file});
+
+  @override
+  $FileRequestCopyWith<$Res> get file;
+}
+
+/// @nodoc
+class __$$FilePayloadUpdateImplCopyWithImpl<T, $Res>
+    extends _$FilePayloadUpdateCopyWithImpl<T, $Res, _$FilePayloadUpdateImpl<T>>
+    implements _$$FilePayloadUpdateImplCopyWith<T, $Res> {
+  __$$FilePayloadUpdateImplCopyWithImpl(
+    _$FilePayloadUpdateImpl<T> _value,
+    $Res Function(_$FilePayloadUpdateImpl<T>) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of FilePayloadUpdate
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? request = freezed,
+    Object? file = null,
+  }) {
+    return _then(
+      _$FilePayloadUpdateImpl<T>(
+        id: null == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as int,
+        request: freezed == request
+            ? _value.request
+            : request // ignore: cast_nullable_to_non_nullable
+                  as T,
+        file: null == file
+            ? _value.file
+            : file // ignore: cast_nullable_to_non_nullable
+                  as FileRequest,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+
+class _$FilePayloadUpdateImpl<T> implements _FilePayloadUpdate<T> {
+  const _$FilePayloadUpdateImpl({
+    required this.id,
+    required this.request,
+    required this.file,
+  });
+
+  @override
+  final int id;
+  @override
+  final T request;
+  @override
+  final FileRequest file;
+
+  @override
+  String toString() {
+    return 'FilePayloadUpdate<$T>(id: $id, request: $request, file: $file)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$FilePayloadUpdateImpl<T> &&
+            (identical(other.id, id) || other.id == id) &&
+            const DeepCollectionEquality().equals(other.request, request) &&
+            (identical(other.file, file) || other.file == file));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    runtimeType,
+    id,
+    const DeepCollectionEquality().hash(request),
+    file,
+  );
+
+  /// Create a copy of FilePayloadUpdate
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$FilePayloadUpdateImplCopyWith<T, _$FilePayloadUpdateImpl<T>>
+  get copyWith =>
+      __$$FilePayloadUpdateImplCopyWithImpl<T, _$FilePayloadUpdateImpl<T>>(
+        this,
+        _$identity,
+      );
+}
+
+abstract class _FilePayloadUpdate<T> implements FilePayloadUpdate<T> {
+  const factory _FilePayloadUpdate({
+    required final int id,
+    required final T request,
+    required final FileRequest file,
+  }) = _$FilePayloadUpdateImpl<T>;
+
+  @override
+  int get id;
+  @override
+  T get request;
+  @override
+  FileRequest get file;
+
+  /// Create a copy of FilePayloadUpdate
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$FilePayloadUpdateImplCopyWith<T, _$FilePayloadUpdateImpl<T>>
+  get copyWith => throw _privateConstructorUsedError;
+}

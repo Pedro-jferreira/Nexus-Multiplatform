@@ -25,8 +25,11 @@ mixin _$UserResponse {
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   Role get role => throw _privateConstructorUsedError;
+  AuthProvider get provider => throw _privateConstructorUsedError;
   bool get enabled => throw _privateConstructorUsedError;
   bool get locked => throw _privateConstructorUsedError;
+  String? get profileImageUrl => throw _privateConstructorUsedError;
+  EnumStatus get status => throw _privateConstructorUsedError;
 
   /// Serializes this UserResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -50,8 +53,11 @@ abstract class $UserResponseCopyWith<$Res> {
     String name,
     String email,
     Role role,
+    AuthProvider provider,
     bool enabled,
     bool locked,
+    String? profileImageUrl,
+    EnumStatus status,
   });
 }
 
@@ -74,8 +80,11 @@ class _$UserResponseCopyWithImpl<$Res, $Val extends UserResponse>
     Object? name = null,
     Object? email = null,
     Object? role = null,
+    Object? provider = null,
     Object? enabled = null,
     Object? locked = null,
+    Object? profileImageUrl = freezed,
+    Object? status = null,
   }) {
     return _then(
       _value.copyWith(
@@ -95,6 +104,10 @@ class _$UserResponseCopyWithImpl<$Res, $Val extends UserResponse>
                 ? _value.role
                 : role // ignore: cast_nullable_to_non_nullable
                       as Role,
+            provider: null == provider
+                ? _value.provider
+                : provider // ignore: cast_nullable_to_non_nullable
+                      as AuthProvider,
             enabled: null == enabled
                 ? _value.enabled
                 : enabled // ignore: cast_nullable_to_non_nullable
@@ -103,6 +116,14 @@ class _$UserResponseCopyWithImpl<$Res, $Val extends UserResponse>
                 ? _value.locked
                 : locked // ignore: cast_nullable_to_non_nullable
                       as bool,
+            profileImageUrl: freezed == profileImageUrl
+                ? _value.profileImageUrl
+                : profileImageUrl // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            status: null == status
+                ? _value.status
+                : status // ignore: cast_nullable_to_non_nullable
+                      as EnumStatus,
           )
           as $Val,
     );
@@ -123,8 +144,11 @@ abstract class _$$UserResponseImplCopyWith<$Res>
     String name,
     String email,
     Role role,
+    AuthProvider provider,
     bool enabled,
     bool locked,
+    String? profileImageUrl,
+    EnumStatus status,
   });
 }
 
@@ -146,8 +170,11 @@ class __$$UserResponseImplCopyWithImpl<$Res>
     Object? name = null,
     Object? email = null,
     Object? role = null,
+    Object? provider = null,
     Object? enabled = null,
     Object? locked = null,
+    Object? profileImageUrl = freezed,
+    Object? status = null,
   }) {
     return _then(
       _$UserResponseImpl(
@@ -167,6 +194,10 @@ class __$$UserResponseImplCopyWithImpl<$Res>
             ? _value.role
             : role // ignore: cast_nullable_to_non_nullable
                   as Role,
+        provider: null == provider
+            ? _value.provider
+            : provider // ignore: cast_nullable_to_non_nullable
+                  as AuthProvider,
         enabled: null == enabled
             ? _value.enabled
             : enabled // ignore: cast_nullable_to_non_nullable
@@ -175,6 +206,14 @@ class __$$UserResponseImplCopyWithImpl<$Res>
             ? _value.locked
             : locked // ignore: cast_nullable_to_non_nullable
                   as bool,
+        profileImageUrl: freezed == profileImageUrl
+            ? _value.profileImageUrl
+            : profileImageUrl // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        status: null == status
+            ? _value.status
+            : status // ignore: cast_nullable_to_non_nullable
+                  as EnumStatus,
       ),
     );
   }
@@ -188,8 +227,11 @@ class _$UserResponseImpl implements _UserResponse {
     required this.name,
     required this.email,
     required this.role,
+    required this.provider,
     required this.enabled,
     required this.locked,
+    required this.profileImageUrl,
+    required this.status,
   });
 
   factory _$UserResponseImpl.fromJson(Map<String, dynamic> json) =>
@@ -204,13 +246,19 @@ class _$UserResponseImpl implements _UserResponse {
   @override
   final Role role;
   @override
+  final AuthProvider provider;
+  @override
   final bool enabled;
   @override
   final bool locked;
+  @override
+  final String? profileImageUrl;
+  @override
+  final EnumStatus status;
 
   @override
   String toString() {
-    return 'UserResponse(id: $id, name: $name, email: $email, role: $role, enabled: $enabled, locked: $locked)';
+    return 'UserResponse(id: $id, name: $name, email: $email, role: $role, provider: $provider, enabled: $enabled, locked: $locked, profileImageUrl: $profileImageUrl, status: $status)';
   }
 
   @override
@@ -222,14 +270,29 @@ class _$UserResponseImpl implements _UserResponse {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.role, role) || other.role == role) &&
+            (identical(other.provider, provider) ||
+                other.provider == provider) &&
             (identical(other.enabled, enabled) || other.enabled == enabled) &&
-            (identical(other.locked, locked) || other.locked == locked));
+            (identical(other.locked, locked) || other.locked == locked) &&
+            (identical(other.profileImageUrl, profileImageUrl) ||
+                other.profileImageUrl == profileImageUrl) &&
+            (identical(other.status, status) || other.status == status));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, name, email, role, enabled, locked);
+  int get hashCode => Object.hash(
+    runtimeType,
+    id,
+    name,
+    email,
+    role,
+    provider,
+    enabled,
+    locked,
+    profileImageUrl,
+    status,
+  );
 
   /// Create a copy of UserResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -251,8 +314,11 @@ abstract class _UserResponse implements UserResponse {
     required final String name,
     required final String email,
     required final Role role,
+    required final AuthProvider provider,
     required final bool enabled,
     required final bool locked,
+    required final String? profileImageUrl,
+    required final EnumStatus status,
   }) = _$UserResponseImpl;
 
   factory _UserResponse.fromJson(Map<String, dynamic> json) =
@@ -267,9 +333,15 @@ abstract class _UserResponse implements UserResponse {
   @override
   Role get role;
   @override
+  AuthProvider get provider;
+  @override
   bool get enabled;
   @override
   bool get locked;
+  @override
+  String? get profileImageUrl;
+  @override
+  EnumStatus get status;
 
   /// Create a copy of UserResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -288,6 +360,7 @@ mixin _$AuthTokens {
   String get accessToken => throw _privateConstructorUsedError;
   String get refreshToken => throw _privateConstructorUsedError;
   UserResponse get user => throw _privateConstructorUsedError;
+  bool get mustChangePassword => throw _privateConstructorUsedError;
 
   /// Serializes this AuthTokens to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -306,7 +379,12 @@ abstract class $AuthTokensCopyWith<$Res> {
     $Res Function(AuthTokens) then,
   ) = _$AuthTokensCopyWithImpl<$Res, AuthTokens>;
   @useResult
-  $Res call({String accessToken, String refreshToken, UserResponse user});
+  $Res call({
+    String accessToken,
+    String refreshToken,
+    UserResponse user,
+    bool mustChangePassword,
+  });
 
   $UserResponseCopyWith<$Res> get user;
 }
@@ -329,6 +407,7 @@ class _$AuthTokensCopyWithImpl<$Res, $Val extends AuthTokens>
     Object? accessToken = null,
     Object? refreshToken = null,
     Object? user = null,
+    Object? mustChangePassword = null,
   }) {
     return _then(
       _value.copyWith(
@@ -344,6 +423,10 @@ class _$AuthTokensCopyWithImpl<$Res, $Val extends AuthTokens>
                 ? _value.user
                 : user // ignore: cast_nullable_to_non_nullable
                       as UserResponse,
+            mustChangePassword: null == mustChangePassword
+                ? _value.mustChangePassword
+                : mustChangePassword // ignore: cast_nullable_to_non_nullable
+                      as bool,
           )
           as $Val,
     );
@@ -369,7 +452,12 @@ abstract class _$$AuthTokensImplCopyWith<$Res>
   ) = __$$AuthTokensImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String accessToken, String refreshToken, UserResponse user});
+  $Res call({
+    String accessToken,
+    String refreshToken,
+    UserResponse user,
+    bool mustChangePassword,
+  });
 
   @override
   $UserResponseCopyWith<$Res> get user;
@@ -392,6 +480,7 @@ class __$$AuthTokensImplCopyWithImpl<$Res>
     Object? accessToken = null,
     Object? refreshToken = null,
     Object? user = null,
+    Object? mustChangePassword = null,
   }) {
     return _then(
       _$AuthTokensImpl(
@@ -407,6 +496,10 @@ class __$$AuthTokensImplCopyWithImpl<$Res>
             ? _value.user
             : user // ignore: cast_nullable_to_non_nullable
                   as UserResponse,
+        mustChangePassword: null == mustChangePassword
+            ? _value.mustChangePassword
+            : mustChangePassword // ignore: cast_nullable_to_non_nullable
+                  as bool,
       ),
     );
   }
@@ -419,6 +512,7 @@ class _$AuthTokensImpl implements _AuthTokens {
     required this.accessToken,
     required this.refreshToken,
     required this.user,
+    required this.mustChangePassword,
   });
 
   factory _$AuthTokensImpl.fromJson(Map<String, dynamic> json) =>
@@ -430,10 +524,12 @@ class _$AuthTokensImpl implements _AuthTokens {
   final String refreshToken;
   @override
   final UserResponse user;
+  @override
+  final bool mustChangePassword;
 
   @override
   String toString() {
-    return 'AuthTokens(accessToken: $accessToken, refreshToken: $refreshToken, user: $user)';
+    return 'AuthTokens(accessToken: $accessToken, refreshToken: $refreshToken, user: $user, mustChangePassword: $mustChangePassword)';
   }
 
   @override
@@ -445,12 +541,20 @@ class _$AuthTokensImpl implements _AuthTokens {
                 other.accessToken == accessToken) &&
             (identical(other.refreshToken, refreshToken) ||
                 other.refreshToken == refreshToken) &&
-            (identical(other.user, user) || other.user == user));
+            (identical(other.user, user) || other.user == user) &&
+            (identical(other.mustChangePassword, mustChangePassword) ||
+                other.mustChangePassword == mustChangePassword));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, accessToken, refreshToken, user);
+  int get hashCode => Object.hash(
+    runtimeType,
+    accessToken,
+    refreshToken,
+    user,
+    mustChangePassword,
+  );
 
   /// Create a copy of AuthTokens
   /// with the given fields replaced by the non-null parameter values.
@@ -471,6 +575,7 @@ abstract class _AuthTokens implements AuthTokens {
     required final String accessToken,
     required final String refreshToken,
     required final UserResponse user,
+    required final bool mustChangePassword,
   }) = _$AuthTokensImpl;
 
   factory _AuthTokens.fromJson(Map<String, dynamic> json) =
@@ -482,6 +587,8 @@ abstract class _AuthTokens implements AuthTokens {
   String get refreshToken;
   @override
   UserResponse get user;
+  @override
+  bool get mustChangePassword;
 
   /// Create a copy of AuthTokens
   /// with the given fields replaced by the non-null parameter values.
