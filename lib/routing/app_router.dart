@@ -28,11 +28,13 @@ GoRouter createRouter(AuthRepository authRepository) => GoRouter(
   redirect: (BuildContext context, GoRouterState state) {
     final isLoggedIn = authRepository.currentUser != null;
     final isLoggingIn = state.uri.toString().startsWith(LoginRoute().location);
+
     if(authRepository.isTemporaryPassword == true){
       if (kIsWeb) {
         return web.ProfileRoute().location;
       } else {
-        return '/'; // chamar rota alterar senha que está no profile, colocar um snackbar para
+        return ForgotPasswordRouter().location;
+                    // chamar rota alterar senha que está no profile, colocar um snackbar para
                     // avisar que só sairá desta tela se trocar senha (isTemporaryPassword == false)
       }
     }
