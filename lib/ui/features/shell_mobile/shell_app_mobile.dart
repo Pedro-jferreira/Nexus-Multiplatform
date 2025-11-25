@@ -1,5 +1,5 @@
-import 'package:Nexus/routing/app_routes.dart';
 import 'package:Nexus/ui/core/layout/custom_bottom_navigation_bar.dart';
+import 'package:Nexus/ui/core/theme/theme_mobile.dart';
 import 'package:flutter/material.dart';
 
 class ShellAppMobile extends StatefulWidget{
@@ -28,11 +28,9 @@ class _ShellAppMobileState extends State<ShellAppMobile> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
 
     return Scaffold(
-      appBar: AppBar(backgroundColor: colorScheme.surface, title: Text('aaa'),),
+      appBar: AppBar(backgroundColor: context.colors.primaryMain, title: Text('aaa', style: TextStyle(color: context.colors.primarySubtle),),),
       body: IndexedStack(
         index: _selectedIndex,
         children: _pages,

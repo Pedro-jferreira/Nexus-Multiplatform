@@ -15,7 +15,7 @@ class EmergencyContactsRepositoryImpl implements EmergencyContactsRepository{
   @override
   Future<PaginatedResponse<EmergencyContactsResponse>> getEmergencyContacts({int page = 0, int size = 5,}) async {
     try{
-      final data = await _emergencyService.getEmergencyContacts();
+      final data = await _emergencyService.list();
       var response = PaginatedResponse.fromJson(data, (json) => EmergencyContactsResponse.fromJson(json as Map<String, dynamic>));
       print('dentro do repository $response');
       return response;
@@ -72,7 +72,7 @@ class EmergencyContactsRepositoryImpl implements EmergencyContactsRepository{
   }
 
   @override
-  AsyncResult<EmergencyContactResponse> update(int id, UpdateEmergencyContactRequest model) {
+  AsyncResult<EmergencyContactResponse> update({required int id, required UpdateEmergencyContactRequest model, required FileRequest file}) {
     // TODO: implement update
     throw UnimplementedError();
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:Nexus/ui/core/theme/theme_mobile.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget{
   final int currentIndex;
@@ -20,9 +21,9 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
 
     final items = const <BottomNavigationBarItem>[
       BottomNavigationBarItem(
-        icon: Icon(Icons.add_alert_outlined),
+        icon: Icon(Icons.notifications_outlined),
         label: "Alertas",
-        activeIcon: Icon(Icons.add_alert_rounded)
+        activeIcon: Icon(Icons.notifications_rounded)
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.chat_bubble_outline),
@@ -30,6 +31,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         activeIcon: Icon(Icons.chat_bubble_rounded)
       ),
       BottomNavigationBarItem(
+
         icon: Icon(Icons.person_outline),
         label: "Contatos",
         activeIcon: Icon(Icons.person_rounded)
@@ -39,10 +41,10 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
     return BottomNavigationBar(
         items: items,
         currentIndex: widget.currentIndex,
-        fixedColor: colorScheme.surface,
+        fixedColor: context.colors.primaryEmphasis,
         onTap: widget.onTap,
-        type: BottomNavigationBarType.shifting,
-        backgroundColor: colorScheme.primaryContainer,
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: context.colors.primaryMain,
         iconSize: 24,
     );
   }

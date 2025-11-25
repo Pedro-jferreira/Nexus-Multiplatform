@@ -46,8 +46,9 @@ class EmergencyContactsServiceImpl implements EmergencyContactsService{
   }
 
   @override
-  Future<Map<String, dynamic>> update(int id, Map<String, dynamic> data) {
+  Future<Map<String, dynamic>> update({required int id, required Map<String, dynamic> data, required FileRequest file}) {
     // TODO: implement update
     throw UnimplementedError();
   }
+
 }
