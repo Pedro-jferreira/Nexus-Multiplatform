@@ -37,7 +37,7 @@ class _ShellAppState extends State<ShellApp> {
               children: [
                 CustomNavigationDrawer(
                   profileUrl: user?.profileImageUrl,
-                  onLogout: _repository.logout,
+                  onLogout:()=> _repository.logout(),
                   onItemSelected: widget.child.goBranch,
                   currentIndex: widget.child.currentIndex,
                 ),
