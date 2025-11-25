@@ -1,3 +1,5 @@
+import 'package:Nexus/data/repositories/impl/user_repository_impl.dart';
+import 'package:Nexus/data/repositories/user_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:go_router/go_router.dart';
 import 'package:Nexus/data/repositories/auth_repository.dart';
@@ -69,6 +71,9 @@ List<SingleChildWidget> get _servicesData {
     Provider<EmergencyContactsService>(
       create: (context) => EmergencyContactsServiceImpl(dio: context.read()),
     ),
+    Provider<UsersServices>(
+      create: (context) => UsersServiceImpl(dio: context.read()),
+    ),
   ];
 }
 
@@ -78,6 +83,10 @@ List<SingleChildWidget> get _repositoriesData {
     Provider<EmergencyContactsRepository>(
       create: (context) =>
           EmergencyContactsRepositoryImpl(service: context.read()),
+    ),
+    Provider<UserRepository>(
+      create: (context) =>
+          UserRepositoryImpl(service: context.read()),
     ),
   ];
 }

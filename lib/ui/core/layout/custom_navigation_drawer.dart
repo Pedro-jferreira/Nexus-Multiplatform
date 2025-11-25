@@ -1,3 +1,4 @@
+import 'package:Nexus/ui/core/widgets/custom_circle_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:Nexus/data/repositories/auth_repository.dart';
 import 'package:provider/provider.dart';
@@ -29,6 +30,7 @@ class CustomNavigationDrawer extends StatelessWidget {
       ),
       _DrawerItem(title: 'Perfil', icon: Icons.person, subtitle: 'Admin'),
     ];
+     final repository = context.watch<AuthRepository>();
 
     return Drawer(
       backgroundColor: colorScheme.surfaceContainerLowest,
@@ -39,9 +41,7 @@ class CustomNavigationDrawer extends StatelessWidget {
           builder: (context, constraints) {
             return SingleChildScrollView(
               child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight: constraints.maxHeight,
-                ),
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
                 child: IntrinsicHeight(
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
@@ -79,7 +79,9 @@ class CustomNavigationDrawer extends StatelessWidget {
                           padding: const EdgeInsets.only(top: 8, bottom: 16),
                           child: InkWell(
                             borderRadius: BorderRadius.circular(100),
-                            hoverColor: colorScheme.secondary.withValues(alpha: 0.15),
+                            hoverColor: colorScheme.secondary.withValues(
+                              alpha: 0.15,
+                            ),
                             onTap: () => onItemSelected(items.length - 1),
                             child: Container(
                               decoration: BoxDecoration(
@@ -93,15 +95,15 @@ class CustomNavigationDrawer extends StatelessWidget {
                                 spacing: 5,
                                 children: [
                                   SizedBox(
-                                    width: 47,
-                                    height: 47,
-                                    child: CircleAvatar(
-                                      backgroundColor: colorScheme
-                                          .primaryContainer
-                                          .withValues(alpha: 0.6),
-                                      child: const Icon(Icons.person, size: 20),
-                                    ),
-                                  ),
+                                        width: 47,
+                                        height: 47,
+                                        child: CustomCircleAvatar(
+                                          iconData: Icons.person,
+                                          imageUrl: repository
+                                              .currentUser
+                                              ?.profileImageUrl,
+                                        ),
+                                      ),
                                   Column(
                                     children: [
                                       Text(
@@ -111,8 +113,9 @@ class CustomNavigationDrawer extends StatelessWidget {
                                               color:
                                                   currentIndex ==
                                                       items.length - 1
-                                                  ? colorScheme.onSecondaryContainer
-                                                  : colorScheme.onSurface
+                                                  ? colorScheme
+                                                        .onSecondaryContainer
+                                                  : colorScheme.onSurface,
                                             ),
                                       ),
                                       if (items.last.subtitle != null)
@@ -123,9 +126,9 @@ class CustomNavigationDrawer extends StatelessWidget {
                                                 color:
                                                     currentIndex ==
                                                         items.length - 1
-                                                    ? colorScheme
-                                                          .onSecondary
-                                                    : colorScheme.onSurfaceVariant,
+                                                    ? colorScheme.onSecondary
+                                                    : colorScheme
+                                                          .onSurfaceVariant,
                                                 fontWeight: FontWeight.bold,
                                               ),
                                         ),
@@ -135,8 +138,6 @@ class CustomNavigationDrawer extends StatelessWidget {
                                   FilledButton.icon(
                                     icon: const Icon(Icons.logout, size: 24),
                                     onPressed: () async {
-                                      final repository = context
-                                          .read<AuthRepository>();
                                       await repository.logout();
                                     },
                                     label: Text('Sair'),
@@ -165,7 +166,6 @@ class CustomNavigationDrawer extends StatelessWidget {
     );
   }
 }
-
 
 class _DrawerTile extends StatelessWidget {
   final _DrawerItem item;
@@ -205,36 +205,31 @@ class _DrawerTile extends StatelessWidget {
         hoverColor: colorScheme.secondary.withValues(alpha: 0.15),
         leading: AnimatedSwitcher(
           duration: const Duration(milliseconds: 250),
-          child: Icon(
-            item.icon,
-            key: ValueKey(selected),
-            color: iconColor,
-          ),
+          child: Icon(item.icon, key: ValueKey(selected), color: iconColor),
         ),
 
         title: AnimatedDefaultTextStyle(
           duration: const Duration(milliseconds: 200),
-          style: Theme.of(context).textTheme.labelLarge!.copyWith(
-            color: textColor,
-          ),
+          style: Theme.of(
+            context,
+          ).textTheme.labelLarge!.copyWith(color: textColor),
           child: Text(item.title),
         ),
 
         subtitle: item.subtitle == null
             ? null
             : AnimatedDefaultTextStyle(
-          duration: const Duration(milliseconds: 200),
-          style: Theme.of(context).textTheme.bodySmall!.copyWith(
-            color: textColor,
-            fontWeight: FontWeight.bold,
-          ),
-          child: Text(item.subtitle!),
-        ),
+                duration: const Duration(milliseconds: 200),
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  color: textColor,
+                  fontWeight: FontWeight.bold,
+                ),
+                child: Text(item.subtitle!),
+              ),
       ),
     );
   }
 }
-
 
 class _DrawerItem {
   final String title;
