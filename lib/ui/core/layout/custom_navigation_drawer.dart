@@ -6,11 +6,13 @@ import 'package:provider/provider.dart';
 class CustomNavigationDrawer extends StatelessWidget {
   final int currentIndex;
   final ValueChanged<int> onItemSelected;
+  final  void Function()? onLogout;
+  final String? profileUrl;
 
   const CustomNavigationDrawer({
     super.key,
     required this.currentIndex,
-    required this.onItemSelected,
+    required this.onItemSelected, this.onLogout, this.profileUrl,
   });
 
   @override
@@ -30,7 +32,6 @@ class CustomNavigationDrawer extends StatelessWidget {
       ),
       _DrawerItem(title: 'Perfil', icon: Icons.person, subtitle: 'Admin'),
     ];
-     final repository = context.watch<AuthRepository>();
 
     return Drawer(
       backgroundColor: colorScheme.surfaceContainerLowest,
@@ -99,9 +100,7 @@ class CustomNavigationDrawer extends StatelessWidget {
                                         height: 47,
                                         child: CustomCircleAvatar(
                                           iconData: Icons.person,
-                                          imageUrl: repository
-                                              .currentUser
-                                              ?.profileImageUrl,
+                                          imageUrl: profileUrl,
                                         ),
                                       ),
                                   Column(
@@ -137,9 +136,7 @@ class CustomNavigationDrawer extends StatelessWidget {
                                   Spacer(),
                                   FilledButton.icon(
                                     icon: const Icon(Icons.logout, size: 24),
-                                    onPressed: () async {
-                                      await repository.logout();
-                                    },
+                                    onPressed: onLogout,
                                     label: Text('Sair'),
                                     style: FilledButton.styleFrom(
                                       padding: EdgeInsets.all(16),
