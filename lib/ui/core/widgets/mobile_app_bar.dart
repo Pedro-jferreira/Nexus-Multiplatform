@@ -1,23 +1,40 @@
+import 'package:Nexus/data/repositories/auth_repository.dart';
 import 'package:Nexus/ui/core/widgets/custom_circle_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:Nexus/ui/core/theme/theme_mobile.dart';
+import 'package:provider/provider.dart';
 
-class ShellMobileAppBar extends StatefulWidget implements PreferredSizeWidget {
-  const ShellMobileAppBar({super.key});
+class MobileAppBar extends StatefulWidget implements PreferredSizeWidget {
+  const MobileAppBar({super.key});
 
   @override
-  State<ShellMobileAppBar> createState() => _ShellMobileAppBarState();
+  State<MobileAppBar> createState() => _MobileAppBarState();
 
   @override
   Size get preferredSize => const Size.fromHeight(74);
 }
 
-class _ShellMobileAppBarState extends State<ShellMobileAppBar> {
+class _MobileAppBarState extends State<MobileAppBar> {
+  String? imgUrl;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final repository = context.read<AuthRepository>();
+      final currentUser = repository.currentUser;
+
+      setState(() {
+        imgUrl = currentUser?.profileImageUrl;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: context.colors.primaryMain,
-      leadingWidth: 134,
+      leadingWidth: 134, // 114 de tamanho mais 20 de espaçamento
       leading: Padding(
         padding: const EdgeInsets.only(left: 50, top: 11),
         child: SizedBox(
@@ -33,7 +50,8 @@ class _ShellMobileAppBarState extends State<ShellMobileAppBar> {
         Padding(
           padding: const EdgeInsets.only(right: 50, top: 11),
           child: CustomCircleAvatar(
-            iconData: Icons.person,
+            iconData: Icons.person_rounded,
+            imageUrl: imgUrl,
             height: 44,
             width: 44,
           ),
