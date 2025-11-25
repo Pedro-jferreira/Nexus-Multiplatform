@@ -15,7 +15,10 @@ part 'app_router.g.dart';
 
 part 'routes/auth/login_route.dart';
 
+final GlobalKey<NavigatorState> rootMobileNavigatorKey = GlobalKey<NavigatorState>();
+
 GoRouter createRouter(AuthRepository authRepository) => GoRouter(
+  navigatorKey: !kIsWeb ? rootMobileNavigatorKey : null,
   refreshListenable: authRepository,
   initialLocation: LoginRoute().location,
   routes: [

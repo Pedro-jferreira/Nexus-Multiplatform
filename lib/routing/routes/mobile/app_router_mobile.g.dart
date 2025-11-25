@@ -6,22 +6,47 @@ part of 'app_router_mobile.dart';
 // GoRouterGenerator
 // **************************************************************************
 
-List<RouteBase> get $appRoutes => [
-  $placeholderRouter,
-  $placeholder1Router,
-  $placeholder2Router,
-  $placeholder3Router,
-];
+List<RouteBase> get $appRoutes => [$shellRoutes];
 
-RouteBase get $placeholderRouter =>
-    GoRouteData.$route(path: '/', factory: _$PlaceholderRouter._fromState);
+RouteBase get $shellRoutes => StatefulShellRouteData.$route(
+  factory: $ShellRoutesExtension._fromState,
+  branches: [
+    StatefulShellBranchData.$branch(
+      routes: [
+        GoRouteData.$route(
+          path: '/incidents',
 
-mixin _$PlaceholderRouter on GoRouteData {
-  static PlaceholderRouter _fromState(GoRouterState state) =>
-      const PlaceholderRouter();
+          factory: _$IncidentsRoute._fromState,
+        ),
+      ],
+    ),
+    StatefulShellBranchData.$branch(
+      routes: [
+        GoRouteData.$route(path: '/chat', factory: _$ChatRoute._fromState),
+      ],
+    ),
+    StatefulShellBranchData.$branch(
+      routes: [
+        GoRouteData.$route(
+          path: '/contacts',
+
+          factory: _$ContactsRouter._fromState,
+        ),
+      ],
+    ),
+  ],
+);
+
+extension $ShellRoutesExtension on ShellRoutes {
+  static ShellRoutes _fromState(GoRouterState state) => ShellRoutes();
+}
+
+mixin _$IncidentsRoute on GoRouteData {
+  static IncidentsRoute _fromState(GoRouterState state) =>
+      const IncidentsRoute();
 
   @override
-  String get location => GoRouteData.$location('/');
+  String get location => GoRouteData.$location('/incidents');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -37,15 +62,11 @@ mixin _$PlaceholderRouter on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $placeholder1Router =>
-    GoRouteData.$route(path: '/pl1', factory: _$Placeholder1Router._fromState);
-
-mixin _$Placeholder1Router on GoRouteData {
-  static Placeholder1Router _fromState(GoRouterState state) =>
-      const Placeholder1Router();
+mixin _$ChatRoute on GoRouteData {
+  static ChatRoute _fromState(GoRouterState state) => const ChatRoute();
 
   @override
-  String get location => GoRouteData.$location('/pl1');
+  String get location => GoRouteData.$location('/chat');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -61,39 +82,12 @@ mixin _$Placeholder1Router on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $placeholder2Router =>
-    GoRouteData.$route(path: '/pl2', factory: _$Placeholder2Router._fromState);
-
-mixin _$Placeholder2Router on GoRouteData {
-  static Placeholder2Router _fromState(GoRouterState state) =>
-      const Placeholder2Router();
+mixin _$ContactsRouter on GoRouteData {
+  static ContactsRouter _fromState(GoRouterState state) =>
+      const ContactsRouter();
 
   @override
-  String get location => GoRouteData.$location('/pl2');
-
-  @override
-  void go(BuildContext context) => context.go(location);
-
-  @override
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  @override
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  @override
-  void replace(BuildContext context) => context.replace(location);
-}
-
-RouteBase get $placeholder3Router =>
-    GoRouteData.$route(path: '/pl3', factory: _$Placeholder3Router._fromState);
-
-mixin _$Placeholder3Router on GoRouteData {
-  static Placeholder3Router _fromState(GoRouterState state) =>
-      const Placeholder3Router();
-
-  @override
-  String get location => GoRouteData.$location('/pl3');
+  String get location => GoRouteData.$location('/contacts');
 
   @override
   void go(BuildContext context) => context.go(location);
