@@ -27,8 +27,8 @@ class EmergencyContactViewModel extends ChangeNotifier {
   final int _pageSize = 10;
   late final Command0<List<EmergencyContactResponse>> fetchCmd;
   late final Command0<List<EmergencyContactResponse>> fetchMoreCmd;
-  late final Command1<EmergencyContactResponse,CreateEmergency> createCmd;
-  late final Command1<EmergencyContactResponse, UpdateEmergency> updateCmd;
+  late final Command1<EmergencyContactResponse,FilePayload<CreateEmergencyContactRequest>> createCmd;
+  late final Command1<EmergencyContactResponse, FilePayloadUpdate<UpdateEmergencyContactRequest>> updateCmd;
   late final Command1<bool, int> deleteCmd;
 
   AsyncResult<List<EmergencyContactResponse>> _fetch() async {
@@ -61,7 +61,7 @@ class EmergencyContactViewModel extends ChangeNotifier {
 
   }
   AsyncResult<EmergencyContactResponse> _createContact(
-      CreateEmergency model) async {
+      FilePayload<CreateEmergencyContactRequest> model) async {
     final result = await _repository.create(model: model.request, file: model.file);
     return result.mapFold((contact) {
       _contacts.insert(0, contact); // adiciona no topo
@@ -70,7 +70,7 @@ class EmergencyContactViewModel extends ChangeNotifier {
     }, (error) => error);
   }
 
-  AsyncResult<EmergencyContactResponse> _updateContact(UpdateEmergency model) async {
+  AsyncResult<EmergencyContactResponse> _updateContact(FilePayloadUpdate<UpdateEmergencyContactRequest> model) async {
     final result = await _repository.update(id: model.id, model: model.request, file: model.file);
     return result.mapFold((updated) {
       final index = _contacts.indexWhere((c) => c.id == model.id);

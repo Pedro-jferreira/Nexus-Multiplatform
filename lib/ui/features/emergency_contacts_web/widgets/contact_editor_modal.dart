@@ -42,8 +42,6 @@ class ContactEditorModal extends StatefulWidget {
 }
 
 class _ContactEditorModalState extends State<ContactEditorModal> {
-  late final TextEditingController _nameController;
-  late final TextEditingController _phoneController;
   late final ImageUploadController _imageController;
   late final ContactRequestDTO _model;
 
@@ -55,8 +53,6 @@ class _ContactEditorModalState extends State<ContactEditorModal> {
   void initState() {
     if (widget.isEdit) {
       final model = widget.model!;
-      _nameController = TextEditingController(text: model.name);
-      _phoneController = TextEditingController(text: model.phone);
       _model = ContactRequestDTO(
         nome: model.name,
         phone: model.phone,
@@ -64,8 +60,6 @@ class _ContactEditorModalState extends State<ContactEditorModal> {
       );
       _imageController = ImageUploadController.fromUrl(model.images.first.url);
     } else {
-      _nameController = TextEditingController();
-      _phoneController = TextEditingController();
       _model = ContactRequestDTO.empty();
       _imageController = ImageUploadController();
     }
@@ -80,8 +74,6 @@ class _ContactEditorModalState extends State<ContactEditorModal> {
     widget.viewModel.createCmd.removeListener(_handleCreate);
     widget.viewModel.updateCmd.removeListener(_handleUpdate);
     _imageController.dispose();
-    _nameController.dispose();
-    _phoneController.dispose();
     super.dispose();
   }
 
@@ -95,15 +87,7 @@ class _ContactEditorModalState extends State<ContactEditorModal> {
       case RunningCommand<EmergencyContactResponse>():
         return;
       case FailureCommand<EmergencyContactResponse>():
-        if (_error == null) {
-          Future.delayed(const Duration(milliseconds: 300), () {
-            if (mounted) setState(() => _error = value.error.toString());
-          });
-        }
-        Future.delayed(const Duration(seconds: 5), () {
-          _error = null;
-          cmd.reset();
-        });
+        _emitError(value.error.toString(), onReset: cmd.reset);
         break;
       case SuccessCommand<EmergencyContactResponse>():
         Navigator.of(context).pop();
@@ -135,15 +119,7 @@ class _ContactEditorModalState extends State<ContactEditorModal> {
       case RunningCommand<EmergencyContactResponse>():
         return;
       case FailureCommand<EmergencyContactResponse>():
-        if (_error == null) {
-          Future.delayed(const Duration(milliseconds: 300), () {
-            if (mounted) setState(() => _error = value.error.toString());
-          });
-        }
-        Future.delayed(const Duration(seconds: 5), () {
-          _error = null;
-          cmd.reset();
-        });
+        _emitError(value.error.toString(), onReset: cmd.reset);
         break;
       case SuccessCommand<EmergencyContactResponse>():
         Navigator.of(context).pop();
@@ -165,6 +141,23 @@ class _ContactEditorModalState extends State<ContactEditorModal> {
     }
   }
 
+  void _emitError(String message, {VoidCallback? onReset}) {
+    if (_error == null) {
+      Future.delayed(const Duration(milliseconds: 300), () {
+        if (mounted) {
+          setState(() => _error = message);
+        }
+      });
+    }
+
+    Future.delayed(const Duration(seconds: 5), () {
+      if (mounted) {
+        setState(() => _error = null);
+      }
+      onReset?.call();
+    });
+  }
+
   bool _validateForm() {
     final isValid = _validador.validate(_model).isValid;
     return (_formKey.currentState!.validate() && isValid);
@@ -172,9 +165,19 @@ class _ContactEditorModalState extends State<ContactEditorModal> {
 
   _saveForm() {
     if (!_validateForm()) return;
+    if (_imageController.isLoading) {
+      _emitError('Aguarde a imagem Carregar');
+      return;
+    }
+
+    if (widget.isEdit && !_hasChanges()) {
+      _emitError('Nenhuma alteração detectada.');
+      return;
+    }
+
     if (widget.isEdit) {
       widget.viewModel.updateCmd.execute(
-        UpdateEmergency(
+        FilePayloadUpdate(
           id: widget.model!.id,
           request: UpdateEmergencyContactRequest(
             name: _model.nome,
@@ -189,7 +192,7 @@ class _ContactEditorModalState extends State<ContactEditorModal> {
       );
     } else {
       widget.viewModel.createCmd.execute(
-        CreateEmergency(
+        FilePayload(
           request: CreateEmergencyContactRequest(
             name: _model.nome,
             phone: _model.phone,
@@ -202,6 +205,19 @@ class _ContactEditorModalState extends State<ContactEditorModal> {
         ),
       );
     }
+  }
+
+  bool _hasChanges() {
+    if (!widget.isEdit) return true;
+
+    final original = widget.model!;
+
+    final bool nameChanged = _model.nome != original.name;
+    final bool phoneChanged = _model.phone != original.phone;
+    final bool typeChanged = _model.type != original.serviceType;
+    final bool imageChanged = _imageController.cache.length > 1;
+
+    return nameChanged || phoneChanged || typeChanged || imageChanged;
   }
 
   @override
@@ -226,7 +242,9 @@ class _ContactEditorModalState extends State<ContactEditorModal> {
         return CustomModal(
           showClose: !isLoading,
           onClose: () async {
-            widget.viewModel.createCmd.reset();
+            widget.isEdit
+                ? widget.viewModel.updateCmd.reset()
+                : widget.viewModel.createCmd.reset();
           },
           title: widget.isEdit ? 'Editar contato' : 'Cadastrar contato',
           helperActionButton: FilledButton(
@@ -261,8 +279,6 @@ class _ContactEditorModalState extends State<ContactEditorModal> {
                             ),
                             child: EmergencyContactForm(
                               formKey: _formKey,
-                              nameController: _nameController,
-                              phoneController: _phoneController,
                               model: _model,
                               validator: _validador,
                             ),

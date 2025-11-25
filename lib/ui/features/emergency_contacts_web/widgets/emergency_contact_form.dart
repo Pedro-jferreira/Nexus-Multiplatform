@@ -20,16 +20,12 @@ extension ServiceTypeExtension on ServiceType {
 }
 
 class EmergencyContactForm extends StatefulWidget {
-  final TextEditingController nameController;
-  final TextEditingController phoneController;
   final ContactRequestDTO model;
   final ContactValidador validator;
   final GlobalKey formKey;
 
   const EmergencyContactForm({
     super.key,
-    required this.nameController,
-    required this.phoneController,
     required this.model,
     required this.validator,
     required this.formKey,
@@ -71,10 +67,10 @@ class _EmergencyContactFormState extends State<EmergencyContactForm> {
         children: [
           // Nome
           TextFormField(
+            initialValue: widget.model.nome,
             focusNode: _nameFocusNode,
             onFieldSubmitted: (_) =>
                 FocusScope.of(context).requestFocus(_phoneFocusNode),
-            controller: widget.nameController,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             onChanged: widget.model.setNome,
             validator: widget.validator.byField(widget.model, 'nome'),
@@ -85,10 +81,10 @@ class _EmergencyContactFormState extends State<EmergencyContactForm> {
           ),
 
           TextFormField(
+            initialValue: widget.model.phone,
             focusNode: _phoneFocusNode,
             onFieldSubmitted: (_) =>
                 FocusScope.of(context).requestFocus(_serviceFocusNode),
-            controller: widget.phoneController,
             onChanged: widget.model.setPhone,
             validator: widget.validator.byField(widget.model, 'phone'),
             keyboardType: TextInputType.phone,
@@ -120,8 +116,7 @@ class _EmergencyContactFormState extends State<EmergencyContactForm> {
                   ),
                 )
                 .toList(),
-            validator: (value) =>
-                value == null ? 'Selecione um tipo de serviço' : null,
+            validator: (value) => widget.validator.byField(widget.model, 'type')(value.toString()),
             onTap:FocusScope.of(context).unfocus,
           ),
         ],

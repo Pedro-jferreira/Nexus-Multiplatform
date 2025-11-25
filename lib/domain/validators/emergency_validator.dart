@@ -28,8 +28,8 @@ class ContactValidador extends LucidValidator<ContactRequestDTO> {
     ruleFor((param) => param.phone, key: 'phone')
         .notEmpty(message: 'Informe um número');
 
-    ruleFor((param) => param.type?.name, key: 'type')
-        .notEmpty(message: 'Informe um nome.');
+    ruleFor((param) => param.type, key: 'type')
+        .isNotNull(message: 'Informe um nome.');
 
   }
 }
