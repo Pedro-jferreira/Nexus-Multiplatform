@@ -17,7 +17,6 @@ class CustomBottomNavigationBar extends StatefulWidget {
 }
 
 class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
-  var selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {

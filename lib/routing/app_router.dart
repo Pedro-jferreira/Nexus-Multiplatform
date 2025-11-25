@@ -32,8 +32,8 @@ GoRouter createRouter(AuthRepository authRepository) => GoRouter(
       if (kIsWeb) {
         return web.ProfileRoute().location;
       } else {
-        return '/'; // chamar rota alterar senha do profile (avisar que só sairá
-        // se trocar senha (isTemporaryPassword == false)
+        return '/'; // chamar rota alterar senha do profile, colocar um snackbar para
+                    // avisar que só sairá desta tela se trocar senha (isTemporaryPassword == false)
       }
     }
 

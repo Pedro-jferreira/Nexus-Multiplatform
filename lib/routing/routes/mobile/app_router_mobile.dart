@@ -8,7 +8,7 @@ import '../../app_routes.dart';
 
 part 'app_router_mobile.g.dart';
 
-part 'routes/alert_routes.dart';
+part 'routes/incidents_routes.dart';
 part 'routes/chat_routes.dart';
 part 'routes/contacts_routes.dart';
 part 'routes/shell_routes.dart';
