@@ -7,8 +7,9 @@ import '../../domain/models/responses/gen_models.dart';
 abstract class AuthRepository extends ChangeNotifier{
   Stream<UserResponse?> get userStream;
   UserResponse? get currentUser;
-  bool? get isTemporaryPassword;
+  bool get isTemporaryPassword;
 
   AsyncResult<UserResponse> login({required LoginRequest loginRequest});
   AsyncResult<void> logout();
+  AsyncResult<Unit> updatePassword({required UpdatePasswordRequest request});
 }

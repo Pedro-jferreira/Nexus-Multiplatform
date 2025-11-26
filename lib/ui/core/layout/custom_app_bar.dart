@@ -4,12 +4,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final ButtonStyleButton? primaryActionButton;
   final ButtonStyleButton? secondaryActionButton;
+  final bool centerTitle;
 
   const CustomAppBar({
     super.key,
     required this.title,
     this.primaryActionButton,
-    this.secondaryActionButton,
+    this.secondaryActionButton,  this.centerTitle = false,
   });
 
   @override
@@ -25,6 +26,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       scrolledUnderElevation: 0,
       surfaceTintColor: Colors.transparent,
+      centerTitle: centerTitle,
       title: Text(
         title,
         style: theme.textTheme.headlineSmall?.copyWith(

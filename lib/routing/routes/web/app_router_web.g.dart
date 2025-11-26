@@ -88,6 +88,13 @@ RouteBase get $shellAppRouter => StatefulShellRouteData.$route(
           path: '/profile',
 
           factory: _$ProfileRoute._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: 'reset',
+
+              factory: _$ResetPasswordRoute._fromState,
+            ),
+          ],
         ),
       ],
     ),
@@ -228,6 +235,27 @@ mixin _$ProfileRoute on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/profile');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin _$ResetPasswordRoute on GoRouteData {
+  static ResetPasswordRoute _fromState(GoRouterState state) =>
+      const ResetPasswordRoute();
+
+  @override
+  String get location => GoRouteData.$location('/profile/reset');
 
   @override
   void go(BuildContext context) => context.go(location);

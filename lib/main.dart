@@ -1,3 +1,4 @@
+import 'package:Nexus/ui/features/profile_web/view_model/theme_control_view_model.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
       providers: providers(sharedPreferences, dio),
       child: Builder(
         builder: (context) {
+          final themeViewModel = context.watch<ThemeControlViewModel>();
           final router = context.read<GoRouter>();
           return OverlaySupport.global(child:MaterialApp.router(
             title: 'Nexus',
@@ -60,7 +62,7 @@ class MyApp extends StatelessWidget {
             darkTheme: theme.dark().copyWith(
               extensions: const [AppColors.dark,  ExtendedColorsTheme.dark,],
             ),
-            themeMode: ThemeMode.system,
+            themeMode: themeViewModel.themeMode,
             routerConfig: router,
           ));
         },
