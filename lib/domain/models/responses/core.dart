@@ -19,3 +19,15 @@ class PageResponse<T> with _$PageResponse<T> {
       ) =>
       _$PageResponseFromJson(json, fromJsonT);
 }
+@freezed
+class ImageResponse with _$ImageResponse {
+  const factory ImageResponse({
+    required int id,
+    required String url,
+    required String contentType,
+    required int sizeBytes,
+  }) = _ImageResponse;
+
+  factory ImageResponse.fromJson(Map<String, dynamic> json) =>
+      _$ImageResponseFromJson(json);
+}

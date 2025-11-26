@@ -69,13 +69,7 @@ _$EmergencyContactResponseImpl _$$EmergencyContactResponseImplFromJson(
   phone: json['phone'] as String,
   serviceType: $enumDecode(_$ServiceTypeEnumMap, json['serviceType']),
   images: (json['images'] as List<dynamic>)
-      .map(
-        (e) => ImageResponse.fromJson(
-          (e as Map<String, dynamic>).map(
-            (k, e) => MapEntry(k, (e as num).toDouble()),
-          ),
-        ),
-      )
+      .map((e) => ImageResponse.fromJson(e as Map<String, dynamic>))
       .toList(),
 );
 
@@ -95,50 +89,6 @@ const _$ServiceTypeEnumMap = {
   ServiceType.PM: 'PM',
   ServiceType.OUTRO: 'OUTRO',
 };
-
-_$EmeregencyContactResponseImpl _$$EmeregencyContactResponseImplFromJson(
-  Map<String, dynamic> json,
-) => _$EmeregencyContactResponseImpl(
-  id: (json['id'] as num).toInt(),
-  name: json['name'] as String,
-  phone: json['phone'] as String,
-  serviceType: $enumDecode(_$ServiceTypeEnumMap, json['serviceType']),
-  images: (json['images'] as List<dynamic>)
-      .map(
-        (e) => ImageResponse.fromJson(
-          (e as Map<String, dynamic>).map(
-            (k, e) => MapEntry(k, (e as num).toDouble()),
-          ),
-        ),
-      )
-      .toList(),
-);
-
-Map<String, dynamic> _$$EmeregencyContactResponseImplToJson(
-  _$EmeregencyContactResponseImpl instance,
-) => <String, dynamic>{
-  'id': instance.id,
-  'name': instance.name,
-  'phone': instance.phone,
-  'serviceType': _$ServiceTypeEnumMap[instance.serviceType]!,
-  'images': instance.images,
-};
-
-_$ImageResponseImpl _$$ImageResponseImplFromJson(Map<String, dynamic> json) =>
-    _$ImageResponseImpl(
-      id: (json['id'] as num).toInt(),
-      url: json['url'] as String,
-      contentType: json['contentType'] as String,
-      sizeBytes: (json['sizeBytes'] as num).toInt(),
-    );
-
-Map<String, dynamic> _$$ImageResponseImplToJson(_$ImageResponseImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'url': instance.url,
-      'contentType': instance.contentType,
-      'sizeBytes': instance.sizeBytes,
-    };
 
 _$PageResponseImpl<T> _$$PageResponseImplFromJson<T>(
   Map<String, dynamic> json,
@@ -167,6 +117,22 @@ Map<String, dynamic> _$$PageResponseImplToJson<T>(
   'first': instance.first,
   'empty': instance.empty,
 };
+
+_$ImageResponseImpl _$$ImageResponseImplFromJson(Map<String, dynamic> json) =>
+    _$ImageResponseImpl(
+      id: (json['id'] as num).toInt(),
+      url: json['url'] as String,
+      contentType: json['contentType'] as String,
+      sizeBytes: (json['sizeBytes'] as num).toInt(),
+    );
+
+Map<String, dynamic> _$$ImageResponseImplToJson(_$ImageResponseImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'url': instance.url,
+      'contentType': instance.contentType,
+      'sizeBytes': instance.sizeBytes,
+    };
 
 _$PaginatedResponseImpl<T> _$$PaginatedResponseImplFromJson<T>(
   Map<String, dynamic> json,
