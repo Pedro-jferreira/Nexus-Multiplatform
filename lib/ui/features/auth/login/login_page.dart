@@ -40,6 +40,7 @@ class _LoginPageState extends State<LoginPage> {
   final _emailFocus = FocusNode();
   final _passwordFocus = FocusNode();
   bool _showPassword = false;
+  bool _contaBloqueada = false;
 
   final validator = LoginParamValidation();
   final loginParamDto = LoginParamDto.empty();
@@ -99,10 +100,23 @@ class _LoginPageState extends State<LoginPage> {
     switch (status) {
       case FailureCommand<UserResponse>():
         final error = status.error;
-        final message = (error is AppException)
+        String message = (error is AppException)
             ? error.message
             : 'Erro desconhecido.';
-        print(message);
+        final statusSode =  (error is AppException)
+            ? error.statusCode: null;
+
+        if(statusSode != null && (statusSode == 401 || statusSode == 409)){
+          if(message == 'Conta bloqueada' || message == 'Conta desabilitada'){
+            setState(() {
+              _contaBloqueada = true;
+            });
+            message = 'Conta bloqueada';
+          }else{ message = 'credenciais invalidas';}
+
+
+
+        }
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Error ao realizar login: $message'),
