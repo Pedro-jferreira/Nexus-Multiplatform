@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:nexus_multiplatform/ui/core/theme/theme_mobile.dart';
-import 'package:nexus_multiplatform/ui/features/auth/forgout_password/widgets/request_forgot.dart';
-import 'package:nexus_multiplatform/ui/features/auth/login/widgets/presentation_login.dart';
+import 'package:Nexus/ui/core/theme/theme_mobile.dart';
+import 'package:Nexus/ui/features/auth/forgout_password/widgets/request_forgot.dart';
+import 'package:Nexus/ui/features/auth/login/widgets/presentation_login.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../utils/responsive_utils.dart';
@@ -26,7 +26,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     super.didChangeDependencies();
     if (!_initialized) {
       _precacheFutureImages = _precacheAssets();
-      _initialized = true;
     }
     _precacheSvg = _precacheSvgFuture();
 
@@ -71,9 +70,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
     return device == DeviceScreenType.mobile
         ? FutureBuilder(
-            future: Future.wait([_precacheFutureImages]),
+            future: Future.wait([_precacheFutureImages,_precacheSvg]),
             builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
+              if (snapshot.connectionState == ConnectionState.waiting  && !_initialized) {
                 return Scaffold(
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   appBar: AppBar(
@@ -86,14 +85,15 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     ),
                   ),
                 );
-              }
+              }      _initialized = true;
+
               return buildContent(device, null);
             },
           )
         : FutureBuilder(
             future: Future.wait([_precacheFutureImages, _precacheSvg]),
             builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
+              if (snapshot.connectionState == ConnectionState.waiting && !_initialized) {
                 return Scaffold(
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   appBar: AppBar(
@@ -106,7 +106,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     ),
                   ),
                 );
-              }
+              }_initialized = true;
 
               final svgString = snapshot.data?[1] as String? ?? '';
 
@@ -117,10 +117,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   buildContent(device, String? svg) {
     return Scaffold(
-      backgroundColor:device == DeviceScreenType.mobile ? backGround: Theme.of(context).colorScheme.surface,
+      backgroundColor:device == DeviceScreenType.mobile ? context.colors.background: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        foregroundColor: text,
+        foregroundColor: context.colors.text,
       ),
       body: SizedBox(
         width: double.infinity,
@@ -158,7 +158,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                               textAlign: TextAlign.center,
                               style: Theme.of(context).textTheme.labelLarge
                                   ?.copyWith(
-                                    color: text,
+                                    color: context.colors.text,
                                     fontWeight: FontWeight.w600,
                                   ),
                             ),
@@ -189,8 +189,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                 },
                                 style: ElevatedButton.styleFrom(
                                   padding: EdgeInsets.symmetric(vertical: 10),
-                                  backgroundColor: secondaryMain,
-                                  foregroundColor: surface,
+                                  backgroundColor: context.colors.secondaryMain,
+                                  foregroundColor: context.colors.surface,
                                 ),
                                 child: const Text('Abrir e-mail'),
                               ),

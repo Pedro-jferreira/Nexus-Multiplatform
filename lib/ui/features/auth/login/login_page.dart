@@ -1,19 +1,23 @@
+
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:nexus_multiplatform/data/repositories/auth_repository.dart';
-import 'package:nexus_multiplatform/domain/models/requests/gen_models.dart';
-import 'package:nexus_multiplatform/domain/models/responses/gen_models.dart';
-import 'package:nexus_multiplatform/ui/core/theme/theme.dart';
-import 'package:nexus_multiplatform/ui/core/theme/theme_mobile.dart';
-import 'package:nexus_multiplatform/ui/features/auth/login/viewmodel/login_view_model.dart';
-import 'package:nexus_multiplatform/ui/features/auth/login/widgets/ButtonsLogin.dart';
-import 'package:nexus_multiplatform/ui/features/auth/login/widgets/form_login.dart';
-import 'package:nexus_multiplatform/ui/features/auth/login/widgets/presentation_login.dart';
-import 'package:nexus_multiplatform/utils/responsive_utils.dart';
-import 'package:provider/provider.dart';
+import 'package:Nexus/domain/models/requests/gen_models.dart';
+import 'package:Nexus/domain/models/responses/gen_models.dart';
+import 'package:Nexus/ui/core/theme/theme.dart';
+import 'package:Nexus/ui/core/theme/theme_mobile.dart';
+import 'package:Nexus/ui/features/auth/login/viewmodel/login_view_model.dart';
+import 'package:Nexus/ui/features/auth/login/widgets/ButtonsLogin.dart';
+import 'package:Nexus/ui/features/auth/login/widgets/form_login.dart';
+import 'package:Nexus/ui/features/auth/login/widgets/presentation_login.dart';
+import 'package:Nexus/utils/responsive_utils.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:result_command/result_command.dart';
+import 'package:web_browser_detect/web_browser_detect.dart';
 
+import '../../../../config/notifications.dart';
 import '../../../../domain/validators/auth_validators.dart';
 import '../../../../exceptions/app_exceptions.dart';
 
@@ -29,7 +33,6 @@ class _LoginPageState extends State<LoginPage> {
   late Future<String> _precacheFutureSvg;
   late Future<void> _precacheFutureImages;
   bool _initialized = false;
-  bool _builder = false;
 
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
@@ -37,6 +40,7 @@ class _LoginPageState extends State<LoginPage> {
   final _emailFocus = FocusNode();
   final _passwordFocus = FocusNode();
   bool _showPassword = false;
+  bool _contaBloqueada = false;
 
   final validator = LoginParamValidation();
   final loginParamDto = LoginParamDto.empty();
@@ -63,6 +67,10 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     widget.viewModel.loginCmd.addListener(_handlerLoginCmd);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await _checkNotificationPermission();
+    });
     super.initState();
   }
 
@@ -92,9 +100,23 @@ class _LoginPageState extends State<LoginPage> {
     switch (status) {
       case FailureCommand<UserResponse>():
         final error = status.error;
-        final message = (error is AppException)
+        String message = (error is AppException)
             ? error.message
             : 'Erro desconhecido.';
+        final statusSode =  (error is AppException)
+            ? error.statusCode: null;
+
+        if(statusSode != null && (statusSode == 401 || statusSode == 409)){
+          if(message == 'Conta bloqueada' || message == 'Conta desabilitada'){
+            setState(() {
+              _contaBloqueada = true;
+            });
+            message = 'Conta bloqueada';
+          }else{ message = 'credenciais invalidas';}
+
+
+
+        }
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Error ao realizar login: $message'),
@@ -106,45 +128,7 @@ class _LoginPageState extends State<LoginPage> {
         cmd.reset();
         break;
       case SuccessCommand<UserResponse>():
-        showDialog(
-          context: context,
-          builder: (BuildContext dialogContext) {
-            Future.delayed(const Duration(seconds: 2), () {
-              if (Navigator.of(dialogContext).canPop()) {
-                Navigator.of(dialogContext).pop();
-              }
-            });
-
-            return Dialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16.0),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // Ícone de check 80x80
-                    Icon(
-                      Icons.check_circle,
-                      color: Theme.of(context)
-                          .extension<ExtendedColorsTheme>()!
-                          .getFamily(Theme.of(context).brightness)
-                          .color,
-                      size: 80.0,
-                    ),
-                    const SizedBox(height: 20.0), // Espaçamento
-                    Text(
-                      'Bem vindo de Volta ${status.value.name}!',
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        );
+        _showSuccessOverlay(status.value.name);
         cmd.reset();
         break;
 
@@ -153,12 +137,78 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  void _showSuccessOverlay(String userName) {
+    final overlay = Overlay.of(context);
+    if (overlay == null) return;
+
+    late OverlayEntry entry;
+
+    entry = OverlayEntry(
+      builder: (context) {
+        final theme = Theme.of(context);
+        return Positioned(
+          top: MediaQuery.of(context).size.height * 0.25,
+          left: 0,
+          right: 0,
+          child: Center(
+            child: Material(
+              color: Colors.transparent,
+              child: AnimatedOpacity(
+                opacity: 1.0,
+                duration: const Duration(milliseconds: 300),
+                child: Container(
+                  constraints: const BoxConstraints(
+                    maxWidth: 320, // limite máximo da largura
+                    minWidth: 200,
+                  ),
+                  padding: const EdgeInsets.all(24),
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.surface,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.25),
+                        blurRadius: 12,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.check_circle,
+                        color: context.successColor,
+                        size: 72,
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        'Bem-vindo de volta, $userName!',
+                        style: theme.textTheme.titleMedium,
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+
+    overlay.insert(entry);
+
+    Future.delayed(const Duration(seconds: 2), () {
+      entry.remove();
+    });
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (!_initialized) {
       _precacheFutureImages = _precacheAssets();
-      _initialized = true;
     }
     _precacheFutureSvg = _loadAndReplaceSvgColor(
       'assets/icons/rafiki.svg',
@@ -197,20 +247,102 @@ class _LoginPageState extends State<LoginPage> {
         .replaceAll('#E0E0E0', color);
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final repository = context.read<AuthRepository>();
+  void _showNotificationRequiredModal() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return WillPopScope(
+          onWillPop: () async => false,
+          child: AlertDialog(
+            title: const Text("Permissão Obrigatória"),
+            content: Text(
+              kIsWeb
+                  ? "Para receber alertas urgentes, ative as notificações no navegador.\n\n"
+                        "Chrome: cadeado ao lado da URL → Permissões → Notificações → Permitir\n"
+                        "Firefox: ícone de permissões → Notificações → Permitir"
+                  : "Para receber alertas urgentes, você precisa ativar as notificações no dispositivo.",
+            ),
+            actions: [
+              TextButton(
+                child: const Text(kIsWeb?'Já aceitei':"Ativar"),
+                onPressed: () async {
+                  final settings = await FirebaseMessaging.instance
+                      .requestPermission();
 
-    repository.login(
-      loginRequest: LoginRequest(
-        email: 'pedro@example.com',
-        password: '123456',
+                  if (settings.authorizationStatus ==
+                      AuthorizationStatus.authorized) {
+                    await setupNotifications();
+                    Navigator.pop(context);
+                    return;
+                  }
+
+                  // WEB → apenas instrução
+                  if (kIsWeb) {
+                    _showSettingsDialog();
+                    return;
+                  }
+
+                  // MOBILE → abre configurações
+                  _showSettingsDialog();
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _showSettingsDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Ativar Notificações"),
+        content: Text(
+          kIsWeb
+              ? "Vá nas configurações do navegador e permita notificações para este site."
+              : "Para permitir as notificações, abra as configurações do app.",
+        ),
+        actions: [
+          TextButton(
+            child: const Text("Abrir Configurações"),
+            onPressed: () async {
+              if (!kIsWeb) {
+                // MOBILE
+                await openAppSettings();
+              }
+              Navigator.pop(context);
+            },
+          ),
+        ],
       ),
     );
+  }
+
+  Future<void> _checkNotificationPermission() async {
+    if (kIsWeb) {
+       setupNotifications();
+    } else {
+      await setupNotifications();
+    }
+
+    final settings = await FirebaseMessaging.instance.getNotificationSettings();
+
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      return; // Tudo certo
+    }
+
+    _showNotificationRequiredModal();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return FutureBuilder(
       future: Future.wait([_precacheFutureImages, _precacheFutureSvg]),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting && !_builder) {
+        if (snapshot.connectionState == ConnectionState.waiting &&
+            !_initialized) {
           return Scaffold(
             backgroundColor: Theme.of(context).colorScheme.primary,
             body: Center(
@@ -220,7 +352,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           );
         }
-        _builder = true;
+        _initialized = true;
         final svgString = snapshot.data![1] as String; // o SVG processado
 
         final device = Responsive.getDeviceType(context);
@@ -335,7 +467,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Scaffold buildMobile(BuildContext context, String svgString) {
     return Scaffold(
-      backgroundColor: backGround,
+      backgroundColor: context.colors.background,
       body: ListenableBuilder(
         listenable: widget.viewModel.loginCmd,
         builder: (context, _) {

@@ -46,7 +46,9 @@ class DioConfig {
           if (e.response != null) {
             if (e.response!.statusCode == 401) {
               //retornar rota UnauthorizedRoute
-              //router.push(UnauthorizedRoute().location);
+              if(authRepository.currentUser != null){
+                authRepository.logout();
+              }
             } else if (e.response!.statusCode == 500) {
               //retornar rota ServerErrorRoute
               //router.push(ServerErrorRoute().location);

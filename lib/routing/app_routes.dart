@@ -6,6 +6,18 @@ class AppRoutes {
   static const String login = '/auth/login';
   static const String forgoutPassword ='resend';
 
+  static const String dashBoard ='/dashBoard';
+  static const String fugitives ='/fugitives';
+  static const String users ='/users';
+  static const String chat ='/chat';
+  static const String incidents ='/incidents';
+  static const String incidentsDetails ='incidents_details';
+  static const String emergencyContacts ='/contacts';
+  static const String profile ='/profile';
+  static const String resetPassword ='reset';
+
+
+
 
 
   // Permissões de acesso por rota
@@ -14,7 +26,6 @@ class AppRoutes {
   };
 
   static final Set<String> publicRoutes = {
-    placeholder,
   };
 }
 

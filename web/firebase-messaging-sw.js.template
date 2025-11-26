@@ -1,0 +1,32 @@
+importScripts("https://www.gstatic.com/firebasejs/9.19.1/firebase-app-compat.js");
+importScripts("https://www.gstatic.com/firebasejs/9.19.1/firebase-messaging-compat.js ");
+
+
+firebase.initializeApp({
+    apiKey: "{{API_KEY_WEB}}",
+    authDomain: "{{AUTH_DOMAIN_WEB}}",
+    projectId: "{{PROJECT_ID}}",
+    storageBucket: "{{STORAGE_BUCKET}}",
+    messagingSenderId: "{{MESSAGING_SENDER_ID}}",
+    appId: "{{APP_ID_WEB}}",
+});
+
+const messaging = firebase.messaging();
+
+messaging.onBackgroundMessage((payload) => {
+    console.log("📨 Mensagem de fundo recebida:", payload);
+    console.log("📨 Mensagem titulo:", payload.notification.title);
+    console.log("📨 Mensagem corpo:", payload.notification.body);
+
+    // AGORA, leia os campos do 'data' em vez do 'notification'
+    const notificationTitle = payload.notification.title ?? "Nova mensagem";
+    const notificationOptions = {
+        body: payload.notification.body,
+        data: payload.notification.data,
+        click_action: payload.notification.click_action,
+    };
+
+    self.registration.showNotification(notificationTitle, notificationOptions)
+        .then(() => console.log("✅ Notificação exibida com sucesso!"))
+        .catch((e) => console.error("🚨 Erro ao exibir notificação:", e));
+});

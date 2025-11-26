@@ -36,7 +36,7 @@ class _RequestForgotState extends State<RequestForgot> {
             'Por favor, informe seu e-mail cadastrado para que possamos enviar um link de recuperação.',
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.labelLarge?.copyWith(
-              color: text,
+              color: context.colors.text,
               fontWeight: FontWeight.w600
             ),
           ),
@@ -54,30 +54,30 @@ class _RequestForgotState extends State<RequestForgot> {
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25),
                     borderSide: BorderSide(
-                      color: primaryEmphasis, // cor da borda padrão
+                      color: context.colors.primaryEmphasis, // cor da borda padrão
                       width: 1,
                     ),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25),
                     borderSide: BorderSide(
-                      color: primaryMain, // cor quando estiver em foco
+                      color:context.colors. primaryMain, // cor quando estiver em foco
                       width: 2, // deixa mais espesso ao focar
                     ),
                   ),
                   errorBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25),
                     borderSide: BorderSide(
-                      color: error, // cor da borda no erro
+                      color:context.colors. error, // cor da borda no erro
                       width: 1.5,
                     ),
                   ),
-                  errorStyle: Theme.of(context).textTheme.bodySmall?.copyWith(color: error),
+                  errorStyle: Theme.of(context).textTheme.bodySmall?.copyWith(color:context.colors. error),
                   // borda quando há erro e o campo está em foco
                   focusedErrorBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25),
                     borderSide: BorderSide(
-                      color: error, // cor mais forte com foco
+                      color: context.colors.error, // cor mais forte com foco
                       width: 2,
                     ),
                   ),
@@ -85,13 +85,13 @@ class _RequestForgotState extends State<RequestForgot> {
                     Icons.email_outlined,
                   ),
                   prefixIconColor: WidgetStateColor.resolveWith((states) {
-                    if (states.contains(WidgetState.error)) return error;
-                    if (states.contains(WidgetState.focused)) return primaryMain;
-                    return primaryEmphasis;
+                    if (states.contains(WidgetState.error)) return context.colors.error;
+                    if (states.contains(WidgetState.focused)) return context.colors.primaryMain;
+                    return context.colors.primaryEmphasis;
                   }),
                   hintText: 'E-mail Cadastrado',
                   filled: true,
-                  fillColor: surface,
+                  fillColor: context.colors.surface,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25),
                   ),
@@ -104,8 +104,8 @@ class _RequestForgotState extends State<RequestForgot> {
                   onPressed: () {},
                   style:ElevatedButton.styleFrom(
                       padding: EdgeInsets.symmetric(vertical: 10),
-                      backgroundColor: secondaryMain,
-                      foregroundColor: surface
+                      backgroundColor: context.colors.secondaryMain,
+                      foregroundColor: context.colors.surface
                   ) ,
                   child :const Text('Enviar link de recuperação'),
                 ),

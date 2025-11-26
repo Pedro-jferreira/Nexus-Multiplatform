@@ -1,16 +1,16 @@
-# nexus_multiplatform
 
-network for execution of unidentified suspects
+## 🚀 Configuração inicial do projeto
 
-## Getting Started
+Antes de executar o projeto pela primeira vez, você deve configurar as variáveis de ambiente do Firebase.
 
-This project is a starting point for a Flutter application.
+1.  Crie o arquivo `.env` na raiz do projeto (entre em contato com um representante para adquirir as keys).
+2.  Execute este comando para gerar o Firebase service worker (`firebase-messaging-sw.js`):
 
-A few resources to get you started if this is your first Flutter project:
+    ```sh
+    dart run lib/utils/generate_firebase_sw.dart
+    ```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+3.  após isso, você poderá executar o projeto normalmente:.
+     ```sh
+      flutter run -d chrome --dart-define-from-file=.env
+    ```

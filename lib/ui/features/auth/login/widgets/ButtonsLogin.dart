@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:nexus_multiplatform/routing/app_router.dart';
-import 'package:nexus_multiplatform/ui/core/theme/theme_mobile.dart';
+import 'package:Nexus/routing/app_router.dart';
+import 'package:Nexus/ui/core/theme/theme_mobile.dart';
 
+import '../../../../../routing/routes/web/app_router_web.dart';
 import '../../../../../utils/responsive_utils.dart';
 
 class ButtonsLogin extends StatelessWidget {
@@ -53,10 +54,10 @@ class ButtonsLogin extends StatelessWidget {
                   child: Text(
                     'Esqueci minha senha',
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color:(device == DeviceScreenType.mobile)? text: Theme.of(context).colorScheme.onSurface,
+                      color:(device == DeviceScreenType.mobile)? context.colors.text: Theme.of(context).colorScheme.onSurface,
                       fontWeight: FontWeight.w600,
                       decoration: TextDecoration.underline,
-                      decorationColor:(device == DeviceScreenType.mobile)?  text: Theme.of(context).colorScheme.onSurface,
+                      decorationColor:(device == DeviceScreenType.mobile)?  context.colors.text: Theme.of(context).colorScheme.onSurface,
                       decorationThickness: 3,
                       decorationStyle: TextDecorationStyle.solid,
                     ),
@@ -74,15 +75,15 @@ class ButtonsLogin extends StatelessWidget {
                     ),
                     label: Text('Entrar com o Google'),
                     style:ElevatedButton.styleFrom(
-                      backgroundColor: surface,
-                      foregroundColor: text,
+                      backgroundColor: context.colors.surface,
+                      foregroundColor: context.colors.text,
                       padding: EdgeInsets.symmetric(vertical: 15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(
                           50,
                         ), // controla o arredondamento
                         side: BorderSide(
-                          color: primaryEmphasis,
+                          color: context.colors.primaryEmphasis,
                         ), // define a cor da borda
                       ),
                     ) ,

@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:nexus_multiplatform/exceptions/parse_exception.dart';
+import 'package:Nexus/exceptions/parse_exception.dart';
 
 import 'api_exceptions.dart';
 import 'app_exceptions.dart';
