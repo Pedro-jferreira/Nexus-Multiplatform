@@ -15,7 +15,10 @@ part 'app_router.g.dart';
 
 part 'routes/auth/login_route.dart';
 
+final GlobalKey<NavigatorState> rootMobileNavigatorKey = GlobalKey<NavigatorState>();
+
 GoRouter createRouter(AuthRepository authRepository) => GoRouter(
+  navigatorKey: !kIsWeb ? rootMobileNavigatorKey : null,
   refreshListenable: authRepository,
   initialLocation: LoginRoute().location,
   routes: [
@@ -29,7 +32,9 @@ GoRouter createRouter(AuthRepository authRepository) => GoRouter(
       if (kIsWeb) {
         return web.ResetPasswordRoute().location;
       } else {
-        return '/';
+        return ForgotPasswordRouter().location;
+                    // chamar rota alterar senha que está no profile, colocar um snackbar para
+                    // avisar que só sairá desta tela se trocar senha (isTemporaryPassword == false)
       }
     }
 
@@ -41,7 +46,7 @@ GoRouter createRouter(AuthRepository authRepository) => GoRouter(
       if (kIsWeb) {
         return web.DashboardRoute().location;
       } else {
-        return '/';
+        return mobile.IncidentsRouter().location;
       }
     }
     return null;

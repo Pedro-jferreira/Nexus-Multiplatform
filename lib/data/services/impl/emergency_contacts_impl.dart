@@ -109,4 +109,10 @@ class EmergencyContactsServiceImpl implements EmergencyContactsService {
   Future<void> delete(int id) async {
     await _dio.delete('$path/$id');
   }
+
+  @override
+  Future getEmergencyContacts() {
+    // TODO: implement getEmergencyContacts
+    throw UnimplementedError();
+  }
 }
