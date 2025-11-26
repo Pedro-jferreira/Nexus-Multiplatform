@@ -1,5 +1,4 @@
 import 'package:Nexus/ui/core/widgets/custom_circle_avatar.dart';
-import 'package:Nexus/ui/features/profile/user.dart';
 import 'package:flutter/material.dart';
 
 typedef UserData = Map<String, dynamic>;

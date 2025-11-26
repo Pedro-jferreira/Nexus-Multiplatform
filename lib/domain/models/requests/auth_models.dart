@@ -31,3 +31,19 @@ class UpdatePasswordRequest with _$UpdatePasswordRequest {
     );
   }
 }
+
+@freezed
+class UnlockAccountRequest with _$UnlockAccountRequest {
+  const factory UnlockAccountRequest({
+    required String email,
+  }) = _UnlockAccountRequest;
+
+  factory UnlockAccountRequest.fromJson(Map<String, dynamic> json) =>
+      _$UnlockAccountRequestFromJson(json);
+
+  factory UnlockAccountRequest.fromDto(UnlockAccountDto dto) {
+    return UnlockAccountRequest(
+      email: dto.email,
+    );
+  }
+}

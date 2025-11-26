@@ -25,4 +25,11 @@ class AuthServiceImpl implements AuthService{
     );
   }
 
+  @override
+  Future<void> requestUnlock({required Map<String, dynamic> request}) async {
+    await _dio.post(
+      '/unlock-request',
+      data: request,
+    );
+  }
 }

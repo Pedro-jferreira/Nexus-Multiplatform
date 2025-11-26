@@ -433,6 +433,165 @@ abstract class _UpdatePasswordRequest implements UpdatePasswordRequest {
   get copyWith => throw _privateConstructorUsedError;
 }
 
+UnlockAccountRequest _$UnlockAccountRequestFromJson(Map<String, dynamic> json) {
+  return _UnlockAccountRequest.fromJson(json);
+}
+
+/// @nodoc
+mixin _$UnlockAccountRequest {
+  String get email => throw _privateConstructorUsedError;
+
+  /// Serializes this UnlockAccountRequest to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of UnlockAccountRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $UnlockAccountRequestCopyWith<UnlockAccountRequest> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $UnlockAccountRequestCopyWith<$Res> {
+  factory $UnlockAccountRequestCopyWith(
+    UnlockAccountRequest value,
+    $Res Function(UnlockAccountRequest) then,
+  ) = _$UnlockAccountRequestCopyWithImpl<$Res, UnlockAccountRequest>;
+  @useResult
+  $Res call({String email});
+}
+
+/// @nodoc
+class _$UnlockAccountRequestCopyWithImpl<
+  $Res,
+  $Val extends UnlockAccountRequest
+>
+    implements $UnlockAccountRequestCopyWith<$Res> {
+  _$UnlockAccountRequestCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of UnlockAccountRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? email = null}) {
+    return _then(
+      _value.copyWith(
+            email: null == email
+                ? _value.email
+                : email // ignore: cast_nullable_to_non_nullable
+                      as String,
+          )
+          as $Val,
+    );
+  }
+}
+
+/// @nodoc
+abstract class _$$UnlockAccountRequestImplCopyWith<$Res>
+    implements $UnlockAccountRequestCopyWith<$Res> {
+  factory _$$UnlockAccountRequestImplCopyWith(
+    _$UnlockAccountRequestImpl value,
+    $Res Function(_$UnlockAccountRequestImpl) then,
+  ) = __$$UnlockAccountRequestImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String email});
+}
+
+/// @nodoc
+class __$$UnlockAccountRequestImplCopyWithImpl<$Res>
+    extends _$UnlockAccountRequestCopyWithImpl<$Res, _$UnlockAccountRequestImpl>
+    implements _$$UnlockAccountRequestImplCopyWith<$Res> {
+  __$$UnlockAccountRequestImplCopyWithImpl(
+    _$UnlockAccountRequestImpl _value,
+    $Res Function(_$UnlockAccountRequestImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of UnlockAccountRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? email = null}) {
+    return _then(
+      _$UnlockAccountRequestImpl(
+        email: null == email
+            ? _value.email
+            : email // ignore: cast_nullable_to_non_nullable
+                  as String,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$UnlockAccountRequestImpl implements _UnlockAccountRequest {
+  const _$UnlockAccountRequestImpl({required this.email});
+
+  factory _$UnlockAccountRequestImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UnlockAccountRequestImplFromJson(json);
+
+  @override
+  final String email;
+
+  @override
+  String toString() {
+    return 'UnlockAccountRequest(email: $email)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UnlockAccountRequestImpl &&
+            (identical(other.email, email) || other.email == email));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, email);
+
+  /// Create a copy of UnlockAccountRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UnlockAccountRequestImplCopyWith<_$UnlockAccountRequestImpl>
+  get copyWith =>
+      __$$UnlockAccountRequestImplCopyWithImpl<_$UnlockAccountRequestImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$UnlockAccountRequestImplToJson(this);
+  }
+}
+
+abstract class _UnlockAccountRequest implements UnlockAccountRequest {
+  const factory _UnlockAccountRequest({required final String email}) =
+      _$UnlockAccountRequestImpl;
+
+  factory _UnlockAccountRequest.fromJson(Map<String, dynamic> json) =
+      _$UnlockAccountRequestImpl.fromJson;
+
+  @override
+  String get email;
+
+  /// Create a copy of UnlockAccountRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$UnlockAccountRequestImplCopyWith<_$UnlockAccountRequestImpl>
+  get copyWith => throw _privateConstructorUsedError;
+}
+
 CreateEmergencyContactRequest _$CreateEmergencyContactRequestFromJson(
   Map<String, dynamic> json,
 ) {

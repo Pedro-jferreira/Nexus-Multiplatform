@@ -36,6 +36,14 @@ Map<String, dynamic> _$$UpdatePasswordRequestImplToJson(
   'confirmNewPassword': instance.confirmNewPassword,
 };
 
+_$UnlockAccountRequestImpl _$$UnlockAccountRequestImplFromJson(
+  Map<String, dynamic> json,
+) => _$UnlockAccountRequestImpl(email: json['email'] as String);
+
+Map<String, dynamic> _$$UnlockAccountRequestImplToJson(
+  _$UnlockAccountRequestImpl instance,
+) => <String, dynamic>{'email': instance.email};
+
 _$CreateEmergencyContactRequestImpl
 _$$CreateEmergencyContactRequestImplFromJson(Map<String, dynamic> json) =>
     _$CreateEmergencyContactRequestImpl(

@@ -98,3 +98,23 @@ class UpdatePasswordValidator extends LucidValidator<UpdatePasswordDto> {
     );
   }
 }
+
+class UnlockAccountDto {
+  String email;
+
+  UnlockAccountDto({
+    required this.email,
+  });
+
+  factory UnlockAccountDto.empty() => UnlockAccountDto(email: '');
+
+  void setEmail(String value) => email = value;
+}
+
+class UnlockAccountValidator extends LucidValidator<UnlockAccountDto> {
+  UnlockAccountValidator() {
+    ruleFor((dto) => dto.email, key: 'email')
+        .notEmpty(message: 'Informe o e-mail da conta bloqueada')
+        .validEmail(message: 'Informe um e-mail válido');
+  }
+}

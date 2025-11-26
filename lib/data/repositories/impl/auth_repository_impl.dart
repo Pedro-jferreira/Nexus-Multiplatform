@@ -141,5 +141,18 @@ class AuthRepositoryImpl extends ChangeNotifier implements AuthRepository  {
     super.dispose();
   }
 
+  @override
+  AsyncResult<Unit> requestUnlock({required UnlockAccountRequest request}) async {
+    try {
+      await _authService.requestUnlock(
+        request: request.toJson(),
+      );
+      return Success.unit();
+    } catch (e) {
+      return Failure(ExceptionMapper.map(e));
+    }
+  }
+
+
 
 }

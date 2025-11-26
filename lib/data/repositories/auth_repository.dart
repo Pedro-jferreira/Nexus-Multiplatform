@@ -12,4 +12,5 @@ abstract class AuthRepository extends ChangeNotifier{
   AsyncResult<UserResponse> login({required LoginRequest loginRequest});
   AsyncResult<void> logout();
   AsyncResult<Unit> updatePassword({required UpdatePasswordRequest request});
+  AsyncResult<Unit> requestUnlock({required UnlockAccountRequest request});
 }
