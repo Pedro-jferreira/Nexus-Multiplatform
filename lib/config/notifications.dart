@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:overlay_support/overlay_support.dart';
+import '../utils/http_ultils.dart';
 import 'firebase_options.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -91,7 +92,7 @@ Future<void> _createNotificationChannel() async {
 }
 
 void _setupForegroundListener() {
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
     if (kDebugMode) {
       print(
         '📩 Mensagem recebida (foreground): ${message.notification?.title}',
@@ -109,6 +110,26 @@ void _setupForegroundListener() {
     }
 
     if (notification != null && android != null) {
+      AndroidBitmap<Object>? largeIconBitmap;
+      StyleInformation? bigPictureStyle;
+      final String? imageUrl = android.imageUrl;
+      if (imageUrl != null) {
+        final Uint8List? imageBytes = await getByteArrayFromUrl(imageUrl);
+
+        if (imageBytes != null) {
+          largeIconBitmap = ByteArrayAndroidBitmap(imageBytes);
+
+          bigPictureStyle = BigPictureStyleInformation(
+            largeIconBitmap,
+            hideExpandedLargeIcon: true,
+            contentTitle: notification.title,
+            summaryText: notification.body,
+            htmlFormatContentTitle: true,
+            htmlFormatSummaryText: true,
+          );
+        }
+      }
+
       flutterLocalNotificationsPlugin.show(
         notification.hashCode,
         notification.title,
@@ -119,6 +140,8 @@ void _setupForegroundListener() {
             highImportanceChannel.name,
             channelDescription: highImportanceChannel.description,
             icon: android.smallIcon,
+            largeIcon: largeIconBitmap,
+            styleInformation: bigPictureStyle,
           ),
         ),
         payload: message.data['route'] ?? '',
