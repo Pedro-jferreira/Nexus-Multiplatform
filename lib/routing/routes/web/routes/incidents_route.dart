@@ -15,6 +15,6 @@ class IncidentsRoute extends GoRouteData with _$IncidentsRoute{
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return Placeholder();
+    return IncidentPage();
   }
 }
