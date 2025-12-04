@@ -31,11 +31,6 @@ RouteBase get $shellRoutes => StatefulShellRouteData.$route(
     ),
     StatefulShellBranchData.$branch(
       routes: [
-        GoRouteData.$route(path: '/chat', factory: _$ChatRouter._fromState),
-      ],
-    ),
-    StatefulShellBranchData.$branch(
-      routes: [
         GoRouteData.$route(
           path: '/contacts',
 
@@ -77,26 +72,6 @@ mixin _$IncidentsDetailsRouter on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/incidents/incidents_details');
-
-  @override
-  void go(BuildContext context) => context.go(location);
-
-  @override
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  @override
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  @override
-  void replace(BuildContext context) => context.replace(location);
-}
-
-mixin _$ChatRouter on GoRouteData {
-  static ChatRouter _fromState(GoRouterState state) => const ChatRouter();
-
-  @override
-  String get location => GoRouteData.$location('/chat');
 
   @override
   void go(BuildContext context) => context.go(location);

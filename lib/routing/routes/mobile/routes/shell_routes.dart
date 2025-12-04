@@ -5,7 +5,6 @@ final GlobalKey<NavigatorState> shellNavigatorKey = GlobalKey<NavigatorState>();
 @TypedStatefulShellRoute<ShellRoutes>(
   branches: <TypedStatefulShellBranch<StatefulShellBranchData>>[
     incidentsBranches,
-    chatBranches,
     contactsBranches
   ],
 )

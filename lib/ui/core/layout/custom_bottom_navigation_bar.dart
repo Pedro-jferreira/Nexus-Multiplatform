@@ -30,13 +30,6 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         label: "Alertas",
       ),
       NavigationDestination(
-        icon: Icon(
-          Icons.chat_bubble_outline,
-          color: context.colors.primarySubtle,
-        ),
-        label: "Chat",
-      ),
-      NavigationDestination(
         icon: Icon(Icons.person_outline, color: context.colors.primarySubtle),
         label: "Contatos",
       ),
