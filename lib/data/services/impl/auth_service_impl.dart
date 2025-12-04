@@ -17,5 +17,19 @@ class AuthServiceImpl implements AuthService{
     final response = await _dio.post('$path/logout',);
     return response.data;
   }
+  @override
+  Future<void> updatePassword({required String userId, required Map<String, dynamic> request}) async {
+    await _dio.patch(
+      '/user/$userId/password',
+      data: request,
+    );
+  }
 
+  @override
+  Future<void> requestUnlock({required Map<String, dynamic> request}) async {
+    await _dio.post(
+      '/unlock-request',
+      data: request,
+    );
+  }
 }

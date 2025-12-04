@@ -185,7 +185,7 @@ class _UserEditorModalState extends State<UserEditorModal> {
             email: _model.email,
             role: _model.role!,
             enable: _model.status!,
-            locked: _model.status!,
+            locked: !_model.status!,
           ),
           file: FileRequest(
             file: _imageController.bytes,

@@ -9,12 +9,17 @@ class LoginViewModel extends ChangeNotifier {
   final AuthRepository _repository;
 
   LoginViewModel({required AuthRepository repository})
-    : _repository = repository{
+    : _repository = repository {
     loginCmd = Command1(_login);
+    requestUnlockCmd = Command1(_requestUnlock);
   }
 
   late final Command1<UserResponse, LoginRequest> loginCmd;
+  late final Command1<Unit, UnlockAccountRequest> requestUnlockCmd;
 
   AsyncResult<UserResponse> _login(LoginRequest loginRequest) async =>
       await _repository.login(loginRequest: loginRequest);
+
+  AsyncResult<Unit> _requestUnlock(UnlockAccountRequest request) async =>
+      await _repository.requestUnlock(request: request);
 }

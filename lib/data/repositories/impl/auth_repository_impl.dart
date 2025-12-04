@@ -19,7 +19,7 @@ class AuthRepositoryImpl extends ChangeNotifier implements AuthRepository  {
 
   final _userController = StreamController<UserResponse?>.broadcast();
   UserResponse? _currentUser;
-  bool? _isTemporaryPassword = false;
+  bool _isTemporaryPassword = false;
 
   AuthRepositoryImpl({
     required AuthService authService,
@@ -33,7 +33,7 @@ class AuthRepositoryImpl extends ChangeNotifier implements AuthRepository  {
   @override
   UserResponse? get currentUser => _currentUser;
   @override
-  bool? get isTemporaryPassword => _isTemporaryPassword;
+  bool get isTemporaryPassword => _isTemporaryPassword;
 
   Future<void> _initialize() async {
     final token = _prefs.getString('auth_token');
@@ -82,16 +82,40 @@ class AuthRepositoryImpl extends ChangeNotifier implements AuthRepository  {
       return Failure(ExceptionMapper.map(e));
     }
   }
+  @override
+  AsyncResult<Unit> updatePassword({required UpdatePasswordRequest request}) async {
+    try {
+      final user = _currentUser;
+      if (user == null) {
+        return Failure(Exception("Usuário não está logado."));
+      }
+      await _authService.updatePassword(
+        userId: user.id.toString(),
+        request: request.toJson(), // Freezed toJson
+      );
+      _isTemporaryPassword = false;
+      notifyListeners();
+      return  Success.unit();
+    } catch (e) {
+      return Failure(ExceptionMapper.map(e));
+    }
+  }
+
 
   @override
   AsyncResult<void> logout() async {
+    print('cheguei aqui');
+
     try {
-      await _authService.logout();
       await _prefs.remove('auth_token');
       await _prefs.remove('refresh_token');
       await _prefs.remove('user_data');
-      _isTemporaryPassword = null;
+      _isTemporaryPassword = false;
       _setUser(null);
+      notifyListeners();
+      await _authService.logout();
+
+      print('cheguei aqui');
       return Success(Null);
     } catch (e) {
       return Failure(ExceptionMapper.map(e));
@@ -116,6 +140,19 @@ class AuthRepositoryImpl extends ChangeNotifier implements AuthRepository  {
     _userController.close();
     super.dispose();
   }
+
+  @override
+  AsyncResult<Unit> requestUnlock({required UnlockAccountRequest request}) async {
+    try {
+      await _authService.requestUnlock(
+        request: request.toJson(),
+      );
+      return Success.unit();
+    } catch (e) {
+      return Failure(ExceptionMapper.map(e));
+    }
+  }
+
 
 
 }

@@ -7,7 +7,7 @@ const profileBranch = TypedStatefulShellBranch<StatefulShellBranchData>(
   ],
 );
 
-const profileRoute  = TypedGoRoute<ProfileRoute>(path: AppRoutes.profile);
+const profileRoute  = TypedGoRoute<ProfileRoute>(path: AppRoutes.profile, routes: [resetPasswordRoute]);
 
 
 class ProfileRoute extends GoRouteData with _$ProfileRoute{
@@ -15,6 +15,18 @@ class ProfileRoute extends GoRouteData with _$ProfileRoute{
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return Placeholder();
+    return ProfilePage();
+  }
+}
+
+const resetPasswordRoute  = TypedGoRoute<ResetPasswordRoute>(path: AppRoutes.resetPassword);
+
+
+class ResetPasswordRoute extends GoRouteData with _$ResetPasswordRoute{
+  const ResetPasswordRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return ResetPasswordPage();
   }
 }

@@ -1,3 +1,6 @@
+import 'package:Nexus/ui/features/auth/reset_password/reset_password_page.dart';
+import 'package:Nexus/ui/features/incidents_web/incident_page.dart';
+import 'package:Nexus/ui/features/profile_web/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:Nexus/ui/features/emergency_contacts_web/emergency_contact_page.dart';

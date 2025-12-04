@@ -2,7 +2,7 @@ import 'dart:collection';
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../../data/repositories/emergency_contacts_repository.dart';
+import '../../../../data/repositories/emergency_contact_repository.dart';
 import '../../../../domain/models/responses/gen_models.dart';
 
 enum EmergencyContactsState {
@@ -17,8 +17,8 @@ class EmergencyContactsViewModel with ChangeNotifier {
 
   EmergencyContactsViewModel({required EmergencyContactsRepository repository}) : _repository = repository;
 
-  EmergencyContactsResponse? _singleEmergency;
-  EmergencyContactsResponse? get singleEmergency => _singleEmergency;
+  EmergencyContactResponse? _singleEmergency;
+  EmergencyContactResponse? get singleEmergency => _singleEmergency;
 
   EmergencyContactsState _state = EmergencyContactsState.loading;
   EmergencyContactsState get state => _state;
@@ -26,8 +26,8 @@ class EmergencyContactsViewModel with ChangeNotifier {
   late String _errorMessage = '';
   String get errorMessage => _errorMessage;
 
-  late List<EmergencyContactsResponse> _emergencies = [];
-  UnmodifiableListView<EmergencyContactsResponse> get emergencies => UnmodifiableListView(_emergencies);
+  late List<EmergencyContactResponse> _emergencies = [];
+  UnmodifiableListView<EmergencyContactResponse> get emergencies => UnmodifiableListView(_emergencies);
 
   getEmergencyContacts() async {
     if(_singleEmergency == null){
@@ -41,8 +41,8 @@ class EmergencyContactsViewModel with ChangeNotifier {
     notifyListeners();
     
     try{
-      final response = await _repository.getEmergencyContacts();
-      _emergencies = response.content;
+      final response = await _repository.list();
+      _emergencies = response.getOrThrow().content.toList();
       _state = EmergencyContactsState.idle;
     } catch (e) {
       _errorMessage = e.toString();

@@ -17,6 +17,9 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../data/repositories/impl/theme_control_repository_impl.dart';
+import '../data/repositories/theme_control_repository.dart';
+import '../ui/features/profile_web/view_model/theme_control_view_model.dart';
 import 'dio_config.dart';
 
 List<SingleChildWidget> providers(SharedPreferences prefs, Dio dio) {
@@ -88,10 +91,18 @@ List<SingleChildWidget> get _repositoriesData {
       create: (context) =>
           UserRepositoryImpl(service: context.read()),
     ),
+    Provider<ThemeControlRepository>(
+      create: (context) =>
+          ThemeControlRepositoryImpl(prefs: context.read()),
+    ),
   ];
 }
 
 //view Models
 List<SingleChildWidget> get _viewModelsProviders {
-  return [];
+  return [
+    ChangeNotifierProvider<ThemeControlViewModel>(
+      create: (context) => ThemeControlViewModel(repository: context.read()),
+    ),
+  ];
 }

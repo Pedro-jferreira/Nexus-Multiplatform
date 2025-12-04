@@ -14,6 +14,7 @@ class AppRoutes {
   static const String incidentsDetails ='incidents_details';
   static const String emergencyContacts ='/contacts';
   static const String profile ='/profile';
+  static const String resetPassword ='reset';
 
 
 

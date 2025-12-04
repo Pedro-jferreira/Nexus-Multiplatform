@@ -95,14 +95,12 @@ class CustomNavigationDrawer extends StatelessWidget {
                               child: Row(
                                 spacing: 5,
                                 children: [
-                                  SizedBox(
-                                        width: 47,
-                                        height: 47,
-                                        child: CustomCircleAvatar(
-                                          iconData: Icons.person,
-                                          imageUrl: profileUrl,
-                                        ),
-                                      ),
+                                  CustomCircleAvatar(
+                                    iconData: Icons.person,
+                                    imageUrl: profileUrl,
+                                    width: 47,
+                                    height: 47,
+                                  ),
                                   Column(
                                     children: [
                                       Text(
