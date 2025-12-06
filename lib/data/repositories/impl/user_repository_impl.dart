@@ -32,10 +32,10 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  AsyncResult<void> delete(int id) async {
+  AsyncResult<Unit> delete(int id) async {
     try {
       await _service.delete(id);
-      return const Success(Null);
+      return Success.unit();
     } catch (e) {
       return Failure(ExceptionMapper.map(e));
     }

@@ -20,5 +20,5 @@ abstract class UserRepository{
     required FileRequest file,
   });
 
-  AsyncResult<void> delete(int id);
+  AsyncResult<Unit> delete(int id);
 }
