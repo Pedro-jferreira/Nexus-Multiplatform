@@ -312,6 +312,7 @@ class SuccessModal extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dialog(
       insetPadding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+      constraints: BoxConstraints( maxWidth: 600),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
       child: Padding(
         padding: const EdgeInsets.all(25),
