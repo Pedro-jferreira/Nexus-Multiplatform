@@ -54,7 +54,7 @@ class _UserEditorModalState extends State<UserEditorModal> {
         nome: model.name,
         email: model.email,
         role: model.role,
-        status: (model.locked && model.enabled),
+        status: model.status,
       );
       if (model.profileImageUrl != null) {
         _imageController.loadFromUrl(model.profileImageUrl!);
@@ -184,8 +184,7 @@ class _UserEditorModalState extends State<UserEditorModal> {
             name: _model.nome,
             email: _model.email,
             role: _model.role!,
-            enable: _model.status!,
-            locked: !_model.status!,
+            status: _model.status!,
           ),
           file: FileRequest(
             file: _imageController.bytes,
@@ -221,8 +220,7 @@ class _UserEditorModalState extends State<UserEditorModal> {
     final bool imageChanged = (original.profileImageUrl == null)
         ? _imageController.cache.isNotEmpty
         : _imageController.cache.length > 1;
-    final bool statusChanged =
-        _model.status != (original.locked && original.enabled);
+    final bool statusChanged = _model.status != original.status;
 
     return nameChanged ||
         emailChanged ||
