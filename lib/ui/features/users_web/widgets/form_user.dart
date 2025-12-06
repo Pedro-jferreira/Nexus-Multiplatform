@@ -1,9 +1,7 @@
-import 'package:dio/dio.dart';
-import 'package:dropdown_search/dropdown_search.dart';
+import 'package:Nexus/domain/models/enums/api_enums.dart';
 import 'package:flutter/material.dart';
 import 'package:Nexus/guards/roles.dart';
 
-import '../../../../domain/models/responses/gen_models.dart';
 import '../../../../domain/validators/users_validators.dart';
 
 class FormUser extends StatefulWidget {
@@ -11,7 +9,6 @@ class FormUser extends StatefulWidget {
   final UserModel userModel;
   final UsersValidador validator;
 
-  /// Indica se o formulário está em modo de edição
   final bool isEditing;
 
   const FormUser._({
@@ -22,7 +19,6 @@ class FormUser extends StatefulWidget {
     required this.isEditing,
   });
 
-  /// 🔹 Construtor para criar usuário
   factory FormUser.create({
     Key? key,
     required GlobalKey formKey,
@@ -32,13 +28,12 @@ class FormUser extends StatefulWidget {
     return FormUser._(
       key: key,
       formKey: formKey,
-      userModel: userModel, // inicializa vazio
+      userModel: userModel,
       validator: validator,
       isEditing: false,
     );
   }
 
-  /// 🔹 Construtor para editar usuário
   factory FormUser.edit({
     Key? key,
     required GlobalKey formKey,
@@ -128,7 +123,7 @@ class _FormUserState extends State<FormUser> {
             onTap: FocusScope.of(context).unfocus,
           ),
           if(widget.isEditing)
-          DropdownButtonFormField<bool>(
+          DropdownButtonFormField<EnumStatus>(
             initialValue: widget.userModel.status,
             onChanged: widget.userModel.setStatus,
             autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -137,10 +132,14 @@ class _FormUserState extends State<FormUser> {
               hintText: 'Selecione um status',
               border: OutlineInputBorder(),
             ),
-            items: [
-              DropdownMenuItem<bool>(value: true, child: Text('Ativo')),
-              DropdownMenuItem<bool>(value: false, child: Text('Bloqueado')),
-            ],
+            items: EnumStatus.values
+                .map(
+                  (type) => DropdownMenuItem<EnumStatus>(
+                value: type,
+                child: Text(type.name),
+              ),
+            )
+                .toList(),
             validator: (value) =>
                 widget.validator.byField(widget.userModel, 'status')(value?.toString()),
             onTap: FocusScope.of(context).unfocus,

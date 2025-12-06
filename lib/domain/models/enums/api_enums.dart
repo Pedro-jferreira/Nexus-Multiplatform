@@ -26,4 +26,11 @@ enum EnumStatus {
   BLOQUEADO
 }
 
+enum SuspectStatus {
+  @JsonValue('FORAGIDO')
+  FORAGIDO,
+  @JsonValue('CAPTURADO')
+  CAPTURADO
+}
+
 
