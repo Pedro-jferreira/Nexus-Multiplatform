@@ -20,8 +20,9 @@ class UpdateUserRequest with _$UpdateUserRequest {
     required String name,
     required String email,
     required Role role,
-    required bool  enable,
-    required bool locked,
+    @Default(false) bool  enable,
+    @Default(false) bool locked,
+    required EnumStatus status,
   }) = _UpdateUserRequest;
 
   factory UpdateUserRequest.fromJson(Map<String, dynamic> json) =>

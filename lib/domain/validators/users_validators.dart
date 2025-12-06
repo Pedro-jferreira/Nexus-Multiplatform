@@ -1,11 +1,13 @@
 import 'package:Nexus/guards/roles.dart';
 import 'package:lucid_validation/lucid_validation.dart';
 
+import '../models/enums/api_enums.dart';
+
 class UserModel {
   String nome;
   String email;
   Role? role;
-  bool? status;
+  EnumStatus? status;
 
   UserModel({
     required this.nome,
