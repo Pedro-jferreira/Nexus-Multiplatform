@@ -1,5 +1,9 @@
+import 'package:Nexus/data/repositories/impl/suspect_repository_impl.dart';
 import 'package:Nexus/data/repositories/impl/user_repository_impl.dart';
+import 'package:Nexus/data/repositories/suspects_repository.dart';
 import 'package:Nexus/data/repositories/user_repository.dart';
+import 'package:Nexus/data/services/impl/suspect_service_impl.dart';
+import 'package:Nexus/data/services/suspect_service.dart';
 import 'package:dio/dio.dart';
 import 'package:go_router/go_router.dart';
 import 'package:Nexus/data/repositories/auth_repository.dart';
@@ -77,6 +81,9 @@ List<SingleChildWidget> get _servicesData {
     Provider<UsersServices>(
       create: (context) => UsersServiceImpl(dio: context.read()),
     ),
+    Provider<SuspectsService>(
+      create: (context) => SuspectsServiceImpl(dio: context.read()),
+    ),
   ];
 }
 
@@ -90,6 +97,10 @@ List<SingleChildWidget> get _repositoriesData {
     Provider<UserRepository>(
       create: (context) =>
           UserRepositoryImpl(service: context.read()),
+    ),
+    Provider<SuspectsRepository>(
+      create: (context) =>
+          SuspectsRepositoryImpl(service: context.read()),
     ),
     Provider<ThemeControlRepository>(
       create: (context) =>

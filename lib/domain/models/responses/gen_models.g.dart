@@ -155,3 +155,34 @@ Map<String, dynamic> _$$PaginatedResponseImplToJson<T>(
   'size': instance.size,
   'number': instance.number,
 };
+
+_$SuspectResponseImpl _$$SuspectResponseImplFromJson(
+  Map<String, dynamic> json,
+) => _$SuspectResponseImpl(
+  id: (json['id'] as num).toInt(),
+  name: json['name'] as String,
+  birthDate: const DateOnlyConverter().fromJson(json['birthDate'] as String),
+  cpf: json['cpf'] as String,
+  description: json['description'] as String,
+  images: (json['images'] as List<dynamic>)
+      .map((e) => ImageResponse.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  suspectStatus: $enumDecode(_$SuspectStatusEnumMap, json['suspectStatus']),
+);
+
+Map<String, dynamic> _$$SuspectResponseImplToJson(
+  _$SuspectResponseImpl instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  'birthDate': const DateOnlyConverter().toJson(instance.birthDate),
+  'cpf': instance.cpf,
+  'description': instance.description,
+  'images': instance.images,
+  'suspectStatus': _$SuspectStatusEnumMap[instance.suspectStatus]!,
+};
+
+const _$SuspectStatusEnumMap = {
+  SuspectStatus.FORAGIDO: 'FORAGIDO',
+  SuspectStatus.CAPTURADO: 'CAPTURADO',
+};

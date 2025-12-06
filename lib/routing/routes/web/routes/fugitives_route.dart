@@ -14,6 +14,6 @@ class FugitivesRoute extends GoRouteData with _$FugitivesRoute{
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return Placeholder();
+    return SuspectPage();
   }
 }
