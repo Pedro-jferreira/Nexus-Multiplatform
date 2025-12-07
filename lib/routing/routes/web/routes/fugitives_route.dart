@@ -10,10 +10,11 @@ const fugitivesRoute  = TypedGoRoute<FugitivesRoute>(path: AppRoutes.fugitives);
 
 
 class FugitivesRoute extends GoRouteData with _$FugitivesRoute{
-  const FugitivesRoute();
+  final String? cpf;
 
+  const FugitivesRoute({this.cpf});
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return SuspectPage();
+    return SuspectPage(initialCpf: cpf);
   }
 }

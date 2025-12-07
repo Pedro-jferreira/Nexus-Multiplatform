@@ -129,10 +129,15 @@ mixin _$DashboardRoute on GoRouteData {
 
 mixin _$FugitivesRoute on GoRouteData {
   static FugitivesRoute _fromState(GoRouterState state) =>
-      const FugitivesRoute();
+      FugitivesRoute(cpf: state.uri.queryParameters['cpf']);
+
+  FugitivesRoute get _self => this as FugitivesRoute;
 
   @override
-  String get location => GoRouteData.$location('/fugitives');
+  String get location => GoRouteData.$location(
+    '/fugitives',
+    queryParams: {if (_self.cpf != null) 'cpf': _self.cpf},
+  );
 
   @override
   void go(BuildContext context) => context.go(location);

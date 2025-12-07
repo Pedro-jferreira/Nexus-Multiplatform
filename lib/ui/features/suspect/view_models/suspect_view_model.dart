@@ -48,8 +48,10 @@ class SuspectViewModel extends ChangeNotifier {
       size: _pageSize,
     );
     _currentPage = 0;
-    fetchCmd.execute();
     notifyListeners();
+    if(fetchCmd.value.isRunning) fetchCmd.cancel();
+    fetchCmd.execute();
+
   }
 
   AsyncResult<List<SuspectResponse>> _fetch() async {

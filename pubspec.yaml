@@ -48,6 +48,7 @@ dependencies:
   permission_handler: ^12.0.1
   web_browser_detect: ^2.2.0
   http: ^1.6.0
+  universal_html: ^2.3.0
 
 dev_dependencies:
   flutter_test:

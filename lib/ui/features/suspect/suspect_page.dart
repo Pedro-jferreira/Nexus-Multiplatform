@@ -11,11 +11,13 @@ import 'package:provider/provider.dart';
 import '../../../domain/models/enums/api_enums.dart';
 import '../../../domain/models/requests/gen_models.dart';
 import '../../../domain/models/responses/gen_models.dart';
+import '../../../routing/routes/web/app_router_web.dart';
 import '../../core/layout/custom_app_bar.dart';
 import '../../core/widgets/custom_dropdown_chip.dart';
 
 class SuspectPage extends StatefulWidget {
-  const SuspectPage({super.key});
+  final String? initialCpf;
+  const SuspectPage({super.key, this.initialCpf});
 
   @override
   State<SuspectPage> createState() => _SuspectPageState();
@@ -28,16 +30,46 @@ class _SuspectPageState extends State<SuspectPage> {
 
   Timer? _debounce;
 
-  final filters = <String, dynamic>{};
 
   @override
   void initState() {
-    _viewModel = SuspectViewModel(repository: context.read());
-    _viewModel.fetchCmd.execute();
+    super.initState();
+    _viewModel = context.read<SuspectViewModel>();
     _scrollController.addListener(_onScroll);
 
-    super.initState();
+    // Executa na primeira criação
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _handleInitialLoad();
+    });
   }
+
+  @override
+  void didUpdateWidget(covariant SuspectPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (widget.initialCpf != oldWidget.initialCpf) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _applyCpfFilter();
+      });
+    }
+  }
+
+  void _applyCpfFilter() {
+    if (widget.initialCpf != null && widget.initialCpf!.isNotEmpty) {
+      _searchController.text = widget.initialCpf!;
+      _viewModel.updateFilter(query: Optional.of(widget.initialCpf),status: Optional.absent());
+    }
+  }
+
+  void _handleInitialLoad() {
+    if (widget.initialCpf != null && widget.initialCpf!.isNotEmpty) {
+      _applyCpfFilter();
+    }
+    else if (_viewModel.suspects.isEmpty && !_viewModel.fetchCmd.value.isRunning) {
+      _viewModel.fetchCmd.execute();
+    }
+  }
+
 
   void _onScroll() {
     if (_scrollController.position.pixels >=
@@ -136,6 +168,9 @@ class _SuspectPageState extends State<SuspectPage> {
                                   _searchController.clear();
                                   setState(() {}); // atualiza ícone
                                   debounceQuery(""); // limpa filtro também
+                                  if(widget.initialCpf != null){
+                                    const FugitivesRoute().go(context);
+                                  }
                                 },
                               )
                             : const Icon(Icons.search),

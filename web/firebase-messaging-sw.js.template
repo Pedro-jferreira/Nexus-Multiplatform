@@ -1,6 +1,5 @@
 importScripts("https://www.gstatic.com/firebasejs/9.19.1/firebase-app-compat.js");
-importScripts("https://www.gstatic.com/firebasejs/9.19.1/firebase-messaging-compat.js ");
-
+importScripts("https://www.gstatic.com/firebasejs/9.19.1/firebase-messaging-compat.js");
 
 firebase.initializeApp({
     apiKey: "{{API_KEY_WEB}}",
@@ -14,19 +13,54 @@ firebase.initializeApp({
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
-    console.log("📨 Mensagem de fundo recebida:", payload);
-    console.log("📨 Mensagem titulo:", payload.notification.title);
-    console.log("📨 Mensagem corpo:", payload.notification.body);
+    console.log("📨 Background Message:", payload);
 
-    // AGORA, leia os campos do 'data' em vez do 'notification'
-    const notificationTitle = payload.notification.title ?? "Nova mensagem";
+    const notificationTitle = payload.notification?.title || payload.data.title || "Nova mensagem";
+    const notificationBody = payload.notification?.body || payload.data.body || "";
+    const notificationImage = payload.notification?.image || payload.data.image;
+
     const notificationOptions = {
-        body: payload.notification.body,
-        data: payload.notification.data,
-        click_action: payload.notification.click_action,
+        body: notificationBody,
+        icon: '/icons/icon-192.png',
+        image: notificationImage,
+        data: payload.data,
+        tag: payload.messageId
     };
 
-    self.registration.showNotification(notificationTitle, notificationOptions)
-        .then(() => console.log("✅ Notificação exibida com sucesso!"))
-        .catch((e) => console.error("🚨 Erro ao exibir notificação:", e));
+    return self.registration.showNotification(notificationTitle, notificationOptions);
+});
+
+self.addEventListener('notificationclick', function(event) {
+    event.notification.close();
+    const data = event.notification.data;
+
+    let urlToOpen = self.location.origin;
+    if (data) {
+        // Lógica de rota manual (prioridade alta)
+        if (data.route) {
+            urlToOpen += '/#' + (data.route.startsWith('/') ? data.route : '/' + data.route);
+        }
+        // Lógica gerada dinamicamente pelo Dart baseada no Enum
+        {{ROUTING_LOGIC}}
+    }
+
+    event.waitUntil(
+        clients.matchAll({ type: 'window', includeUncontrolled: true }).then(windowClients => {
+            for (let client of windowClients) {
+                if (client.url.includes(self.location.origin) && 'focus' in client) {
+                    return client.focus().then(() => {
+                        const channel = new BroadcastChannel('app_channel');
+                        channel.postMessage({
+                            type: 'NAVIGATE_TO',
+                            payload: data
+                        });
+                        channel.close();
+                    });
+                }
+            }
+            if (clients.openWindow) {
+                return clients.openWindow(urlToOpen);
+            }
+        })
+    );
 });
