@@ -19,7 +19,7 @@ class SuspectViewModel extends ChangeNotifier {
     deleteCmd = Command1(_deleteSuspect);
   }
 
-  final List<SuspectResponse> _suspects = [];
+  List<SuspectResponse> _suspects = [];
   List<SuspectResponse> get suspects => List.unmodifiable(_suspects);
 
   int _currentPage = 0;
@@ -48,20 +48,21 @@ class SuspectViewModel extends ChangeNotifier {
       size: _pageSize,
     );
     _currentPage = 0;
-    notifyListeners();
     if(fetchCmd.value.isRunning) fetchCmd.cancel();
     fetchCmd.execute();
-
   }
 
   AsyncResult<List<SuspectResponse>> _fetch() async {
     return await _repository.list(filter: _filter).mapFold((onSuccess) {
       _suspects.clear();
-      _suspects.addAll(onSuccess.content.toList());
+      _suspects=onSuccess.content.toList();
       _hasMore = !onSuccess.last;
       notifyListeners();
       return onSuccess.content;
-    }, (onError) => onError);
+    }, (onError) {
+      print(onError);
+      return onError;
+    });
   }
 
   AsyncResult<List<SuspectResponse>> _fetchMoreSuspects() async {

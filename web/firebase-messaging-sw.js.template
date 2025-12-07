@@ -1,5 +1,5 @@
-importScripts("https://www.gstatic.com/firebasejs/9.19.1/firebase-app-compat.js");
-importScripts("https://www.gstatic.com/firebasejs/9.19.1/firebase-messaging-compat.js");
+importScripts("https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js");
+importScripts("https://www.gstatic.com/firebasejs/10.13.2/firebase-messaging-compat.js");
 
 firebase.initializeApp({
     apiKey: "{{API_KEY_WEB}}",
@@ -12,49 +12,85 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
-messaging.onBackgroundMessage((payload) => {
-    console.log("📨 Background Message:", payload);
+function formatImageUrl(originalUrl) {
+    if (!originalUrl) return null;
 
-    const notificationTitle = payload.notification?.title || payload.data.title || "Nova mensagem";
-    const notificationBody = payload.notification?.body || payload.data.body || "";
-    const notificationImage = payload.notification?.image || payload.data.image;
+    if (originalUrl.startsWith('http')) {
+        return originalUrl;
+    }
+
+    if (originalUrl.startsWith('s3://')) {
+        // Remove o prefixo "s3://"
+        const path = originalUrl.substring(5);
+
+        // Separa o bucket do resto do caminho
+        const firstSlashIndex = path.indexOf('/');
+        if (firstSlashIndex === -1) return originalUrl;
+
+        const bucket = path.substring(0, firstSlashIndex);
+        const key = path.substring(firstSlashIndex + 1);
+
+        return `https://${bucket}.s3.us-west-1.amazonaws.com/${key}`;
+    }
+
+    return originalUrl;
+}
+
+
+messaging.onBackgroundMessage((payload) => {
+    console.log("📨 Background Message (SW):", payload);
+
+    const data = payload.data || {};
+
+    const notificationTitle = data.title || payload.notification?.title || "Nova mensagem";
+    const notificationBody = data.body || payload.notification?.body || "";
+
+    let rawImage = data.image || payload.notification?.image;
+        const notificationImage = formatImageUrl(rawImage);
 
     const notificationOptions = {
         body: notificationBody,
-        icon: '/icons/icon-192.png',
+        icon: '/icons/Icon-192.png',
         image: notificationImage,
-        data: payload.data,
-        tag: payload.messageId
+        data: data,
+        tag: payload.messageId || 'nexus-msg',
+        requireInteraction: true
     };
 
     return self.registration.showNotification(notificationTitle, notificationOptions);
 });
 
 self.addEventListener('notificationclick', function(event) {
+    console.log("👆 Notification Clicked");
+
     event.notification.close();
+
     const data = event.notification.data;
 
     let urlToOpen = self.location.origin;
+
     if (data) {
-        // Lógica de rota manual (prioridade alta)
         if (data.route) {
-            urlToOpen += '/#' + (data.route.startsWith('/') ? data.route : '/' + data.route);
+            const routePath = data.route.startsWith('/') ? data.route : '/' + data.route;
+            urlToOpen += '/#' + routePath;
         }
-        // Lógica gerada dinamicamente pelo Dart baseada no Enum
+
         {{ROUTING_LOGIC}}
     }
 
     event.waitUntil(
         clients.matchAll({ type: 'window', includeUncontrolled: true }).then(windowClients => {
             for (let client of windowClients) {
+                // Verifica se é a mesma origem
                 if (client.url.includes(self.location.origin) && 'focus' in client) {
                     return client.focus().then(() => {
+                        // Usa BroadcastChannel para enviar os dados para o Flutter sem recarregar a página
                         const channel = new BroadcastChannel('app_channel');
                         channel.postMessage({
                             type: 'NAVIGATE_TO',
                             payload: data
                         });
-                        channel.close();
+                        setTimeout(() => channel.close(), 1000); // Fecha canal após envio
                     });
                 }
             }

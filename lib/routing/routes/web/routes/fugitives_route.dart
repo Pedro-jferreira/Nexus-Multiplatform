@@ -15,6 +15,7 @@ class FugitivesRoute extends GoRouteData with _$FugitivesRoute{
   const FugitivesRoute({this.cpf});
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return SuspectPage(initialCpf: cpf);
+    final vm = context.read<SuspectViewModel>();
+    return SuspectPage(initialCpf: cpf, viewModel: vm,);
   }
 }

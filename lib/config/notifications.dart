@@ -103,33 +103,39 @@ Future<void> _createNotificationChannel() async {
 
 void _setupForegroundListener() {
   FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+    // 1. Extração direta do DATA (pois message.notification virá null)
+    final Map<String, dynamic> data = message.data;
+
+    // Se não houver dados, ignora
+    if (data.isEmpty) return;
+
+    // 2. Mapeamento manual dos campos baseados no seu JSON
+    final String title = data['title'] ?? 'Nova Mensagem';
+    final String body = data['body'] ?? '';
+    final String? imageUrl = data['image']; // Pode vir null ou vazio
+
     if (kDebugMode) {
-      print(
-        '📩 Mensagem recebida (foreground): ${message.notification?.title}',
-      );
+      print('📩 Data Message recebida (foreground): $title');
+      print('📦 Payload: $data');
     }
-    final Map<String, dynamic> data = Map<String, dynamic>.from(message.data);
 
-    final notification = message.notification;
-    final android = notification?.android;
-
-    if (notification != null && kIsWeb) {
+    // ----------------------
+    // LÓGICA WEB (OverlaySupport)
+    // ----------------------
+    if (kIsWeb) {
       _handleMessageAction(data);
+
       showSimpleNotification(
-        Text(notification.title ?? 'Nova Mensagem'),
-        subtitle: Text(notification.body ?? ''),
-        background: Colors.blueGrey.shade900, // Um fundo mais elegante
-        duration: const Duration(seconds: 6), // Fica 6 segundos na tela (padrão é 2 ou 3)
+        Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+        subtitle: Text(body),
+        background: Colors.blueGrey.shade900,
+        duration: const Duration(seconds: 6),
         slideDismissDirection: DismissDirection.horizontal,
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        // Botão de Ação na direita
         trailing: Builder(builder: (context) {
           return TextButton(
             onPressed: () {
-              // Fecha a notificação visual
               OverlaySupportEntry.of(context)?.dismiss();
-
-              // Navega usando seu Dispatcher
               final navContext = rootNavigatorKey.currentContext;
               if (navContext != null) {
                 NotificationDispatcher.dispatch(navContext, data);
@@ -145,11 +151,16 @@ void _setupForegroundListener() {
       return;
     }
 
-    if (notification != null && android != null) {
-      AndroidBitmap<Object>? largeIconBitmap;
-      StyleInformation? bigPictureStyle;
-      final String? imageUrl = android.imageUrl;
-      if (imageUrl != null) {
+    // ----------------------
+    // LÓGICA MOBILE (Local Notifications)
+    // ----------------------
+
+    AndroidBitmap<Object>? largeIconBitmap;
+    StyleInformation? bigPictureStyle;
+
+    // 3. Tratamento da imagem vinda do 'data'
+    if (imageUrl != null && imageUrl.isNotEmpty) {
+      try {
         final Uint8List? imageBytes = await getByteArrayFromUrl(imageUrl);
 
         if (imageBytes != null) {
@@ -158,31 +169,38 @@ void _setupForegroundListener() {
           bigPictureStyle = BigPictureStyleInformation(
             largeIconBitmap,
             hideExpandedLargeIcon: true,
-            contentTitle: notification.title,
-            summaryText: notification.body,
+            contentTitle: title,
+            summaryText: body,
             htmlFormatContentTitle: true,
             htmlFormatSummaryText: true,
           );
         }
+      } catch (e) {
+        if (kDebugMode) print('Erro ao baixar imagem da notificação: $e');
       }
-
-      flutterLocalNotificationsPlugin.show(
-        notification.hashCode,
-        notification.title,
-        notification.body,
-        NotificationDetails(
-          android: AndroidNotificationDetails(
-            highImportanceChannel.id,
-            highImportanceChannel.name,
-            channelDescription: highImportanceChannel.description,
-            icon: android.smallIcon,
-            largeIcon: largeIconBitmap,
-            styleInformation: bigPictureStyle,
-          ),
-        ),
-        payload: message.data['route'] ?? '',
-      );
     }
+
+    flutterLocalNotificationsPlugin.show(
+      data.hashCode, // ID único baseado no conteúdo
+      title,
+      body,
+      NotificationDetails(
+        android: AndroidNotificationDetails(
+          highImportanceChannel.id,
+          highImportanceChannel.name,
+          channelDescription: highImportanceChannel.description,
+          // IMPORTANTE: Como não temos mais o objeto 'notification',
+          // você deve definir o ícone manualmente ou usar '@mipmap/ic_launcher'
+          icon: '@mipmap/ic_launcher',
+          largeIcon: largeIconBitmap,
+          styleInformation: bigPictureStyle,
+          priority: Priority.high,
+          importance: Importance.max,
+        ),
+      ),
+      // Passamos todo o data como payload (em string) para o callback de clique recuperar
+      payload: jsonEncode(data),
+    );
   });
 }
 void _handleMessageAction(Map<String, dynamic> data) {

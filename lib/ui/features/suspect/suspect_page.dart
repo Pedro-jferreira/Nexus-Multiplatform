@@ -6,7 +6,6 @@ import 'package:Nexus/ui/features/suspect/widgets/supect_editor_modal.dart';
 import 'package:Nexus/ui/features/suspect/widgets/suspect_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
 import '../../../domain/models/enums/api_enums.dart';
 import '../../../domain/models/requests/gen_models.dart';
@@ -17,108 +16,109 @@ import '../../core/widgets/custom_dropdown_chip.dart';
 
 class SuspectPage extends StatefulWidget {
   final String? initialCpf;
-  const SuspectPage({super.key, this.initialCpf});
+  final SuspectViewModel viewModel;
+  const SuspectPage({super.key, this.initialCpf, required this.viewModel});
 
   @override
   State<SuspectPage> createState() => _SuspectPageState();
 }
 
 class _SuspectPageState extends State<SuspectPage> {
-  late final SuspectViewModel _viewModel;
   final ScrollController _scrollController = ScrollController();
   final _searchController = TextEditingController();
 
   Timer? _debounce;
 
-
   @override
   void initState() {
     super.initState();
-    _viewModel = context.read<SuspectViewModel>();
     _scrollController.addListener(_onScroll);
 
-    // Executa na primeira criação
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _handleInitialLoad();
-    });
+    if (widget.initialCpf != null) {
+      _searchController.text = widget.initialCpf!;
+    }
+    _handlerInit();
   }
 
   @override
-  void didUpdateWidget(covariant SuspectPage oldWidget) {
+  void didUpdateWidget(SuspectPage oldWidget) {
     super.didUpdateWidget(oldWidget);
 
     if (widget.initialCpf != oldWidget.initialCpf) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _applyCpfFilter();
-      });
+      _handlerInit();
+      if (widget.initialCpf != null) {
+        _searchController.text = widget.initialCpf!;
+        _searchController.selection = TextSelection.fromPosition(
+          TextPosition(offset: _searchController.text.length),
+        );
+      } else {
+        _searchController.clear();
+      }
     }
   }
 
-  void _applyCpfFilter() {
-    if (widget.initialCpf != null && widget.initialCpf!.isNotEmpty) {
-      _searchController.text = widget.initialCpf!;
-      _viewModel.updateFilter(query: Optional.of(widget.initialCpf),status: Optional.absent());
+  _handlerInit() {
+    if (!widget.viewModel.fetchCmd.value.isRunning) {
+      if (widget.initialCpf != null) {
+        widget.viewModel.updateFilter(query: Optional.of(widget.initialCpf));
+      } else {
+        widget.viewModel.fetchCmd.execute();
+      }
     }
   }
-
-  void _handleInitialLoad() {
-    if (widget.initialCpf != null && widget.initialCpf!.isNotEmpty) {
-      _applyCpfFilter();
-    }
-    else if (_viewModel.suspects.isEmpty && !_viewModel.fetchCmd.value.isRunning) {
-      _viewModel.fetchCmd.execute();
-    }
-  }
-
 
   void _onScroll() {
     if (_scrollController.position.pixels >=
         _scrollController.position.maxScrollExtent - 200) {
-      if (!_viewModel.fetchMoreCmd.value.isRunning && _viewModel.hasMore) {
-        _viewModel.fetchMoreCmd.execute();
+      if (!widget.viewModel.fetchMoreCmd.value.isRunning &&
+          widget.viewModel.hasMore) {
+        widget.viewModel.fetchMoreCmd.execute();
       }
     }
   }
 
   _onEdit(SuspectResponse model) {
-        showDialog(
+    showDialog(
       context: context,
       barrierDismissible: false,
       builder: (_) {
-        return SuspectEditorModal.edit(viewModel: _viewModel, model: model);
+        return SuspectEditorModal.edit(
+          viewModel: widget.viewModel,
+          model: model,
+        );
       },
     );
   }
 
   _onDelete(id) {
-        showDialog(
+    showDialog(
       context: context,
       barrierDismissible: false,
       builder: (_) {
-        return DeleteSuspectModal(viewModel: _viewModel, id: id);
+        return DeleteSuspectModal(viewModel: widget.viewModel, id: id);
       },
     );
   }
+
   void debounceQuery(String text) {
-    setState(() {});
     _debounce?.cancel();
 
     _debounce = Timer(const Duration(milliseconds: 500), () async {
-      if (_viewModel.fetchCmd.value.isRunning) {
-        _viewModel.fetchCmd.cancel();
+      if (widget.viewModel.fetchCmd.value.isRunning) {
+        widget.viewModel.fetchCmd.cancel();
       }
 
       final cleaned = text.trim();
       final query = cleaned.isEmpty ? null : cleaned;
 
-      _viewModel.updateFilter(query: Optional.of(query));
+      widget.viewModel.updateFilter(query: Optional.of(query));
     });
   }
 
   @override
   void dispose() {
     _scrollController.dispose();
-    _viewModel.dispose();
+    widget.viewModel.dispose();
     _searchController.dispose();
     _debounce?.cancel();
     super.dispose();
@@ -133,11 +133,11 @@ class _SuspectPageState extends State<SuspectPage> {
           title: 'Gerenciamento de Suspeitos',
           primaryActionButton: FilledButton.icon(
             onPressed: () {
-                      showDialog(
+              showDialog(
                 context: context,
                 barrierDismissible: false,
                 builder: (_) {
-                  return SuspectEditorModal.create(viewModel: _viewModel);
+                  return SuspectEditorModal.create(viewModel: widget.viewModel);
                 },
               );
             },
@@ -146,7 +146,11 @@ class _SuspectPageState extends State<SuspectPage> {
           ),
         ),
         ListenableBuilder(
-          listenable: _viewModel,
+          listenable: Listenable.merge([
+            widget.viewModel,
+            widget.viewModel.fetchCmd,
+            widget.viewModel.fetchMoreCmd,
+          ]),
           builder: (context, _) {
             return Row(
               spacing: 20,
@@ -156,7 +160,9 @@ class _SuspectPageState extends State<SuspectPage> {
                     constraints: const BoxConstraints(maxWidth: 600),
                     child: TextField(
                       onSubmitted: (value) {
-                        _viewModel.updateFilter(query: Optional.of(value));
+                        widget.viewModel.updateFilter(
+                          query: Optional.of(value),
+                        );
                       },
                       controller: _searchController,
                       decoration: InputDecoration(
@@ -168,7 +174,7 @@ class _SuspectPageState extends State<SuspectPage> {
                                   _searchController.clear();
                                   setState(() {}); // atualiza ícone
                                   debounceQuery(""); // limpa filtro também
-                                  if(widget.initialCpf != null){
+                                  if (widget.initialCpf != null) {
                                     const FugitivesRoute().go(context);
                                   }
                                 },
@@ -184,11 +190,11 @@ class _SuspectPageState extends State<SuspectPage> {
                 // Botão de abrir filtros
                 CustomDropdownChip<SuspectStatus>(
                   items: SuspectStatus.values,
-                  selected: _viewModel.filter.status,
+                  selected: widget.viewModel.filter.status,
                   placeholder: "Selecionar status",
                   labelBuilder: (e) => e.name,
                   onSelected: (value) {
-                    _viewModel.updateFilter(status: Optional.of(value));
+                    widget.viewModel.updateFilter(status: Optional.of(value));
                   },
                 ),
               ],
@@ -198,15 +204,15 @@ class _SuspectPageState extends State<SuspectPage> {
         Expanded(
           child: ListenableBuilder(
             listenable: Listenable.merge([
-              _viewModel,
-              _viewModel.fetchCmd,
-              _viewModel.fetchMoreCmd,
+              widget.viewModel,
+              widget.viewModel.fetchCmd,
+              widget.viewModel.fetchMoreCmd,
             ]),
             builder: (context, _) {
-              if (_viewModel.fetchCmd.value.isRunning) {
+              if (widget.viewModel.fetchCmd.value.isRunning) {
                 return Center(child: CircularProgressIndicator());
               }
-              if (_viewModel.suspects.isEmpty) {
+              if (widget.viewModel.suspects.isEmpty) {
                 return Center(child: Text('Sem Suspeito encontrados'));
               }
 
@@ -219,14 +225,14 @@ class _SuspectPageState extends State<SuspectPage> {
                   final listContent = ListView.builder(
                     controller: _scrollController,
                     itemCount:
-                        _viewModel.suspects.length +
-                        (_viewModel.fetchMoreCmd.value.isRunning ? 1 : 0),
+                        widget.viewModel.suspects.length +
+                        (widget.viewModel.fetchMoreCmd.value.isRunning ? 1 : 0),
                     physics: const BouncingScrollPhysics(),
                     itemBuilder: (context, index) {
-                      final suspect = _viewModel.suspects[index];
+                      final suspect = widget.viewModel.suspects[index];
 
-                      if (index == _viewModel.suspects.length &&
-                          _viewModel.fetchMoreCmd.value.isRunning) {
+                      if (index == widget.viewModel.suspects.length &&
+                          widget.viewModel.fetchMoreCmd.value.isRunning) {
                         return const Padding(
                           padding: EdgeInsets.symmetric(vertical: 16),
                           child: Center(child: CircularProgressIndicator()),
@@ -236,9 +242,15 @@ class _SuspectPageState extends State<SuspectPage> {
                       return SuspectTile(
                         nome: suspect.name,
                         cpf: suspect.cpf,
-                        dataNascimento: DateFormat('dd/MM/yyyy').format(suspect.birthDate),
-                        onEditPressed: _onEdit(suspect),
-                        onDeletePressed: _onDelete(suspect.id),
+                        dataNascimento: DateFormat(
+                          'dd/MM/yyyy',
+                        ).format(suspect.birthDate),
+                        onEditPressed: () {
+                          _onEdit(suspect);
+                        },
+                        onDeletePressed: () {
+                          _onDelete(suspect.id);
+                        },
                         imgUrl: suspect.images.first.url,
                       );
                     },

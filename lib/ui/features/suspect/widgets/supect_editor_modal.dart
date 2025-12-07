@@ -270,7 +270,7 @@ class _SuspectEditorModalState extends State<SuspectEditorModal> {
             label: Text('Salvar'),
             icon: Icon(Icons.save),
           ),
-          helperActionButton: FilledButton(
+          helperActionButton:widget.isEdit? null: FilledButton(
             onPressed: isLoading ? null : _imageController.pick,
             child: Text('Carregar imagem'),
           ),
