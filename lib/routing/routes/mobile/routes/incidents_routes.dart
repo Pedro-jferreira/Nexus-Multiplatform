@@ -25,7 +25,7 @@ const incidentsDetailsRouter = TypedGoRoute<IncidentsDetailsRouter>(
 class IncidentsDetailsRouter extends GoRouteData with _$IncidentsDetailsRouter {
   const IncidentsDetailsRouter();
 
-  static final GlobalKey<NavigatorState> $parentNavigatorKey = rootMobileNavigatorKey;
+  static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
 
   @override
   Widget build(BuildContext context, GoRouterState state) {

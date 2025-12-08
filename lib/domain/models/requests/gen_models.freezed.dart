@@ -1298,6 +1298,7 @@ mixin _$UpdateUserRequest {
   Role get role => throw _privateConstructorUsedError;
   bool get enable => throw _privateConstructorUsedError;
   bool get locked => throw _privateConstructorUsedError;
+  EnumStatus get status => throw _privateConstructorUsedError;
 
   /// Serializes this UpdateUserRequest to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -1316,7 +1317,14 @@ abstract class $UpdateUserRequestCopyWith<$Res> {
     $Res Function(UpdateUserRequest) then,
   ) = _$UpdateUserRequestCopyWithImpl<$Res, UpdateUserRequest>;
   @useResult
-  $Res call({String name, String email, Role role, bool enable, bool locked});
+  $Res call({
+    String name,
+    String email,
+    Role role,
+    bool enable,
+    bool locked,
+    EnumStatus status,
+  });
 }
 
 /// @nodoc
@@ -1339,6 +1347,7 @@ class _$UpdateUserRequestCopyWithImpl<$Res, $Val extends UpdateUserRequest>
     Object? role = null,
     Object? enable = null,
     Object? locked = null,
+    Object? status = null,
   }) {
     return _then(
       _value.copyWith(
@@ -1362,6 +1371,10 @@ class _$UpdateUserRequestCopyWithImpl<$Res, $Val extends UpdateUserRequest>
                 ? _value.locked
                 : locked // ignore: cast_nullable_to_non_nullable
                       as bool,
+            status: null == status
+                ? _value.status
+                : status // ignore: cast_nullable_to_non_nullable
+                      as EnumStatus,
           )
           as $Val,
     );
@@ -1377,7 +1390,14 @@ abstract class _$$UpdateUserRequestImplCopyWith<$Res>
   ) = __$$UpdateUserRequestImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String email, Role role, bool enable, bool locked});
+  $Res call({
+    String name,
+    String email,
+    Role role,
+    bool enable,
+    bool locked,
+    EnumStatus status,
+  });
 }
 
 /// @nodoc
@@ -1399,6 +1419,7 @@ class __$$UpdateUserRequestImplCopyWithImpl<$Res>
     Object? role = null,
     Object? enable = null,
     Object? locked = null,
+    Object? status = null,
   }) {
     return _then(
       _$UpdateUserRequestImpl(
@@ -1422,6 +1443,10 @@ class __$$UpdateUserRequestImplCopyWithImpl<$Res>
             ? _value.locked
             : locked // ignore: cast_nullable_to_non_nullable
                   as bool,
+        status: null == status
+            ? _value.status
+            : status // ignore: cast_nullable_to_non_nullable
+                  as EnumStatus,
       ),
     );
   }
@@ -1434,8 +1459,9 @@ class _$UpdateUserRequestImpl implements _UpdateUserRequest {
     required this.name,
     required this.email,
     required this.role,
-    required this.enable,
-    required this.locked,
+    this.enable = false,
+    this.locked = false,
+    required this.status,
   });
 
   factory _$UpdateUserRequestImpl.fromJson(Map<String, dynamic> json) =>
@@ -1448,13 +1474,17 @@ class _$UpdateUserRequestImpl implements _UpdateUserRequest {
   @override
   final Role role;
   @override
+  @JsonKey()
   final bool enable;
   @override
+  @JsonKey()
   final bool locked;
+  @override
+  final EnumStatus status;
 
   @override
   String toString() {
-    return 'UpdateUserRequest(name: $name, email: $email, role: $role, enable: $enable, locked: $locked)';
+    return 'UpdateUserRequest(name: $name, email: $email, role: $role, enable: $enable, locked: $locked, status: $status)';
   }
 
   @override
@@ -1466,13 +1496,14 @@ class _$UpdateUserRequestImpl implements _UpdateUserRequest {
             (identical(other.email, email) || other.email == email) &&
             (identical(other.role, role) || other.role == role) &&
             (identical(other.enable, enable) || other.enable == enable) &&
-            (identical(other.locked, locked) || other.locked == locked));
+            (identical(other.locked, locked) || other.locked == locked) &&
+            (identical(other.status, status) || other.status == status));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, name, email, role, enable, locked);
+      Object.hash(runtimeType, name, email, role, enable, locked, status);
 
   /// Create a copy of UpdateUserRequest
   /// with the given fields replaced by the non-null parameter values.
@@ -1496,8 +1527,9 @@ abstract class _UpdateUserRequest implements UpdateUserRequest {
     required final String name,
     required final String email,
     required final Role role,
-    required final bool enable,
-    required final bool locked,
+    final bool enable,
+    final bool locked,
+    required final EnumStatus status,
   }) = _$UpdateUserRequestImpl;
 
   factory _UpdateUserRequest.fromJson(Map<String, dynamic> json) =
@@ -1513,6 +1545,8 @@ abstract class _UpdateUserRequest implements UpdateUserRequest {
   bool get enable;
   @override
   bool get locked;
+  @override
+  EnumStatus get status;
 
   /// Create a copy of UpdateUserRequest
   /// with the given fields replaced by the non-null parameter values.
@@ -2294,4 +2328,718 @@ abstract class _FilePayloadUpdate<T> implements FilePayloadUpdate<T> {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FilePayloadUpdateImplCopyWith<T, _$FilePayloadUpdateImpl<T>>
   get copyWith => throw _privateConstructorUsedError;
+}
+
+CreateSuspectRequest _$CreateSuspectRequestFromJson(Map<String, dynamic> json) {
+  return _CreateSuspectRequest.fromJson(json);
+}
+
+/// @nodoc
+mixin _$CreateSuspectRequest {
+  String get name => throw _privateConstructorUsedError;
+  @DateOnlyConverter()
+  DateTime get birthDate => throw _privateConstructorUsedError;
+  String get cpf => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
+
+  /// Serializes this CreateSuspectRequest to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of CreateSuspectRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $CreateSuspectRequestCopyWith<CreateSuspectRequest> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CreateSuspectRequestCopyWith<$Res> {
+  factory $CreateSuspectRequestCopyWith(
+    CreateSuspectRequest value,
+    $Res Function(CreateSuspectRequest) then,
+  ) = _$CreateSuspectRequestCopyWithImpl<$Res, CreateSuspectRequest>;
+  @useResult
+  $Res call({
+    String name,
+    @DateOnlyConverter() DateTime birthDate,
+    String cpf,
+    String description,
+  });
+}
+
+/// @nodoc
+class _$CreateSuspectRequestCopyWithImpl<
+  $Res,
+  $Val extends CreateSuspectRequest
+>
+    implements $CreateSuspectRequestCopyWith<$Res> {
+  _$CreateSuspectRequestCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of CreateSuspectRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? birthDate = null,
+    Object? cpf = null,
+    Object? description = null,
+  }) {
+    return _then(
+      _value.copyWith(
+            name: null == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                      as String,
+            birthDate: null == birthDate
+                ? _value.birthDate
+                : birthDate // ignore: cast_nullable_to_non_nullable
+                      as DateTime,
+            cpf: null == cpf
+                ? _value.cpf
+                : cpf // ignore: cast_nullable_to_non_nullable
+                      as String,
+            description: null == description
+                ? _value.description
+                : description // ignore: cast_nullable_to_non_nullable
+                      as String,
+          )
+          as $Val,
+    );
+  }
+}
+
+/// @nodoc
+abstract class _$$CreateSuspectRequestImplCopyWith<$Res>
+    implements $CreateSuspectRequestCopyWith<$Res> {
+  factory _$$CreateSuspectRequestImplCopyWith(
+    _$CreateSuspectRequestImpl value,
+    $Res Function(_$CreateSuspectRequestImpl) then,
+  ) = __$$CreateSuspectRequestImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({
+    String name,
+    @DateOnlyConverter() DateTime birthDate,
+    String cpf,
+    String description,
+  });
+}
+
+/// @nodoc
+class __$$CreateSuspectRequestImplCopyWithImpl<$Res>
+    extends _$CreateSuspectRequestCopyWithImpl<$Res, _$CreateSuspectRequestImpl>
+    implements _$$CreateSuspectRequestImplCopyWith<$Res> {
+  __$$CreateSuspectRequestImplCopyWithImpl(
+    _$CreateSuspectRequestImpl _value,
+    $Res Function(_$CreateSuspectRequestImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of CreateSuspectRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? birthDate = null,
+    Object? cpf = null,
+    Object? description = null,
+  }) {
+    return _then(
+      _$CreateSuspectRequestImpl(
+        name: null == name
+            ? _value.name
+            : name // ignore: cast_nullable_to_non_nullable
+                  as String,
+        birthDate: null == birthDate
+            ? _value.birthDate
+            : birthDate // ignore: cast_nullable_to_non_nullable
+                  as DateTime,
+        cpf: null == cpf
+            ? _value.cpf
+            : cpf // ignore: cast_nullable_to_non_nullable
+                  as String,
+        description: null == description
+            ? _value.description
+            : description // ignore: cast_nullable_to_non_nullable
+                  as String,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$CreateSuspectRequestImpl implements _CreateSuspectRequest {
+  const _$CreateSuspectRequestImpl({
+    required this.name,
+    @DateOnlyConverter() required this.birthDate,
+    required this.cpf,
+    required this.description,
+  });
+
+  factory _$CreateSuspectRequestImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CreateSuspectRequestImplFromJson(json);
+
+  @override
+  final String name;
+  @override
+  @DateOnlyConverter()
+  final DateTime birthDate;
+  @override
+  final String cpf;
+  @override
+  final String description;
+
+  @override
+  String toString() {
+    return 'CreateSuspectRequest(name: $name, birthDate: $birthDate, cpf: $cpf, description: $description)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CreateSuspectRequestImpl &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.birthDate, birthDate) ||
+                other.birthDate == birthDate) &&
+            (identical(other.cpf, cpf) || other.cpf == cpf) &&
+            (identical(other.description, description) ||
+                other.description == description));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, name, birthDate, cpf, description);
+
+  /// Create a copy of CreateSuspectRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CreateSuspectRequestImplCopyWith<_$CreateSuspectRequestImpl>
+  get copyWith =>
+      __$$CreateSuspectRequestImplCopyWithImpl<_$CreateSuspectRequestImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$CreateSuspectRequestImplToJson(this);
+  }
+}
+
+abstract class _CreateSuspectRequest implements CreateSuspectRequest {
+  const factory _CreateSuspectRequest({
+    required final String name,
+    @DateOnlyConverter() required final DateTime birthDate,
+    required final String cpf,
+    required final String description,
+  }) = _$CreateSuspectRequestImpl;
+
+  factory _CreateSuspectRequest.fromJson(Map<String, dynamic> json) =
+      _$CreateSuspectRequestImpl.fromJson;
+
+  @override
+  String get name;
+  @override
+  @DateOnlyConverter()
+  DateTime get birthDate;
+  @override
+  String get cpf;
+  @override
+  String get description;
+
+  /// Create a copy of CreateSuspectRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$CreateSuspectRequestImplCopyWith<_$CreateSuspectRequestImpl>
+  get copyWith => throw _privateConstructorUsedError;
+}
+
+UpdateSuspectRequest _$UpdateSuspectRequestFromJson(Map<String, dynamic> json) {
+  return _UpdateSuspectRequest.fromJson(json);
+}
+
+/// @nodoc
+mixin _$UpdateSuspectRequest {
+  String get name => throw _privateConstructorUsedError;
+  @DateOnlyConverter()
+  DateTime get birthDate => throw _privateConstructorUsedError;
+  String get cpf => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
+  SuspectStatus get suspectStatus => throw _privateConstructorUsedError;
+
+  /// Serializes this UpdateSuspectRequest to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of UpdateSuspectRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $UpdateSuspectRequestCopyWith<UpdateSuspectRequest> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $UpdateSuspectRequestCopyWith<$Res> {
+  factory $UpdateSuspectRequestCopyWith(
+    UpdateSuspectRequest value,
+    $Res Function(UpdateSuspectRequest) then,
+  ) = _$UpdateSuspectRequestCopyWithImpl<$Res, UpdateSuspectRequest>;
+  @useResult
+  $Res call({
+    String name,
+    @DateOnlyConverter() DateTime birthDate,
+    String cpf,
+    String description,
+    SuspectStatus suspectStatus,
+  });
+}
+
+/// @nodoc
+class _$UpdateSuspectRequestCopyWithImpl<
+  $Res,
+  $Val extends UpdateSuspectRequest
+>
+    implements $UpdateSuspectRequestCopyWith<$Res> {
+  _$UpdateSuspectRequestCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of UpdateSuspectRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? birthDate = null,
+    Object? cpf = null,
+    Object? description = null,
+    Object? suspectStatus = null,
+  }) {
+    return _then(
+      _value.copyWith(
+            name: null == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                      as String,
+            birthDate: null == birthDate
+                ? _value.birthDate
+                : birthDate // ignore: cast_nullable_to_non_nullable
+                      as DateTime,
+            cpf: null == cpf
+                ? _value.cpf
+                : cpf // ignore: cast_nullable_to_non_nullable
+                      as String,
+            description: null == description
+                ? _value.description
+                : description // ignore: cast_nullable_to_non_nullable
+                      as String,
+            suspectStatus: null == suspectStatus
+                ? _value.suspectStatus
+                : suspectStatus // ignore: cast_nullable_to_non_nullable
+                      as SuspectStatus,
+          )
+          as $Val,
+    );
+  }
+}
+
+/// @nodoc
+abstract class _$$UpdateSuspectRequestImplCopyWith<$Res>
+    implements $UpdateSuspectRequestCopyWith<$Res> {
+  factory _$$UpdateSuspectRequestImplCopyWith(
+    _$UpdateSuspectRequestImpl value,
+    $Res Function(_$UpdateSuspectRequestImpl) then,
+  ) = __$$UpdateSuspectRequestImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({
+    String name,
+    @DateOnlyConverter() DateTime birthDate,
+    String cpf,
+    String description,
+    SuspectStatus suspectStatus,
+  });
+}
+
+/// @nodoc
+class __$$UpdateSuspectRequestImplCopyWithImpl<$Res>
+    extends _$UpdateSuspectRequestCopyWithImpl<$Res, _$UpdateSuspectRequestImpl>
+    implements _$$UpdateSuspectRequestImplCopyWith<$Res> {
+  __$$UpdateSuspectRequestImplCopyWithImpl(
+    _$UpdateSuspectRequestImpl _value,
+    $Res Function(_$UpdateSuspectRequestImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of UpdateSuspectRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? birthDate = null,
+    Object? cpf = null,
+    Object? description = null,
+    Object? suspectStatus = null,
+  }) {
+    return _then(
+      _$UpdateSuspectRequestImpl(
+        name: null == name
+            ? _value.name
+            : name // ignore: cast_nullable_to_non_nullable
+                  as String,
+        birthDate: null == birthDate
+            ? _value.birthDate
+            : birthDate // ignore: cast_nullable_to_non_nullable
+                  as DateTime,
+        cpf: null == cpf
+            ? _value.cpf
+            : cpf // ignore: cast_nullable_to_non_nullable
+                  as String,
+        description: null == description
+            ? _value.description
+            : description // ignore: cast_nullable_to_non_nullable
+                  as String,
+        suspectStatus: null == suspectStatus
+            ? _value.suspectStatus
+            : suspectStatus // ignore: cast_nullable_to_non_nullable
+                  as SuspectStatus,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$UpdateSuspectRequestImpl implements _UpdateSuspectRequest {
+  const _$UpdateSuspectRequestImpl({
+    required this.name,
+    @DateOnlyConverter() required this.birthDate,
+    required this.cpf,
+    required this.description,
+    required this.suspectStatus,
+  });
+
+  factory _$UpdateSuspectRequestImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UpdateSuspectRequestImplFromJson(json);
+
+  @override
+  final String name;
+  @override
+  @DateOnlyConverter()
+  final DateTime birthDate;
+  @override
+  final String cpf;
+  @override
+  final String description;
+  @override
+  final SuspectStatus suspectStatus;
+
+  @override
+  String toString() {
+    return 'UpdateSuspectRequest(name: $name, birthDate: $birthDate, cpf: $cpf, description: $description, suspectStatus: $suspectStatus)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UpdateSuspectRequestImpl &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.birthDate, birthDate) ||
+                other.birthDate == birthDate) &&
+            (identical(other.cpf, cpf) || other.cpf == cpf) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.suspectStatus, suspectStatus) ||
+                other.suspectStatus == suspectStatus));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+    runtimeType,
+    name,
+    birthDate,
+    cpf,
+    description,
+    suspectStatus,
+  );
+
+  /// Create a copy of UpdateSuspectRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UpdateSuspectRequestImplCopyWith<_$UpdateSuspectRequestImpl>
+  get copyWith =>
+      __$$UpdateSuspectRequestImplCopyWithImpl<_$UpdateSuspectRequestImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$UpdateSuspectRequestImplToJson(this);
+  }
+}
+
+abstract class _UpdateSuspectRequest implements UpdateSuspectRequest {
+  const factory _UpdateSuspectRequest({
+    required final String name,
+    @DateOnlyConverter() required final DateTime birthDate,
+    required final String cpf,
+    required final String description,
+    required final SuspectStatus suspectStatus,
+  }) = _$UpdateSuspectRequestImpl;
+
+  factory _UpdateSuspectRequest.fromJson(Map<String, dynamic> json) =
+      _$UpdateSuspectRequestImpl.fromJson;
+
+  @override
+  String get name;
+  @override
+  @DateOnlyConverter()
+  DateTime get birthDate;
+  @override
+  String get cpf;
+  @override
+  String get description;
+  @override
+  SuspectStatus get suspectStatus;
+
+  /// Create a copy of UpdateSuspectRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$UpdateSuspectRequestImplCopyWith<_$UpdateSuspectRequestImpl>
+  get copyWith => throw _privateConstructorUsedError;
+}
+
+SuspectFilter _$SuspectFilterFromJson(Map<String, dynamic> json) {
+  return _SuspectFilter.fromJson(json);
+}
+
+/// @nodoc
+mixin _$SuspectFilter {
+  String? get query => throw _privateConstructorUsedError;
+  SuspectStatus? get status => throw _privateConstructorUsedError;
+  int get page => throw _privateConstructorUsedError;
+  int get size => throw _privateConstructorUsedError;
+
+  /// Serializes this SuspectFilter to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of SuspectFilter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $SuspectFilterCopyWith<SuspectFilter> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $SuspectFilterCopyWith<$Res> {
+  factory $SuspectFilterCopyWith(
+    SuspectFilter value,
+    $Res Function(SuspectFilter) then,
+  ) = _$SuspectFilterCopyWithImpl<$Res, SuspectFilter>;
+  @useResult
+  $Res call({String? query, SuspectStatus? status, int page, int size});
+}
+
+/// @nodoc
+class _$SuspectFilterCopyWithImpl<$Res, $Val extends SuspectFilter>
+    implements $SuspectFilterCopyWith<$Res> {
+  _$SuspectFilterCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of SuspectFilter
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? query = freezed,
+    Object? status = freezed,
+    Object? page = null,
+    Object? size = null,
+  }) {
+    return _then(
+      _value.copyWith(
+            query: freezed == query
+                ? _value.query
+                : query // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            status: freezed == status
+                ? _value.status
+                : status // ignore: cast_nullable_to_non_nullable
+                      as SuspectStatus?,
+            page: null == page
+                ? _value.page
+                : page // ignore: cast_nullable_to_non_nullable
+                      as int,
+            size: null == size
+                ? _value.size
+                : size // ignore: cast_nullable_to_non_nullable
+                      as int,
+          )
+          as $Val,
+    );
+  }
+}
+
+/// @nodoc
+abstract class _$$SuspectFilterImplCopyWith<$Res>
+    implements $SuspectFilterCopyWith<$Res> {
+  factory _$$SuspectFilterImplCopyWith(
+    _$SuspectFilterImpl value,
+    $Res Function(_$SuspectFilterImpl) then,
+  ) = __$$SuspectFilterImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String? query, SuspectStatus? status, int page, int size});
+}
+
+/// @nodoc
+class __$$SuspectFilterImplCopyWithImpl<$Res>
+    extends _$SuspectFilterCopyWithImpl<$Res, _$SuspectFilterImpl>
+    implements _$$SuspectFilterImplCopyWith<$Res> {
+  __$$SuspectFilterImplCopyWithImpl(
+    _$SuspectFilterImpl _value,
+    $Res Function(_$SuspectFilterImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of SuspectFilter
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? query = freezed,
+    Object? status = freezed,
+    Object? page = null,
+    Object? size = null,
+  }) {
+    return _then(
+      _$SuspectFilterImpl(
+        query: freezed == query
+            ? _value.query
+            : query // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        status: freezed == status
+            ? _value.status
+            : status // ignore: cast_nullable_to_non_nullable
+                  as SuspectStatus?,
+        page: null == page
+            ? _value.page
+            : page // ignore: cast_nullable_to_non_nullable
+                  as int,
+        size: null == size
+            ? _value.size
+            : size // ignore: cast_nullable_to_non_nullable
+                  as int,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$SuspectFilterImpl implements _SuspectFilter {
+  const _$SuspectFilterImpl({
+    this.query,
+    this.status,
+    this.page = 0,
+    this.size = 10,
+  });
+
+  factory _$SuspectFilterImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SuspectFilterImplFromJson(json);
+
+  @override
+  final String? query;
+  @override
+  final SuspectStatus? status;
+  @override
+  @JsonKey()
+  final int page;
+  @override
+  @JsonKey()
+  final int size;
+
+  @override
+  String toString() {
+    return 'SuspectFilter(query: $query, status: $status, page: $page, size: $size)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SuspectFilterImpl &&
+            (identical(other.query, query) || other.query == query) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.page, page) || other.page == page) &&
+            (identical(other.size, size) || other.size == size));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, query, status, page, size);
+
+  /// Create a copy of SuspectFilter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SuspectFilterImplCopyWith<_$SuspectFilterImpl> get copyWith =>
+      __$$SuspectFilterImplCopyWithImpl<_$SuspectFilterImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$SuspectFilterImplToJson(this);
+  }
+}
+
+abstract class _SuspectFilter implements SuspectFilter {
+  const factory _SuspectFilter({
+    final String? query,
+    final SuspectStatus? status,
+    final int page,
+    final int size,
+  }) = _$SuspectFilterImpl;
+
+  factory _SuspectFilter.fromJson(Map<String, dynamic> json) =
+      _$SuspectFilterImpl.fromJson;
+
+  @override
+  String? get query;
+  @override
+  SuspectStatus? get status;
+  @override
+  int get page;
+  @override
+  int get size;
+
+  /// Create a copy of SuspectFilter
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$SuspectFilterImplCopyWith<_$SuspectFilterImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

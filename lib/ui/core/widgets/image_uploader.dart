@@ -10,6 +10,7 @@ class ImageUploader extends StatefulWidget {
   final void Function(Uint8List? bytes, String? name)? onChanged;
   final double width;
   final double height;
+  final bool readOnly;
 
   const ImageUploader({
     super.key,
@@ -17,6 +18,7 @@ class ImageUploader extends StatefulWidget {
     this.onChanged,
     this.width = 300,
     this.height = 300,
+    this.readOnly = false,
   });
 
   @override
@@ -39,6 +41,7 @@ class _ImageUploaderState extends State<ImageUploader> {
 
 
   Future<void> _pickFile() async {
+    if (widget.readOnly) return;
     const XTypeGroup typeGroup = XTypeGroup(
       label: 'images',
       extensions: ['jpg', 'jpeg', 'png', 'gif'],
@@ -71,7 +74,7 @@ class _ImageUploaderState extends State<ImageUploader> {
               borderRadius: BorderRadius.circular(12),
               clipBehavior: Clip.antiAlias,
               child: InkWell(
-                onTap: _pickFile,
+                onTap: widget.readOnly ? null :_pickFile,
                 child: Ink(
                   width: widget.width,
                   height: widget.height,
@@ -82,6 +85,7 @@ class _ImageUploaderState extends State<ImageUploader> {
                   ),
                   child: Stack(
                     children: [
+                      if(!widget.readOnly)
                       IgnorePointer(
                         ignoring: !highlighted,
                         child: DropzoneView(

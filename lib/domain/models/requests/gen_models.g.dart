@@ -118,8 +118,9 @@ _$UpdateUserRequestImpl _$$UpdateUserRequestImplFromJson(
   name: json['name'] as String,
   email: json['email'] as String,
   role: $enumDecode(_$RoleEnumMap, json['role']),
-  enable: json['enable'] as bool,
-  locked: json['locked'] as bool,
+  enable: json['enable'] as bool? ?? false,
+  locked: json['locked'] as bool? ?? false,
+  status: $enumDecode(_$EnumStatusEnumMap, json['status']),
 );
 
 Map<String, dynamic> _$$UpdateUserRequestImplToJson(
@@ -130,6 +131,13 @@ Map<String, dynamic> _$$UpdateUserRequestImplToJson(
   'role': _$RoleEnumMap[instance.role]!,
   'enable': instance.enable,
   'locked': instance.locked,
+  'status': _$EnumStatusEnumMap[instance.status]!,
+};
+
+const _$EnumStatusEnumMap = {
+  EnumStatus.ATIVO: 'ATIVO',
+  EnumStatus.INATIVO: 'INATIVO',
+  EnumStatus.BLOQUEADO: 'BLOQUEADO',
 };
 
 _$UserFilterImpl _$$UserFilterImplFromJson(Map<String, dynamic> json) =>
@@ -150,8 +158,61 @@ Map<String, dynamic> _$$UserFilterImplToJson(_$UserFilterImpl instance) =>
       'size': instance.size,
     };
 
-const _$EnumStatusEnumMap = {
-  EnumStatus.ATIVO: 'ATIVO',
-  EnumStatus.INATIVO: 'INATIVO',
-  EnumStatus.BLOQUEADO: 'BLOQUEADO',
+_$CreateSuspectRequestImpl _$$CreateSuspectRequestImplFromJson(
+  Map<String, dynamic> json,
+) => _$CreateSuspectRequestImpl(
+  name: json['name'] as String,
+  birthDate: const DateOnlyConverter().fromJson(json['birthDate'] as String),
+  cpf: json['cpf'] as String,
+  description: json['description'] as String,
+);
+
+Map<String, dynamic> _$$CreateSuspectRequestImplToJson(
+  _$CreateSuspectRequestImpl instance,
+) => <String, dynamic>{
+  'name': instance.name,
+  'birthDate': const DateOnlyConverter().toJson(instance.birthDate),
+  'cpf': instance.cpf,
+  'description': instance.description,
 };
+
+_$UpdateSuspectRequestImpl _$$UpdateSuspectRequestImplFromJson(
+  Map<String, dynamic> json,
+) => _$UpdateSuspectRequestImpl(
+  name: json['name'] as String,
+  birthDate: const DateOnlyConverter().fromJson(json['birthDate'] as String),
+  cpf: json['cpf'] as String,
+  description: json['description'] as String,
+  suspectStatus: $enumDecode(_$SuspectStatusEnumMap, json['suspectStatus']),
+);
+
+Map<String, dynamic> _$$UpdateSuspectRequestImplToJson(
+  _$UpdateSuspectRequestImpl instance,
+) => <String, dynamic>{
+  'name': instance.name,
+  'birthDate': const DateOnlyConverter().toJson(instance.birthDate),
+  'cpf': instance.cpf,
+  'description': instance.description,
+  'suspectStatus': _$SuspectStatusEnumMap[instance.suspectStatus]!,
+};
+
+const _$SuspectStatusEnumMap = {
+  SuspectStatus.FORAGIDO: 'FORAGIDO',
+  SuspectStatus.CAPTURADO: 'CAPTURADO',
+};
+
+_$SuspectFilterImpl _$$SuspectFilterImplFromJson(Map<String, dynamic> json) =>
+    _$SuspectFilterImpl(
+      query: json['query'] as String?,
+      status: $enumDecodeNullable(_$SuspectStatusEnumMap, json['status']),
+      page: (json['page'] as num?)?.toInt() ?? 0,
+      size: (json['size'] as num?)?.toInt() ?? 10,
+    );
+
+Map<String, dynamic> _$$SuspectFilterImplToJson(_$SuspectFilterImpl instance) =>
+    <String, dynamic>{
+      'query': instance.query,
+      'status': _$SuspectStatusEnumMap[instance.status],
+      'page': instance.page,
+      'size': instance.size,
+    };

@@ -103,7 +103,7 @@ class AuthRepositoryImpl extends ChangeNotifier implements AuthRepository  {
 
 
   @override
-  AsyncResult<void> logout() async {
+  AsyncResult<Unit> logout() async {
     print('cheguei aqui');
 
     try {
@@ -116,7 +116,7 @@ class AuthRepositoryImpl extends ChangeNotifier implements AuthRepository  {
       await _authService.logout();
 
       print('cheguei aqui');
-      return Success(Null);
+      return Success.unit();
     } catch (e) {
       return Failure(ExceptionMapper.map(e));
     }

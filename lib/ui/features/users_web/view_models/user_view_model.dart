@@ -12,12 +12,12 @@ class UserViewModel extends ChangeNotifier {
   final UserRepository _repository;
 
   UserViewModel({required UserRepository repository})
-      : _repository = repository{
+    : _repository = repository {
     fetchCmd = Command0(_fetch);
-    fetchMoreCmd =Command0(_fetchMoreUsers);
+    fetchMoreCmd = Command0(_fetchMoreUsers);
     createCmd = Command1(_createUser);
     updateCmd = Command1(_updateUser);
-    deleteCmd = Command1<bool, int>(_deleteUser);
+    deleteCmd = Command1<Unit, int>(_deleteUser);
   }
 
   final List<UserResponse> _users = [];
@@ -30,9 +30,10 @@ class UserViewModel extends ChangeNotifier {
   final int _pageSize = 10;
   late final Command0<List<UserResponse>> fetchCmd;
   late final Command0<List<UserResponse>> fetchMoreCmd;
-  late final Command1<UserResponse,FilePayload<CreateUserRequest>> createCmd;
-  late final Command1<UserResponse, FilePayloadUpdate<UpdateUserRequest>> updateCmd;
-  late final Command1<bool, int> deleteCmd;
+  late final Command1<UserResponse, FilePayload<CreateUserRequest>> createCmd;
+  late final Command1<UserResponse, FilePayloadUpdate<UpdateUserRequest>>
+  updateCmd;
+  late final Command1<Unit, int> deleteCmd;
   UserFilter _filter = const UserFilter();
   UserFilter get filter => _filter;
 
@@ -64,32 +65,39 @@ class UserViewModel extends ChangeNotifier {
     }, (onError) => onError);
   }
 
-  AsyncResult<List<UserResponse>>  _fetchMoreUsers() async {
+  AsyncResult<List<UserResponse>> _fetch2() async =>
+      await _repository.list(filter: _filter).mapFold((onSuccess) {
+        _users.clear();
+        _users.addAll(onSuccess.content.toList());
+        _hasMore = !onSuccess.last;
+        notifyListeners();
+        return onSuccess.content;
+      }, (onError) => onError);
+
+  AsyncResult<List<UserResponse>> _fetchMoreUsers() async {
     if (!_hasMore) {
       return Failure(Exception('Não há mais páginas para carregar'));
     }
     _currentPage++;
-    final nextFilter = _filter.copyWith(
-      page: _currentPage,
-      size: _pageSize,
-    );
+    final nextFilter = _filter.copyWith(page: _currentPage, size: _pageSize);
 
     final result = await _repository.list(filter: nextFilter);
 
-    return result.mapFold(
-          (page) {
-        _users.addAll(page.content.toList());
-        _hasMore = !page.last;
-        notifyListeners();
-        return _users;
-      },
-          (error) =>error,
-    );
-
+    return result.mapFold((page) {
+      _users.addAll(page.content.toList());
+      _hasMore = !page.last;
+      notifyListeners();
+      return _users;
+    }, (error) => error);
   }
+
   AsyncResult<UserResponse> _createUser(
-      FilePayload<CreateUserRequest> model) async {
-    final result = await _repository.create(model: model.request, file: model.file);
+    FilePayload<CreateUserRequest> model,
+  ) async {
+    final result = await _repository.create(
+      model: model.request,
+      file: model.file,
+    );
     return result.mapFold((user) {
       _users.insert(0, user); // adiciona no topo
       notifyListeners();
@@ -97,8 +105,14 @@ class UserViewModel extends ChangeNotifier {
     }, (error) => error);
   }
 
-  AsyncResult<UserResponse> _updateUser(FilePayloadUpdate<UpdateUserRequest> model) async {
-    final result = await _repository.update(id: model.id, model: model.request, file: model.file);
+  AsyncResult<UserResponse> _updateUser(
+    FilePayloadUpdate<UpdateUserRequest> model,
+  ) async {
+    final result = await _repository.update(
+      id: model.id,
+      model: model.request,
+      file: model.file,
+    );
     return result.mapFold((updated) {
       final index = _users.indexWhere((c) => c.id == model.id);
       if (index != -1) {
@@ -109,12 +123,12 @@ class UserViewModel extends ChangeNotifier {
     }, (error) => error);
   }
 
-  AsyncResult<bool> _deleteUser(int id) async {
+  AsyncResult<Unit> _deleteUser(int id) async {
     final result = await _repository.delete(id);
-    return result.mapFold((_) {
+    return result.mapFold((result) {
       _users.removeWhere((c) => c.id == id);
       notifyListeners();
-      return true;
+      return result;
     }, (error) => error);
   }
 }

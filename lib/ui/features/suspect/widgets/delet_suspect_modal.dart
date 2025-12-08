@@ -1,30 +1,26 @@
 
-import 'package:Nexus/ui/features/users_web/view_models/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:result_command/result_command.dart';
-import 'package:result_dart/result_dart.dart';
-import 'package:result_dart/result_dart.dart';
-import 'package:result_dart/result_dart.dart';
-import 'package:result_dart/result_dart.dart';
 import 'package:result_dart/result_dart.dart';
 
 import '../../emergency_contacts_web/widgets/contact_editor_modal.dart';
 import '../../emergency_contacts_web/widgets/snack_bar_dialog.dart';
+import '../view_models/suspect_view_model.dart';
 
-class DeleteUserModal extends StatefulWidget {
+class DeleteSuspectModal extends StatefulWidget {
   final int id;
-  final UserViewModel viewModel;
-  const DeleteUserModal({
+  final SuspectViewModel viewModel;
+  const DeleteSuspectModal({
     super.key,
     required this.id,
     required this.viewModel,
   });
 
   @override
-  State<DeleteUserModal> createState() => _DeleteUserModalState();
+  State<DeleteSuspectModal> createState() => _DeleteSuspectModalState();
 }
 
-class _DeleteUserModalState extends State<DeleteUserModal> {
+class _DeleteSuspectModalState extends State<DeleteSuspectModal> {
   String? error;
 
   @override
@@ -67,8 +63,8 @@ class _DeleteUserModalState extends State<DeleteUserModal> {
             context: context,
             barrierDismissible: true,
             builder: (_) => SuccessModal(
-              title: 'Usuário apagado com sucesso!',
-              message: 'O usuário foi apagado na sua lista de usuários.',
+              title: 'Suspeito apagado com sucesso!',
+              message: 'O Suspeito foi apagado na sua lista de Suspeitos.',
               onClose: () {
                 cmd.reset();
               },
@@ -122,7 +118,7 @@ class _DeleteUserModalState extends State<DeleteUserModal> {
                               color: colorScheme.error,
                             ),
                             Text(
-                              'Deseja deletar esse Usuário?',
+                              'Deseja deletar esse Suspeito?',
                               style: textTheme.titleLarge?.copyWith(
                                 color: colorScheme.onSurfaceVariant,
                               ),

@@ -14,7 +14,7 @@ class EmergencyContactViewModel extends ChangeNotifier {
     fetchMoreCmd =Command0(_fetchMoreContacts);
     createCmd = Command1(_createContact);
     updateCmd = Command1(_updateContact);
-    deleteCmd = Command1<bool, int>(_deleteContact);
+    deleteCmd = Command1<Unit, int>(_deleteContact);
   }
 
   final List<EmergencyContactResponse> _contacts = [];
@@ -29,7 +29,7 @@ class EmergencyContactViewModel extends ChangeNotifier {
   late final Command0<List<EmergencyContactResponse>> fetchMoreCmd;
   late final Command1<EmergencyContactResponse,FilePayload<CreateEmergencyContactRequest>> createCmd;
   late final Command1<EmergencyContactResponse, FilePayloadUpdate<UpdateEmergencyContactRequest>> updateCmd;
-  late final Command1<bool, int> deleteCmd;
+  late final Command1<Unit, int> deleteCmd;
 
   AsyncResult<List<EmergencyContactResponse>> _fetch() async {
     return await _repository.list().mapFold((onSuccess) {
@@ -82,12 +82,12 @@ class EmergencyContactViewModel extends ChangeNotifier {
     }, (error) => error);
   }
 
-  AsyncResult<bool> _deleteContact(int id) async {
+  AsyncResult<Unit> _deleteContact(int id) async {
     final result = await _repository.delete(id);
-    return result.mapFold((_) {
+    return result.mapFold((result) {
       _contacts.removeWhere((c) => c.id == id);
       notifyListeners();
-      return true;
+      return result;
     }, (error) => error);
   }
 }
