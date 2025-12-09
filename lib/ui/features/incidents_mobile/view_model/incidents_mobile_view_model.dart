@@ -10,7 +10,8 @@ import '../../../../domain/models/requests/gen_models.dart';
 class IncidentsMobileViewModel extends ChangeNotifier {
   final SuspectsRepository _repository;
 
-  IncidentsMobileViewModel({required SuspectsRepository repository}) : _repository = repository {
+  IncidentsMobileViewModel({required SuspectsRepository repository})
+    : _repository = repository {
     fetchCmd = Command0(_fetch);
     fetchMoreCmd = Command0(_fetchMore);
     fetchById = Command1(_fetchById);
@@ -23,7 +24,15 @@ class IncidentsMobileViewModel extends ChangeNotifier {
   late final Command0<List<SuspectResponse>> fetchMoreCmd;
   late final Command1<SuspectResponse, int> fetchById;
 
-  SuspectResponse _suspetcById = SuspectResponse(id: 0, name: '', birthDate: DateTime.now(), cpf: '', description: '', images: [], suspectStatus: SuspectStatus.CAPTURADO);
+  SuspectResponse _suspetcById = SuspectResponse(
+    id: 0,
+    name: '',
+    birthDate: DateTime.now(),
+    cpf: '',
+    description: '',
+    images: [],
+    suspectStatus: SuspectStatus.CAPTURADO,
+  );
   SuspectResponse get suspectById => _suspetcById;
 
   int _currentPage = 0;
@@ -64,12 +73,19 @@ class IncidentsMobileViewModel extends ChangeNotifier {
 
   AsyncResult<List<SuspectResponse>> _fetchMore() async {
     if (!_hasMore) {
-      return Failure(Exception('Nenhum aleta detectado no momento.\n Novas detecções aparecerão aqui.'));
+      return Failure(
+        Exception(
+          'Erro ao realizar a busca por novos casos.',
+        ),
+      );
     }
 
     _currentPage++;
 
-    final fetchMoreFilter = _filter.copyWith(page: _currentPage, size: _pageSize);
+    final fetchMoreFilter = _filter.copyWith(
+      page: _currentPage,
+      size: _pageSize,
+    );
 
     return await _repository.list(filter: fetchMoreFilter).mapFold((onSuccess) {
       _suspects.addAll(onSuccess.content.toList());

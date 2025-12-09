@@ -65,15 +65,6 @@ class UserViewModel extends ChangeNotifier {
     }, (onError) => onError);
   }
 
-  AsyncResult<List<UserResponse>> _fetch2() async =>
-      await _repository.list(filter: _filter).mapFold((onSuccess) {
-        _users.clear();
-        _users.addAll(onSuccess.content.toList());
-        _hasMore = !onSuccess.last;
-        notifyListeners();
-        return onSuccess.content;
-      }, (onError) => onError);
-
   AsyncResult<List<UserResponse>> _fetchMoreUsers() async {
     if (!_hasMore) {
       return Failure(Exception('Não há mais páginas para carregar'));
