@@ -57,11 +57,7 @@ class _IncidentsPageState extends State<IncidentsPage> {
               if(_viewModel.fetchCmd.value.isRunning) return Center(child: CircularProgressIndicator());
               if(_viewModel.suspects.isEmpty) return Center(child: Text('Nenhum aleta detectado no momento.\n Novas detecções aparecerão aqui.'));
 
-              return LayoutBuilder(
-                builder: (context, _) {
-
-                },
-              );
+              return Placeholder();
             },
           ),
         ),
