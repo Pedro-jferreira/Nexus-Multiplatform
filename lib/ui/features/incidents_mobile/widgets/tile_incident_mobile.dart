@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 
 class TileIncident extends StatelessWidget {
   final String name;
-  final DateTime birthDate;
-  final String cpf;
-  final String description;
+  final String foto;
+  final String camera;
+  final DateTime dataCaptura;
+  final double similaridade;
 
   const TileIncident({
     super.key,
     required this.name,
-    required this.birthDate,
-    required this.cpf,
-    required this.description,
+    required this.foto,
+    required this.camera,
+    required this.dataCaptura,
+    required this.similaridade,
   });
 
   @override
