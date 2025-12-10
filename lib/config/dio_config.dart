@@ -42,6 +42,28 @@ class DioConfig {
   }) {
     dio.interceptors.add(
       InterceptorsWrapper(
+        onResponse: (response, handler) {
+          final isGoogleRedirect = response.realUri.toString().contains('accounts.google.com');
+          final isHtmlContent = response.headers.value('content-type')?.contains('text/html') ?? false;
+
+          if (isGoogleRedirect || isHtmlContent) {
+            if (authRepository.currentUser != null) {
+              authRepository.logout();
+            }
+
+            return handler.reject(
+              DioException(
+                requestOptions: response.requestOptions,
+                error: 'Sessão expirada (Redirecionamento detectado)',
+                type: DioExceptionType.badResponse,
+                response: response,
+              ),
+            );
+          }
+
+          // Se for JSON normal, segue o fluxo
+          return handler.next(response);
+        },
         onError: (e, handler) {
           if (e.response != null) {
             if (e.response!.statusCode == 401) {
