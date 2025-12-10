@@ -61,24 +61,21 @@ class _EmergencyContactsScreenState extends State<EmergencyContactsScreen> {
   @override
   Widget build(BuildContext context) {
     final notifier = context.watch<EmergencyContactViewModel>();
-
     final isLoading = notifier.fetchCmd.value.isRunning || notifier.fetchMoreCmd.value.isRunning;
     final contacts = notifier.contacts;
 
-
-    if (notifier.fetchCmd.lastResult.value?.isFailure == true && contacts.isEmpty) {
-      final error = notifier.fetchCmd.lastResult.value!.exceptionOrNull;
+    //Tratamento de Erro (Erro na carga inicial)
+    if (notifier.fetchCmd.value.isFailure == true && contacts.isEmpty) {
+      final error = notifier.fetchCmd.value.isFailure;
       return Center(
         child: Text('Erro ao carregar: ${error.toString()}'),
       );
     }
-
     if (isLoading && contacts.isEmpty) {
       return const Center(
         child: CircularProgressIndicator(),
       );
     }
-
     return Scaffold(
       appBar: AppBar(title: const Text('Contatos de Emergência')),
       body: Column(
@@ -115,7 +112,6 @@ class _EmergencyContactsScreenState extends State<EmergencyContactsScreen> {
               padding: EdgeInsets.all(8.0),
               child: CircularProgressIndicator(),
             ),
-
           if (!notifier.hasMore && contacts.isNotEmpty)
             const Padding(
               padding: EdgeInsets.all(16.0),
