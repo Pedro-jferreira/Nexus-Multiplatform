@@ -13,6 +13,11 @@ class ContactsRouter extends GoRouteData with _$ContactsRouter {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return EmergencyContactsScreen();
+    return ChangeNotifierProvider(
+      create: (context) => EmergencyContactViewModel(
+        repository: context.read<EmergencyContactsRepository>(),
+      ),
+      child: const EmergencyContactsScreen(),
+    );
   }
 }
