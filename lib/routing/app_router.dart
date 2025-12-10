@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../data/repositories/auth_repository.dart';
+import '../ui/core/widgets/smart_hero_image.dart';
 import '../ui/features/auth/forgout_password/forgot_password.dart';
 import '../ui/features/auth/login/login_page.dart';
 import '../ui/features/auth/login/viewmodel/login_view_model.dart';
@@ -14,11 +15,12 @@ import 'routes/web/app_router_web.dart' as web;
 part 'app_router.g.dart';
 
 part 'routes/auth/login_route.dart';
+part 'routes/core/image_viewer_route.dart';
 
-final GlobalKey<NavigatorState> rootMobileNavigatorKey = GlobalKey<NavigatorState>();
+final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 
 GoRouter createRouter(AuthRepository authRepository) => GoRouter(
-  navigatorKey: !kIsWeb ? rootMobileNavigatorKey : null,
+  navigatorKey: rootNavigatorKey,
   refreshListenable: authRepository,
   initialLocation: LoginRoute().location,
   routes: [

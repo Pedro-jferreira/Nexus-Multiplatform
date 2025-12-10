@@ -10,6 +10,7 @@ abstract class AuthRepository extends ChangeNotifier{
   bool get isTemporaryPassword;
 
   AsyncResult<UserResponse> login({required LoginRequest loginRequest});
-  AsyncResult<void> logout();
+  AsyncResult<Unit> logout();
   AsyncResult<Unit> updatePassword({required UpdatePasswordRequest request});
+  AsyncResult<Unit> requestUnlock({required UnlockAccountRequest request});
 }

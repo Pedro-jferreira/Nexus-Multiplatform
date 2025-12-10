@@ -2,6 +2,11 @@
 import 'package:Nexus/ui/features/users_web/view_models/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:result_command/result_command.dart';
+import 'package:result_dart/result_dart.dart';
+import 'package:result_dart/result_dart.dart';
+import 'package:result_dart/result_dart.dart';
+import 'package:result_dart/result_dart.dart';
+import 'package:result_dart/result_dart.dart';
 
 import '../../emergency_contacts_web/widgets/contact_editor_modal.dart';
 import '../../emergency_contacts_web/widgets/snack_bar_dialog.dart';
@@ -39,11 +44,11 @@ class _DeleteUserModalState extends State<DeleteUserModal> {
     final value = widget.viewModel.deleteCmd.value;
 
     switch (value) {
-      case IdleCommand<bool>():
-      case CancelledCommand<bool>():
-      case RunningCommand<bool>():
+      case IdleCommand<Unit>():
+      case CancelledCommand<Unit>():
+      case RunningCommand<Unit>():
         return;
-      case FailureCommand<bool>():
+      case FailureCommand<Unit>():
         if (error == null) {
           Future.delayed(const Duration(milliseconds: 300), () {
             if (mounted) setState(() => error = value.error.toString());
@@ -54,7 +59,7 @@ class _DeleteUserModalState extends State<DeleteUserModal> {
           cmd.reset();
         });
         break;
-      case SuccessCommand<bool>():
+      case SuccessCommand<Unit>():
         Navigator.of(context).pop();
         Future.microtask(() {
           if (!mounted) return;

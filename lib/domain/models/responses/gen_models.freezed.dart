@@ -866,489 +866,6 @@ abstract class _EmergencyContactResponse implements EmergencyContactResponse {
   get copyWith => throw _privateConstructorUsedError;
 }
 
-EmergencyContactsResponse _$EmergencyContactsResponseFromJson(
-  Map<String, dynamic> json,
-) {
-  return _EmeregencyContactResponse.fromJson(json);
-}
-
-/// @nodoc
-mixin _$EmergencyContactsResponse {
-  int get id => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
-  String get phone => throw _privateConstructorUsedError;
-  ServiceType get serviceType => throw _privateConstructorUsedError;
-  List<ImageResponse> get images => throw _privateConstructorUsedError;
-
-  /// Serializes this EmergencyContactsResponse to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of EmergencyContactsResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $EmergencyContactsResponseCopyWith<EmergencyContactsResponse> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $EmergencyContactsResponseCopyWith<$Res> {
-  factory $EmergencyContactsResponseCopyWith(
-    EmergencyContactsResponse value,
-    $Res Function(EmergencyContactsResponse) then,
-  ) = _$EmergencyContactsResponseCopyWithImpl<$Res, EmergencyContactsResponse>;
-  @useResult
-  $Res call({
-    int id,
-    String name,
-    String phone,
-    ServiceType serviceType,
-    List<ImageResponse> images,
-  });
-}
-
-/// @nodoc
-class _$EmergencyContactsResponseCopyWithImpl<
-  $Res,
-  $Val extends EmergencyContactsResponse
->
-    implements $EmergencyContactsResponseCopyWith<$Res> {
-  _$EmergencyContactsResponseCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of EmergencyContactsResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? name = null,
-    Object? phone = null,
-    Object? serviceType = null,
-    Object? images = null,
-  }) {
-    return _then(
-      _value.copyWith(
-            id: null == id
-                ? _value.id
-                : id // ignore: cast_nullable_to_non_nullable
-                      as int,
-            name: null == name
-                ? _value.name
-                : name // ignore: cast_nullable_to_non_nullable
-                      as String,
-            phone: null == phone
-                ? _value.phone
-                : phone // ignore: cast_nullable_to_non_nullable
-                      as String,
-            serviceType: null == serviceType
-                ? _value.serviceType
-                : serviceType // ignore: cast_nullable_to_non_nullable
-                      as ServiceType,
-            images: null == images
-                ? _value.images
-                : images // ignore: cast_nullable_to_non_nullable
-                      as List<ImageResponse>,
-          )
-          as $Val,
-    );
-  }
-}
-
-/// @nodoc
-abstract class _$$EmeregencyContactResponseImplCopyWith<$Res>
-    implements $EmergencyContactsResponseCopyWith<$Res> {
-  factory _$$EmeregencyContactResponseImplCopyWith(
-    _$EmeregencyContactResponseImpl value,
-    $Res Function(_$EmeregencyContactResponseImpl) then,
-  ) = __$$EmeregencyContactResponseImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({
-    int id,
-    String name,
-    String phone,
-    ServiceType serviceType,
-    List<ImageResponse> images,
-  });
-}
-
-/// @nodoc
-class __$$EmeregencyContactResponseImplCopyWithImpl<$Res>
-    extends
-        _$EmergencyContactsResponseCopyWithImpl<
-          $Res,
-          _$EmeregencyContactResponseImpl
-        >
-    implements _$$EmeregencyContactResponseImplCopyWith<$Res> {
-  __$$EmeregencyContactResponseImplCopyWithImpl(
-    _$EmeregencyContactResponseImpl _value,
-    $Res Function(_$EmeregencyContactResponseImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of EmergencyContactsResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? name = null,
-    Object? phone = null,
-    Object? serviceType = null,
-    Object? images = null,
-  }) {
-    return _then(
-      _$EmeregencyContactResponseImpl(
-        id: null == id
-            ? _value.id
-            : id // ignore: cast_nullable_to_non_nullable
-                  as int,
-        name: null == name
-            ? _value.name
-            : name // ignore: cast_nullable_to_non_nullable
-                  as String,
-        phone: null == phone
-            ? _value.phone
-            : phone // ignore: cast_nullable_to_non_nullable
-                  as String,
-        serviceType: null == serviceType
-            ? _value.serviceType
-            : serviceType // ignore: cast_nullable_to_non_nullable
-                  as ServiceType,
-        images: null == images
-            ? _value._images
-            : images // ignore: cast_nullable_to_non_nullable
-                  as List<ImageResponse>,
-      ),
-    );
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$EmeregencyContactResponseImpl implements _EmeregencyContactResponse {
-  const _$EmeregencyContactResponseImpl({
-    required this.id,
-    required this.name,
-    required this.phone,
-    required this.serviceType,
-    required final List<ImageResponse> images,
-  }) : _images = images;
-
-  factory _$EmeregencyContactResponseImpl.fromJson(Map<String, dynamic> json) =>
-      _$$EmeregencyContactResponseImplFromJson(json);
-
-  @override
-  final int id;
-  @override
-  final String name;
-  @override
-  final String phone;
-  @override
-  final ServiceType serviceType;
-  final List<ImageResponse> _images;
-  @override
-  List<ImageResponse> get images {
-    if (_images is EqualUnmodifiableListView) return _images;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_images);
-  }
-
-  @override
-  String toString() {
-    return 'EmergencyContactsResponse(id: $id, name: $name, phone: $phone, serviceType: $serviceType, images: $images)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$EmeregencyContactResponseImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.phone, phone) || other.phone == phone) &&
-            (identical(other.serviceType, serviceType) ||
-                other.serviceType == serviceType) &&
-            const DeepCollectionEquality().equals(other._images, _images));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    id,
-    name,
-    phone,
-    serviceType,
-    const DeepCollectionEquality().hash(_images),
-  );
-
-  /// Create a copy of EmergencyContactsResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$EmeregencyContactResponseImplCopyWith<_$EmeregencyContactResponseImpl>
-  get copyWith =>
-      __$$EmeregencyContactResponseImplCopyWithImpl<
-        _$EmeregencyContactResponseImpl
-      >(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$EmeregencyContactResponseImplToJson(this);
-  }
-}
-
-abstract class _EmeregencyContactResponse implements EmergencyContactsResponse {
-  const factory _EmeregencyContactResponse({
-    required final int id,
-    required final String name,
-    required final String phone,
-    required final ServiceType serviceType,
-    required final List<ImageResponse> images,
-  }) = _$EmeregencyContactResponseImpl;
-
-  factory _EmeregencyContactResponse.fromJson(Map<String, dynamic> json) =
-      _$EmeregencyContactResponseImpl.fromJson;
-
-  @override
-  int get id;
-  @override
-  String get name;
-  @override
-  String get phone;
-  @override
-  ServiceType get serviceType;
-  @override
-  List<ImageResponse> get images;
-
-  /// Create a copy of EmergencyContactsResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$EmeregencyContactResponseImplCopyWith<_$EmeregencyContactResponseImpl>
-  get copyWith => throw _privateConstructorUsedError;
-}
-
-ImageResponse _$ImageResponseFromJson(Map<String, dynamic> json) {
-  return _ImageResponse.fromJson(json);
-}
-
-/// @nodoc
-mixin _$ImageResponse {
-  int get id => throw _privateConstructorUsedError;
-  String get url => throw _privateConstructorUsedError;
-  String get contentType => throw _privateConstructorUsedError;
-  int get sizeBytes => throw _privateConstructorUsedError;
-
-  /// Serializes this ImageResponse to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of ImageResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $ImageResponseCopyWith<ImageResponse> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ImageResponseCopyWith<$Res> {
-  factory $ImageResponseCopyWith(
-    ImageResponse value,
-    $Res Function(ImageResponse) then,
-  ) = _$ImageResponseCopyWithImpl<$Res, ImageResponse>;
-  @useResult
-  $Res call({int id, String url, String contentType, int sizeBytes});
-}
-
-/// @nodoc
-class _$ImageResponseCopyWithImpl<$Res, $Val extends ImageResponse>
-    implements $ImageResponseCopyWith<$Res> {
-  _$ImageResponseCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of ImageResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? url = null,
-    Object? contentType = null,
-    Object? sizeBytes = null,
-  }) {
-    return _then(
-      _value.copyWith(
-            id: null == id
-                ? _value.id
-                : id // ignore: cast_nullable_to_non_nullable
-                      as int,
-            url: null == url
-                ? _value.url
-                : url // ignore: cast_nullable_to_non_nullable
-                      as String,
-            contentType: null == contentType
-                ? _value.contentType
-                : contentType // ignore: cast_nullable_to_non_nullable
-                      as String,
-            sizeBytes: null == sizeBytes
-                ? _value.sizeBytes
-                : sizeBytes // ignore: cast_nullable_to_non_nullable
-                      as int,
-          )
-          as $Val,
-    );
-  }
-}
-
-/// @nodoc
-abstract class _$$ImageResponseImplCopyWith<$Res>
-    implements $ImageResponseCopyWith<$Res> {
-  factory _$$ImageResponseImplCopyWith(
-    _$ImageResponseImpl value,
-    $Res Function(_$ImageResponseImpl) then,
-  ) = __$$ImageResponseImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({int id, String url, String contentType, int sizeBytes});
-}
-
-/// @nodoc
-class __$$ImageResponseImplCopyWithImpl<$Res>
-    extends _$ImageResponseCopyWithImpl<$Res, _$ImageResponseImpl>
-    implements _$$ImageResponseImplCopyWith<$Res> {
-  __$$ImageResponseImplCopyWithImpl(
-    _$ImageResponseImpl _value,
-    $Res Function(_$ImageResponseImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of ImageResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? url = null,
-    Object? contentType = null,
-    Object? sizeBytes = null,
-  }) {
-    return _then(
-      _$ImageResponseImpl(
-        id: null == id
-            ? _value.id
-            : id // ignore: cast_nullable_to_non_nullable
-                  as int,
-        url: null == url
-            ? _value.url
-            : url // ignore: cast_nullable_to_non_nullable
-                  as String,
-        contentType: null == contentType
-            ? _value.contentType
-            : contentType // ignore: cast_nullable_to_non_nullable
-                  as String,
-        sizeBytes: null == sizeBytes
-            ? _value.sizeBytes
-            : sizeBytes // ignore: cast_nullable_to_non_nullable
-                  as int,
-      ),
-    );
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$ImageResponseImpl implements _ImageResponse {
-  const _$ImageResponseImpl({
-    required this.id,
-    required this.url,
-    required this.contentType,
-    required this.sizeBytes,
-  });
-
-  factory _$ImageResponseImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ImageResponseImplFromJson(json);
-
-  @override
-  final int id;
-  @override
-  final String url;
-  @override
-  final String contentType;
-  @override
-  final int sizeBytes;
-
-  @override
-  String toString() {
-    return 'ImageResponse(id: $id, url: $url, contentType: $contentType, sizeBytes: $sizeBytes)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ImageResponseImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.url, url) || other.url == url) &&
-            (identical(other.contentType, contentType) ||
-                other.contentType == contentType) &&
-            (identical(other.sizeBytes, sizeBytes) ||
-                other.sizeBytes == sizeBytes));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, url, contentType, sizeBytes);
-
-  /// Create a copy of ImageResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ImageResponseImplCopyWith<_$ImageResponseImpl> get copyWith =>
-      __$$ImageResponseImplCopyWithImpl<_$ImageResponseImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ImageResponseImplToJson(this);
-  }
-}
-
-abstract class _ImageResponse implements ImageResponse {
-  const factory _ImageResponse({
-    required final int id,
-    required final String url,
-    required final String contentType,
-    required final int sizeBytes,
-  }) = _$ImageResponseImpl;
-
-  factory _ImageResponse.fromJson(Map<String, dynamic> json) =
-      _$ImageResponseImpl.fromJson;
-
-  @override
-  int get id;
-  @override
-  String get url;
-  @override
-  String get contentType;
-  @override
-  int get sizeBytes;
-
-  /// Create a copy of ImageResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ImageResponseImplCopyWith<_$ImageResponseImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 PageResponse<T> _$PageResponseFromJson<T>(
   Map<String, dynamic> json,
   T Function(Object?) fromJsonT,
@@ -1683,6 +1200,221 @@ abstract class _PageResponse<T> implements PageResponse<T> {
       throw _privateConstructorUsedError;
 }
 
+ImageResponse _$ImageResponseFromJson(Map<String, dynamic> json) {
+  return _ImageResponse.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ImageResponse {
+  int get id => throw _privateConstructorUsedError;
+  String get url => throw _privateConstructorUsedError;
+  String get contentType => throw _privateConstructorUsedError;
+  int get sizeBytes => throw _privateConstructorUsedError;
+
+  /// Serializes this ImageResponse to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of ImageResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $ImageResponseCopyWith<ImageResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ImageResponseCopyWith<$Res> {
+  factory $ImageResponseCopyWith(
+    ImageResponse value,
+    $Res Function(ImageResponse) then,
+  ) = _$ImageResponseCopyWithImpl<$Res, ImageResponse>;
+  @useResult
+  $Res call({int id, String url, String contentType, int sizeBytes});
+}
+
+/// @nodoc
+class _$ImageResponseCopyWithImpl<$Res, $Val extends ImageResponse>
+    implements $ImageResponseCopyWith<$Res> {
+  _$ImageResponseCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of ImageResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? url = null,
+    Object? contentType = null,
+    Object? sizeBytes = null,
+  }) {
+    return _then(
+      _value.copyWith(
+            id: null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                      as int,
+            url: null == url
+                ? _value.url
+                : url // ignore: cast_nullable_to_non_nullable
+                      as String,
+            contentType: null == contentType
+                ? _value.contentType
+                : contentType // ignore: cast_nullable_to_non_nullable
+                      as String,
+            sizeBytes: null == sizeBytes
+                ? _value.sizeBytes
+                : sizeBytes // ignore: cast_nullable_to_non_nullable
+                      as int,
+          )
+          as $Val,
+    );
+  }
+}
+
+/// @nodoc
+abstract class _$$ImageResponseImplCopyWith<$Res>
+    implements $ImageResponseCopyWith<$Res> {
+  factory _$$ImageResponseImplCopyWith(
+    _$ImageResponseImpl value,
+    $Res Function(_$ImageResponseImpl) then,
+  ) = __$$ImageResponseImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int id, String url, String contentType, int sizeBytes});
+}
+
+/// @nodoc
+class __$$ImageResponseImplCopyWithImpl<$Res>
+    extends _$ImageResponseCopyWithImpl<$Res, _$ImageResponseImpl>
+    implements _$$ImageResponseImplCopyWith<$Res> {
+  __$$ImageResponseImplCopyWithImpl(
+    _$ImageResponseImpl _value,
+    $Res Function(_$ImageResponseImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of ImageResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? url = null,
+    Object? contentType = null,
+    Object? sizeBytes = null,
+  }) {
+    return _then(
+      _$ImageResponseImpl(
+        id: null == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as int,
+        url: null == url
+            ? _value.url
+            : url // ignore: cast_nullable_to_non_nullable
+                  as String,
+        contentType: null == contentType
+            ? _value.contentType
+            : contentType // ignore: cast_nullable_to_non_nullable
+                  as String,
+        sizeBytes: null == sizeBytes
+            ? _value.sizeBytes
+            : sizeBytes // ignore: cast_nullable_to_non_nullable
+                  as int,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ImageResponseImpl implements _ImageResponse {
+  const _$ImageResponseImpl({
+    required this.id,
+    required this.url,
+    required this.contentType,
+    required this.sizeBytes,
+  });
+
+  factory _$ImageResponseImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ImageResponseImplFromJson(json);
+
+  @override
+  final int id;
+  @override
+  final String url;
+  @override
+  final String contentType;
+  @override
+  final int sizeBytes;
+
+  @override
+  String toString() {
+    return 'ImageResponse(id: $id, url: $url, contentType: $contentType, sizeBytes: $sizeBytes)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ImageResponseImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.url, url) || other.url == url) &&
+            (identical(other.contentType, contentType) ||
+                other.contentType == contentType) &&
+            (identical(other.sizeBytes, sizeBytes) ||
+                other.sizeBytes == sizeBytes));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, url, contentType, sizeBytes);
+
+  /// Create a copy of ImageResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ImageResponseImplCopyWith<_$ImageResponseImpl> get copyWith =>
+      __$$ImageResponseImplCopyWithImpl<_$ImageResponseImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ImageResponseImplToJson(this);
+  }
+}
+
+abstract class _ImageResponse implements ImageResponse {
+  const factory _ImageResponse({
+    required final int id,
+    required final String url,
+    required final String contentType,
+    required final int sizeBytes,
+  }) = _$ImageResponseImpl;
+
+  factory _ImageResponse.fromJson(Map<String, dynamic> json) =
+      _$ImageResponseImpl.fromJson;
+
+  @override
+  int get id;
+  @override
+  String get url;
+  @override
+  String get contentType;
+  @override
+  int get sizeBytes;
+
+  /// Create a copy of ImageResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ImageResponseImplCopyWith<_$ImageResponseImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 PaginatedResponse<T> _$PaginatedResponseFromJson<T>(
   Map<String, dynamic> json,
   T Function(Object?) fromJsonT,
@@ -1955,4 +1687,739 @@ abstract class _PaginatedResponse<T> implements PaginatedResponse<T> {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PaginatedResponseImplCopyWith<T, _$PaginatedResponseImpl<T>>
   get copyWith => throw _privateConstructorUsedError;
+}
+
+SuspectResponse _$SuspectResponseFromJson(Map<String, dynamic> json) {
+  return _SuspectResponse.fromJson(json);
+}
+
+/// @nodoc
+mixin _$SuspectResponse {
+  int get id => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+  @DateOnlyConverter()
+  DateTime get birthDate => throw _privateConstructorUsedError;
+  String get cpf => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
+  List<ImageResponse> get images => throw _privateConstructorUsedError;
+  SuspectStatus get suspectStatus => throw _privateConstructorUsedError;
+
+  /// Serializes this SuspectResponse to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of SuspectResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $SuspectResponseCopyWith<SuspectResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $SuspectResponseCopyWith<$Res> {
+  factory $SuspectResponseCopyWith(
+    SuspectResponse value,
+    $Res Function(SuspectResponse) then,
+  ) = _$SuspectResponseCopyWithImpl<$Res, SuspectResponse>;
+  @useResult
+  $Res call({
+    int id,
+    String name,
+    @DateOnlyConverter() DateTime birthDate,
+    String cpf,
+    String description,
+    List<ImageResponse> images,
+    SuspectStatus suspectStatus,
+  });
+}
+
+/// @nodoc
+class _$SuspectResponseCopyWithImpl<$Res, $Val extends SuspectResponse>
+    implements $SuspectResponseCopyWith<$Res> {
+  _$SuspectResponseCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of SuspectResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? name = null,
+    Object? birthDate = null,
+    Object? cpf = null,
+    Object? description = null,
+    Object? images = null,
+    Object? suspectStatus = null,
+  }) {
+    return _then(
+      _value.copyWith(
+            id: null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                      as int,
+            name: null == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                      as String,
+            birthDate: null == birthDate
+                ? _value.birthDate
+                : birthDate // ignore: cast_nullable_to_non_nullable
+                      as DateTime,
+            cpf: null == cpf
+                ? _value.cpf
+                : cpf // ignore: cast_nullable_to_non_nullable
+                      as String,
+            description: null == description
+                ? _value.description
+                : description // ignore: cast_nullable_to_non_nullable
+                      as String,
+            images: null == images
+                ? _value.images
+                : images // ignore: cast_nullable_to_non_nullable
+                      as List<ImageResponse>,
+            suspectStatus: null == suspectStatus
+                ? _value.suspectStatus
+                : suspectStatus // ignore: cast_nullable_to_non_nullable
+                      as SuspectStatus,
+          )
+          as $Val,
+    );
+  }
+}
+
+/// @nodoc
+abstract class _$$SuspectResponseImplCopyWith<$Res>
+    implements $SuspectResponseCopyWith<$Res> {
+  factory _$$SuspectResponseImplCopyWith(
+    _$SuspectResponseImpl value,
+    $Res Function(_$SuspectResponseImpl) then,
+  ) = __$$SuspectResponseImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({
+    int id,
+    String name,
+    @DateOnlyConverter() DateTime birthDate,
+    String cpf,
+    String description,
+    List<ImageResponse> images,
+    SuspectStatus suspectStatus,
+  });
+}
+
+/// @nodoc
+class __$$SuspectResponseImplCopyWithImpl<$Res>
+    extends _$SuspectResponseCopyWithImpl<$Res, _$SuspectResponseImpl>
+    implements _$$SuspectResponseImplCopyWith<$Res> {
+  __$$SuspectResponseImplCopyWithImpl(
+    _$SuspectResponseImpl _value,
+    $Res Function(_$SuspectResponseImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of SuspectResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? name = null,
+    Object? birthDate = null,
+    Object? cpf = null,
+    Object? description = null,
+    Object? images = null,
+    Object? suspectStatus = null,
+  }) {
+    return _then(
+      _$SuspectResponseImpl(
+        id: null == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as int,
+        name: null == name
+            ? _value.name
+            : name // ignore: cast_nullable_to_non_nullable
+                  as String,
+        birthDate: null == birthDate
+            ? _value.birthDate
+            : birthDate // ignore: cast_nullable_to_non_nullable
+                  as DateTime,
+        cpf: null == cpf
+            ? _value.cpf
+            : cpf // ignore: cast_nullable_to_non_nullable
+                  as String,
+        description: null == description
+            ? _value.description
+            : description // ignore: cast_nullable_to_non_nullable
+                  as String,
+        images: null == images
+            ? _value._images
+            : images // ignore: cast_nullable_to_non_nullable
+                  as List<ImageResponse>,
+        suspectStatus: null == suspectStatus
+            ? _value.suspectStatus
+            : suspectStatus // ignore: cast_nullable_to_non_nullable
+                  as SuspectStatus,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$SuspectResponseImpl implements _SuspectResponse {
+  const _$SuspectResponseImpl({
+    required this.id,
+    required this.name,
+    @DateOnlyConverter() required this.birthDate,
+    required this.cpf,
+    required this.description,
+    required final List<ImageResponse> images,
+    required this.suspectStatus,
+  }) : _images = images;
+
+  factory _$SuspectResponseImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SuspectResponseImplFromJson(json);
+
+  @override
+  final int id;
+  @override
+  final String name;
+  @override
+  @DateOnlyConverter()
+  final DateTime birthDate;
+  @override
+  final String cpf;
+  @override
+  final String description;
+  final List<ImageResponse> _images;
+  @override
+  List<ImageResponse> get images {
+    if (_images is EqualUnmodifiableListView) return _images;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_images);
+  }
+
+  @override
+  final SuspectStatus suspectStatus;
+
+  @override
+  String toString() {
+    return 'SuspectResponse(id: $id, name: $name, birthDate: $birthDate, cpf: $cpf, description: $description, images: $images, suspectStatus: $suspectStatus)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SuspectResponseImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.birthDate, birthDate) ||
+                other.birthDate == birthDate) &&
+            (identical(other.cpf, cpf) || other.cpf == cpf) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            const DeepCollectionEquality().equals(other._images, _images) &&
+            (identical(other.suspectStatus, suspectStatus) ||
+                other.suspectStatus == suspectStatus));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+    runtimeType,
+    id,
+    name,
+    birthDate,
+    cpf,
+    description,
+    const DeepCollectionEquality().hash(_images),
+    suspectStatus,
+  );
+
+  /// Create a copy of SuspectResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SuspectResponseImplCopyWith<_$SuspectResponseImpl> get copyWith =>
+      __$$SuspectResponseImplCopyWithImpl<_$SuspectResponseImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$SuspectResponseImplToJson(this);
+  }
+}
+
+abstract class _SuspectResponse implements SuspectResponse {
+  const factory _SuspectResponse({
+    required final int id,
+    required final String name,
+    @DateOnlyConverter() required final DateTime birthDate,
+    required final String cpf,
+    required final String description,
+    required final List<ImageResponse> images,
+    required final SuspectStatus suspectStatus,
+  }) = _$SuspectResponseImpl;
+
+  factory _SuspectResponse.fromJson(Map<String, dynamic> json) =
+      _$SuspectResponseImpl.fromJson;
+
+  @override
+  int get id;
+  @override
+  String get name;
+  @override
+  @DateOnlyConverter()
+  DateTime get birthDate;
+  @override
+  String get cpf;
+  @override
+  String get description;
+  @override
+  List<ImageResponse> get images;
+  @override
+  SuspectStatus get suspectStatus;
+
+  /// Create a copy of SuspectResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$SuspectResponseImplCopyWith<_$SuspectResponseImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+IncidentResponse _$IncidentResponseFromJson(Map<String, dynamic> json) {
+  return _IncidentResponse.fromJson(json);
+}
+
+/// @nodoc
+mixin _$IncidentResponse {
+  int get id => throw _privateConstructorUsedError;
+  SuspectResponse? get suspect => throw _privateConstructorUsedError;
+  String? get imageUrl => throw _privateConstructorUsedError;
+  double? get score => throw _privateConstructorUsedError;
+  String? get location => throw _privateConstructorUsedError;
+  IncidentStatus? get incidentStatus => throw _privateConstructorUsedError;
+  UserResponse? get assignedUser => throw _privateConstructorUsedError;
+  String? get notes => throw _privateConstructorUsedError;
+  String? get processedUrl => throw _privateConstructorUsedError;
+  @DateOnlyConverter()
+  DateTime? get createdAt => throw _privateConstructorUsedError;
+  @DateOnlyConverter()
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
+
+  /// Serializes this IncidentResponse to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of IncidentResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $IncidentResponseCopyWith<IncidentResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $IncidentResponseCopyWith<$Res> {
+  factory $IncidentResponseCopyWith(
+    IncidentResponse value,
+    $Res Function(IncidentResponse) then,
+  ) = _$IncidentResponseCopyWithImpl<$Res, IncidentResponse>;
+  @useResult
+  $Res call({
+    int id,
+    SuspectResponse? suspect,
+    String? imageUrl,
+    double? score,
+    String? location,
+    IncidentStatus? incidentStatus,
+    UserResponse? assignedUser,
+    String? notes,
+    String? processedUrl,
+    @DateOnlyConverter() DateTime? createdAt,
+    @DateOnlyConverter() DateTime? updatedAt,
+  });
+
+  $SuspectResponseCopyWith<$Res>? get suspect;
+  $UserResponseCopyWith<$Res>? get assignedUser;
+}
+
+/// @nodoc
+class _$IncidentResponseCopyWithImpl<$Res, $Val extends IncidentResponse>
+    implements $IncidentResponseCopyWith<$Res> {
+  _$IncidentResponseCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of IncidentResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? suspect = freezed,
+    Object? imageUrl = freezed,
+    Object? score = freezed,
+    Object? location = freezed,
+    Object? incidentStatus = freezed,
+    Object? assignedUser = freezed,
+    Object? notes = freezed,
+    Object? processedUrl = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+  }) {
+    return _then(
+      _value.copyWith(
+            id: null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                      as int,
+            suspect: freezed == suspect
+                ? _value.suspect
+                : suspect // ignore: cast_nullable_to_non_nullable
+                      as SuspectResponse?,
+            imageUrl: freezed == imageUrl
+                ? _value.imageUrl
+                : imageUrl // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            score: freezed == score
+                ? _value.score
+                : score // ignore: cast_nullable_to_non_nullable
+                      as double?,
+            location: freezed == location
+                ? _value.location
+                : location // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            incidentStatus: freezed == incidentStatus
+                ? _value.incidentStatus
+                : incidentStatus // ignore: cast_nullable_to_non_nullable
+                      as IncidentStatus?,
+            assignedUser: freezed == assignedUser
+                ? _value.assignedUser
+                : assignedUser // ignore: cast_nullable_to_non_nullable
+                      as UserResponse?,
+            notes: freezed == notes
+                ? _value.notes
+                : notes // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            processedUrl: freezed == processedUrl
+                ? _value.processedUrl
+                : processedUrl // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            createdAt: freezed == createdAt
+                ? _value.createdAt
+                : createdAt // ignore: cast_nullable_to_non_nullable
+                      as DateTime?,
+            updatedAt: freezed == updatedAt
+                ? _value.updatedAt
+                : updatedAt // ignore: cast_nullable_to_non_nullable
+                      as DateTime?,
+          )
+          as $Val,
+    );
+  }
+
+  /// Create a copy of IncidentResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $SuspectResponseCopyWith<$Res>? get suspect {
+    if (_value.suspect == null) {
+      return null;
+    }
+
+    return $SuspectResponseCopyWith<$Res>(_value.suspect!, (value) {
+      return _then(_value.copyWith(suspect: value) as $Val);
+    });
+  }
+
+  /// Create a copy of IncidentResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $UserResponseCopyWith<$Res>? get assignedUser {
+    if (_value.assignedUser == null) {
+      return null;
+    }
+
+    return $UserResponseCopyWith<$Res>(_value.assignedUser!, (value) {
+      return _then(_value.copyWith(assignedUser: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$IncidentResponseImplCopyWith<$Res>
+    implements $IncidentResponseCopyWith<$Res> {
+  factory _$$IncidentResponseImplCopyWith(
+    _$IncidentResponseImpl value,
+    $Res Function(_$IncidentResponseImpl) then,
+  ) = __$$IncidentResponseImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({
+    int id,
+    SuspectResponse? suspect,
+    String? imageUrl,
+    double? score,
+    String? location,
+    IncidentStatus? incidentStatus,
+    UserResponse? assignedUser,
+    String? notes,
+    String? processedUrl,
+    @DateOnlyConverter() DateTime? createdAt,
+    @DateOnlyConverter() DateTime? updatedAt,
+  });
+
+  @override
+  $SuspectResponseCopyWith<$Res>? get suspect;
+  @override
+  $UserResponseCopyWith<$Res>? get assignedUser;
+}
+
+/// @nodoc
+class __$$IncidentResponseImplCopyWithImpl<$Res>
+    extends _$IncidentResponseCopyWithImpl<$Res, _$IncidentResponseImpl>
+    implements _$$IncidentResponseImplCopyWith<$Res> {
+  __$$IncidentResponseImplCopyWithImpl(
+    _$IncidentResponseImpl _value,
+    $Res Function(_$IncidentResponseImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of IncidentResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? suspect = freezed,
+    Object? imageUrl = freezed,
+    Object? score = freezed,
+    Object? location = freezed,
+    Object? incidentStatus = freezed,
+    Object? assignedUser = freezed,
+    Object? notes = freezed,
+    Object? processedUrl = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+  }) {
+    return _then(
+      _$IncidentResponseImpl(
+        id: null == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as int,
+        suspect: freezed == suspect
+            ? _value.suspect
+            : suspect // ignore: cast_nullable_to_non_nullable
+                  as SuspectResponse?,
+        imageUrl: freezed == imageUrl
+            ? _value.imageUrl
+            : imageUrl // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        score: freezed == score
+            ? _value.score
+            : score // ignore: cast_nullable_to_non_nullable
+                  as double?,
+        location: freezed == location
+            ? _value.location
+            : location // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        incidentStatus: freezed == incidentStatus
+            ? _value.incidentStatus
+            : incidentStatus // ignore: cast_nullable_to_non_nullable
+                  as IncidentStatus?,
+        assignedUser: freezed == assignedUser
+            ? _value.assignedUser
+            : assignedUser // ignore: cast_nullable_to_non_nullable
+                  as UserResponse?,
+        notes: freezed == notes
+            ? _value.notes
+            : notes // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        processedUrl: freezed == processedUrl
+            ? _value.processedUrl
+            : processedUrl // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        createdAt: freezed == createdAt
+            ? _value.createdAt
+            : createdAt // ignore: cast_nullable_to_non_nullable
+                  as DateTime?,
+        updatedAt: freezed == updatedAt
+            ? _value.updatedAt
+            : updatedAt // ignore: cast_nullable_to_non_nullable
+                  as DateTime?,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$IncidentResponseImpl implements _IncidentResponse {
+  const _$IncidentResponseImpl({
+    required this.id,
+    this.suspect,
+    this.imageUrl,
+    this.score,
+    this.location,
+    this.incidentStatus,
+    this.assignedUser,
+    this.notes,
+    this.processedUrl,
+    @DateOnlyConverter() this.createdAt,
+    @DateOnlyConverter() this.updatedAt,
+  });
+
+  factory _$IncidentResponseImpl.fromJson(Map<String, dynamic> json) =>
+      _$$IncidentResponseImplFromJson(json);
+
+  @override
+  final int id;
+  @override
+  final SuspectResponse? suspect;
+  @override
+  final String? imageUrl;
+  @override
+  final double? score;
+  @override
+  final String? location;
+  @override
+  final IncidentStatus? incidentStatus;
+  @override
+  final UserResponse? assignedUser;
+  @override
+  final String? notes;
+  @override
+  final String? processedUrl;
+  @override
+  @DateOnlyConverter()
+  final DateTime? createdAt;
+  @override
+  @DateOnlyConverter()
+  final DateTime? updatedAt;
+
+  @override
+  String toString() {
+    return 'IncidentResponse(id: $id, suspect: $suspect, imageUrl: $imageUrl, score: $score, location: $location, incidentStatus: $incidentStatus, assignedUser: $assignedUser, notes: $notes, processedUrl: $processedUrl, createdAt: $createdAt, updatedAt: $updatedAt)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$IncidentResponseImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.suspect, suspect) || other.suspect == suspect) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
+            (identical(other.score, score) || other.score == score) &&
+            (identical(other.location, location) ||
+                other.location == location) &&
+            (identical(other.incidentStatus, incidentStatus) ||
+                other.incidentStatus == incidentStatus) &&
+            (identical(other.assignedUser, assignedUser) ||
+                other.assignedUser == assignedUser) &&
+            (identical(other.notes, notes) || other.notes == notes) &&
+            (identical(other.processedUrl, processedUrl) ||
+                other.processedUrl == processedUrl) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+    runtimeType,
+    id,
+    suspect,
+    imageUrl,
+    score,
+    location,
+    incidentStatus,
+    assignedUser,
+    notes,
+    processedUrl,
+    createdAt,
+    updatedAt,
+  );
+
+  /// Create a copy of IncidentResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$IncidentResponseImplCopyWith<_$IncidentResponseImpl> get copyWith =>
+      __$$IncidentResponseImplCopyWithImpl<_$IncidentResponseImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$IncidentResponseImplToJson(this);
+  }
+}
+
+abstract class _IncidentResponse implements IncidentResponse {
+  const factory _IncidentResponse({
+    required final int id,
+    final SuspectResponse? suspect,
+    final String? imageUrl,
+    final double? score,
+    final String? location,
+    final IncidentStatus? incidentStatus,
+    final UserResponse? assignedUser,
+    final String? notes,
+    final String? processedUrl,
+    @DateOnlyConverter() final DateTime? createdAt,
+    @DateOnlyConverter() final DateTime? updatedAt,
+  }) = _$IncidentResponseImpl;
+
+  factory _IncidentResponse.fromJson(Map<String, dynamic> json) =
+      _$IncidentResponseImpl.fromJson;
+
+  @override
+  int get id;
+  @override
+  SuspectResponse? get suspect;
+  @override
+  String? get imageUrl;
+  @override
+  double? get score;
+  @override
+  String? get location;
+  @override
+  IncidentStatus? get incidentStatus;
+  @override
+  UserResponse? get assignedUser;
+  @override
+  String? get notes;
+  @override
+  String? get processedUrl;
+  @override
+  @DateOnlyConverter()
+  DateTime? get createdAt;
+  @override
+  @DateOnlyConverter()
+  DateTime? get updatedAt;
+
+  /// Create a copy of IncidentResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$IncidentResponseImplCopyWith<_$IncidentResponseImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

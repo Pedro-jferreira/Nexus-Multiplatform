@@ -1,5 +1,11 @@
+import 'package:Nexus/data/repositories/impl/suspect_repository_impl.dart';
 import 'package:Nexus/data/repositories/impl/user_repository_impl.dart';
+import 'package:Nexus/data/repositories/incident_repository.dart';
+import 'package:Nexus/data/repositories/suspects_repository.dart';
 import 'package:Nexus/data/repositories/user_repository.dart';
+import 'package:Nexus/data/services/impl/suspect_service_impl.dart';
+import 'package:Nexus/data/services/incidents_service.dart';
+import 'package:Nexus/data/services/suspect_service.dart';
 import 'package:dio/dio.dart';
 import 'package:go_router/go_router.dart';
 import 'package:Nexus/data/repositories/auth_repository.dart';
@@ -17,9 +23,12 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../data/repositories/impl/incidents_repository_impl.dart';
 import '../data/repositories/impl/theme_control_repository_impl.dart';
 import '../data/repositories/theme_control_repository.dart';
+import '../data/services/impl/incidents_service_impl.dart';
 import '../ui/features/profile_web/view_model/theme_control_view_model.dart';
+import '../ui/features/suspect/view_models/suspect_view_model.dart';
 import 'dio_config.dart';
 
 List<SingleChildWidget> providers(SharedPreferences prefs, Dio dio) {
@@ -77,6 +86,12 @@ List<SingleChildWidget> get _servicesData {
     Provider<UsersServices>(
       create: (context) => UsersServiceImpl(dio: context.read()),
     ),
+    Provider<SuspectsService>(
+      create: (context) => SuspectsServiceImpl(dio: context.read()),
+    ),
+    Provider<IncidentsService>(
+      create: (context) => IncidentsServiceImpl(dio: context.read()),
+    ),
   ];
 }
 
@@ -91,9 +106,17 @@ List<SingleChildWidget> get _repositoriesData {
       create: (context) =>
           UserRepositoryImpl(service: context.read()),
     ),
+    Provider<SuspectsRepository>(
+      create: (context) =>
+          SuspectsRepositoryImpl(service: context.read()),
+    ),
     Provider<ThemeControlRepository>(
       create: (context) =>
           ThemeControlRepositoryImpl(prefs: context.read()),
+    ),
+    Provider<IncidentRepository>(
+      create: (context) =>
+          IncidentsRepositoryImpl(service: context.read()),
     ),
   ];
 }
@@ -103,6 +126,11 @@ List<SingleChildWidget> get _viewModelsProviders {
   return [
     ChangeNotifierProvider<ThemeControlViewModel>(
       create: (context) => ThemeControlViewModel(repository: context.read()),
+    ),
+    ChangeNotifierProvider<SuspectViewModel>(
+      create: (context) => SuspectViewModel(
+        repository: context.read(), // O Provider busca o SuspectsRepository na árvore
+      ),
     ),
   ];
 }

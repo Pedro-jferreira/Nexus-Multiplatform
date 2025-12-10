@@ -24,7 +24,6 @@ class CustomNavigationDrawer extends StatelessWidget {
       _DrawerItem(title: 'Dashboard', icon: Icons.dashboard_outlined),
       _DrawerItem(title: 'Foragidos', icon: Icons.person_search_outlined),
       _DrawerItem(title: 'Usuários', icon: Icons.groups_outlined),
-      _DrawerItem(title: 'Chats', icon: Icons.chat_outlined),
       _DrawerItem(title: 'Incidentes', icon: Icons.report_outlined),
       _DrawerItem(
         title: 'Contato de Emergência',

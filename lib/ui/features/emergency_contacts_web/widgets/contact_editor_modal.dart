@@ -42,7 +42,7 @@ class ContactEditorModal extends StatefulWidget {
 }
 
 class _ContactEditorModalState extends State<ContactEditorModal> {
-  late final ImageUploadController _imageController;
+   final ImageUploadController   _imageController = ImageUploadController();
   late final ContactRequestDTO _model;
 
   final ContactValidador _validador = ContactValidador();
@@ -58,10 +58,11 @@ class _ContactEditorModalState extends State<ContactEditorModal> {
         phone: model.phone,
         type: model.serviceType,
       );
-      _imageController = ImageUploadController.fromUrl(model.images.first.url);
+      if( model.images.isNotEmpty) {
+        _imageController.loadFromUrl(model.images.first.url);
+      }
     } else {
       _model = ContactRequestDTO.empty();
-      _imageController = ImageUploadController();
     }
 
     widget.viewModel.createCmd.addListener(_handleCreate);
@@ -311,6 +312,7 @@ class SuccessModal extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dialog(
       insetPadding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+      constraints: BoxConstraints( maxWidth: 600),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
       child: Padding(
         padding: const EdgeInsets.all(25),

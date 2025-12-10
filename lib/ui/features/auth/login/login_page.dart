@@ -1,4 +1,5 @@
 
+import 'package:Nexus/ui/features/auth/login/locked_page.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -356,6 +357,16 @@ class _LoginPageState extends State<LoginPage> {
         final svgString = snapshot.data![1] as String; // o SVG processado
 
         final device = Responsive.getDeviceType(context);
+
+        if(_contaBloqueada){
+         return LockedPage(
+           viewModel:widget.viewModel ,
+           onPressed: (){
+           setState(() {
+             _contaBloqueada = !_contaBloqueada;
+           });
+         },);
+        }
 
         switch (device) {
           case DeviceScreenType.mobile:

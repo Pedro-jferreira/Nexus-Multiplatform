@@ -26,7 +26,6 @@ class ProfileViewModel extends ChangeNotifier {
     notifyListeners();
 
     try {
-      _user = await _usersService.findByID(userID: userId);
       _errorMessage = null;
     } catch (e) {
       _user = null;

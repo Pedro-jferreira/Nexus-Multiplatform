@@ -49,20 +49,6 @@ class ButtonsLogin extends StatelessWidget {
 
                   ),
                 ),
-                TextButton(
-                  onPressed: ()=> ForgotPasswordRouter().push(context),
-                  child: Text(
-                    'Esqueci minha senha',
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color:(device == DeviceScreenType.mobile)? context.colors.text: Theme.of(context).colorScheme.onSurface,
-                      fontWeight: FontWeight.w600,
-                      decoration: TextDecoration.underline,
-                      decorationColor:(device == DeviceScreenType.mobile)?  context.colors.text: Theme.of(context).colorScheme.onSurface,
-                      decorationThickness: 3,
-                      decorationStyle: TextDecorationStyle.solid,
-                    ),
-                  ),
-                ),
                 if(device == DeviceScreenType.mobile)
                 SizedBox(
                   width: double.infinity,

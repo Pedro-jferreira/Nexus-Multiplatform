@@ -112,7 +112,7 @@ class _UserPageState extends State<UserPage> {
                 },
               );
             },
-            label: Text('Adicionar contato'),
+            label: Text('Adicionar usuário'),
             icon: Icon(Icons.person_add_alt_1_outlined, size: 24),
           ),
         ),

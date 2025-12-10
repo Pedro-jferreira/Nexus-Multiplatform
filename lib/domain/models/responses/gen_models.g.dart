@@ -69,13 +69,7 @@ _$EmergencyContactResponseImpl _$$EmergencyContactResponseImplFromJson(
   phone: json['phone'] as String,
   serviceType: $enumDecode(_$ServiceTypeEnumMap, json['serviceType']),
   images: (json['images'] as List<dynamic>)
-      .map(
-        (e) => ImageResponse.fromJson(
-          (e as Map<String, dynamic>).map(
-            (k, e) => MapEntry(k, (e as num).toDouble()),
-          ),
-        ),
-      )
+      .map((e) => ImageResponse.fromJson(e as Map<String, dynamic>))
       .toList(),
 );
 
@@ -95,50 +89,6 @@ const _$ServiceTypeEnumMap = {
   ServiceType.PM: 'PM',
   ServiceType.OUTRO: 'OUTRO',
 };
-
-_$EmeregencyContactResponseImpl _$$EmeregencyContactResponseImplFromJson(
-  Map<String, dynamic> json,
-) => _$EmeregencyContactResponseImpl(
-  id: (json['id'] as num).toInt(),
-  name: json['name'] as String,
-  phone: json['phone'] as String,
-  serviceType: $enumDecode(_$ServiceTypeEnumMap, json['serviceType']),
-  images: (json['images'] as List<dynamic>)
-      .map(
-        (e) => ImageResponse.fromJson(
-          (e as Map<String, dynamic>).map(
-            (k, e) => MapEntry(k, (e as num).toDouble()),
-          ),
-        ),
-      )
-      .toList(),
-);
-
-Map<String, dynamic> _$$EmeregencyContactResponseImplToJson(
-  _$EmeregencyContactResponseImpl instance,
-) => <String, dynamic>{
-  'id': instance.id,
-  'name': instance.name,
-  'phone': instance.phone,
-  'serviceType': _$ServiceTypeEnumMap[instance.serviceType]!,
-  'images': instance.images,
-};
-
-_$ImageResponseImpl _$$ImageResponseImplFromJson(Map<String, dynamic> json) =>
-    _$ImageResponseImpl(
-      id: (json['id'] as num).toInt(),
-      url: json['url'] as String,
-      contentType: json['contentType'] as String,
-      sizeBytes: (json['sizeBytes'] as num).toInt(),
-    );
-
-Map<String, dynamic> _$$ImageResponseImplToJson(_$ImageResponseImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'url': instance.url,
-      'contentType': instance.contentType,
-      'sizeBytes': instance.sizeBytes,
-    };
 
 _$PageResponseImpl<T> _$$PageResponseImplFromJson<T>(
   Map<String, dynamic> json,
@@ -168,6 +118,22 @@ Map<String, dynamic> _$$PageResponseImplToJson<T>(
   'empty': instance.empty,
 };
 
+_$ImageResponseImpl _$$ImageResponseImplFromJson(Map<String, dynamic> json) =>
+    _$ImageResponseImpl(
+      id: (json['id'] as num).toInt(),
+      url: json['url'] as String,
+      contentType: json['contentType'] as String,
+      sizeBytes: (json['sizeBytes'] as num).toInt(),
+    );
+
+Map<String, dynamic> _$$ImageResponseImplToJson(_$ImageResponseImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'url': instance.url,
+      'contentType': instance.contentType,
+      'sizeBytes': instance.sizeBytes,
+    };
+
 _$PaginatedResponseImpl<T> _$$PaginatedResponseImplFromJson<T>(
   Map<String, dynamic> json,
   T Function(Object? json) fromJsonT,
@@ -189,3 +155,101 @@ Map<String, dynamic> _$$PaginatedResponseImplToJson<T>(
   'size': instance.size,
   'number': instance.number,
 };
+
+_$SuspectResponseImpl _$$SuspectResponseImplFromJson(
+  Map<String, dynamic> json,
+) => _$SuspectResponseImpl(
+  id: (json['id'] as num).toInt(),
+  name: json['name'] as String,
+  birthDate: const DateOnlyConverter().fromJson(json['birthDate'] as String),
+  cpf: json['cpf'] as String,
+  description: json['description'] as String,
+  images: (json['images'] as List<dynamic>)
+      .map((e) => ImageResponse.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  suspectStatus: $enumDecode(_$SuspectStatusEnumMap, json['suspectStatus']),
+);
+
+Map<String, dynamic> _$$SuspectResponseImplToJson(
+  _$SuspectResponseImpl instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  'birthDate': const DateOnlyConverter().toJson(instance.birthDate),
+  'cpf': instance.cpf,
+  'description': instance.description,
+  'images': instance.images,
+  'suspectStatus': _$SuspectStatusEnumMap[instance.suspectStatus]!,
+};
+
+const _$SuspectStatusEnumMap = {
+  SuspectStatus.FORAGIDO: 'FORAGIDO',
+  SuspectStatus.CAPTURADO: 'CAPTURADO',
+};
+
+_$IncidentResponseImpl _$$IncidentResponseImplFromJson(
+  Map<String, dynamic> json,
+) => _$IncidentResponseImpl(
+  id: (json['id'] as num).toInt(),
+  suspect: json['suspect'] == null
+      ? null
+      : SuspectResponse.fromJson(json['suspect'] as Map<String, dynamic>),
+  imageUrl: json['imageUrl'] as String?,
+  score: (json['score'] as num?)?.toDouble(),
+  location: json['location'] as String?,
+  incidentStatus: $enumDecodeNullable(
+    _$IncidentStatusEnumMap,
+    json['incidentStatus'],
+  ),
+  assignedUser: json['assignedUser'] == null
+      ? null
+      : UserResponse.fromJson(json['assignedUser'] as Map<String, dynamic>),
+  notes: json['notes'] as String?,
+  processedUrl: json['processedUrl'] as String?,
+  createdAt: _$JsonConverterFromJson<String, DateTime>(
+    json['createdAt'],
+    const DateOnlyConverter().fromJson,
+  ),
+  updatedAt: _$JsonConverterFromJson<String, DateTime>(
+    json['updatedAt'],
+    const DateOnlyConverter().fromJson,
+  ),
+);
+
+Map<String, dynamic> _$$IncidentResponseImplToJson(
+  _$IncidentResponseImpl instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'suspect': instance.suspect,
+  'imageUrl': instance.imageUrl,
+  'score': instance.score,
+  'location': instance.location,
+  'incidentStatus': _$IncidentStatusEnumMap[instance.incidentStatus],
+  'assignedUser': instance.assignedUser,
+  'notes': instance.notes,
+  'processedUrl': instance.processedUrl,
+  'createdAt': _$JsonConverterToJson<String, DateTime>(
+    instance.createdAt,
+    const DateOnlyConverter().toJson,
+  ),
+  'updatedAt': _$JsonConverterToJson<String, DateTime>(
+    instance.updatedAt,
+    const DateOnlyConverter().toJson,
+  ),
+};
+
+const _$IncidentStatusEnumMap = {
+  IncidentStatus.POSITIVO: 'POSITIVO',
+  IncidentStatus.FALSO_POSITIVO: 'FALSO_POSITIVO',
+  IncidentStatus.ABERTO: 'ABERTO',
+};
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) => json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) => value == null ? null : toJson(value);

@@ -1,3 +1,4 @@
+/*
 part of '../app_router_web.dart';
 
 
@@ -18,3 +19,4 @@ class ChatRoute extends GoRouteData with _$ChatRoute{
     return Placeholder();
   }
 }
+*/

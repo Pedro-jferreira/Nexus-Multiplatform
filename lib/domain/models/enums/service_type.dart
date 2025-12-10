@@ -4,3 +4,9 @@ enum ServiceType{
   PM,
   OUTRO
 }
+enum NotificationTarget {
+  suspect,
+  incident,
+  alert,
+  unknown,
+}

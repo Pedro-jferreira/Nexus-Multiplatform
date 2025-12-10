@@ -1,10 +1,21 @@
+import 'dart:convert';
+
+import 'package:Nexus/domain/models/enums/api_enums.dart';
+import 'package:Nexus/routing/routes/web/app_router_web.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:provider/provider.dart';
+import '../domain/models/requests/gen_models.dart';
+import '../routing/app_router.dart';
+import '../routing/notification_dispatcher.dart';
+import '../ui/features/suspect/view_models/suspect_view_model.dart';
+import '../utils/http_ultils.dart';
 import 'firebase_options.dart';
+import 'package:universal_html/html.dart' as html;
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -33,7 +44,7 @@ Future<void> setupNotifications() async {
     await _createNotificationChannel();
     await _initializeLocalNotifications();
   }
-
+  setupWebNotificationListener();
   _setupForegroundListener();
   _setupOpenedAppListener();
 
@@ -91,41 +102,122 @@ Future<void> _createNotificationChannel() async {
 }
 
 void _setupForegroundListener() {
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+    // 1. Extração direta do DATA (pois message.notification virá null)
+    final Map<String, dynamic> data = message.data;
+
+    // Se não houver dados, ignora
+    if (data.isEmpty) return;
+
+    // 2. Mapeamento manual dos campos baseados no seu JSON
+    final String title = data['title'] ?? 'Nova Mensagem';
+    final String body = data['body'] ?? '';
+    final String? imageUrl = data['image']; // Pode vir null ou vazio
+
     if (kDebugMode) {
-      print(
-        '📩 Mensagem recebida (foreground): ${message.notification?.title}',
-      );
+      print('📩 Data Message recebida (foreground): $title');
+      print('📦 Payload: $data');
     }
 
-    final notification = message.notification;
-    final android = notification?.android;
+    // ----------------------
+    // LÓGICA WEB (OverlaySupport)
+    // ----------------------
+    if (kIsWeb) {
+      _handleMessageAction(data);
 
-    if (notification != null && kIsWeb) {
       showSimpleNotification(
-        Text(notification.title!),
-        subtitle: Text(notification.body!),
+        Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+        subtitle: Text(body),
+        background: Colors.blueGrey.shade900,
+        duration: const Duration(seconds: 6),
+        slideDismissDirection: DismissDirection.horizontal,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        trailing: Builder(builder: (context) {
+          return TextButton(
+            onPressed: () {
+              OverlaySupportEntry.of(context)?.dismiss();
+              final navContext = rootNavigatorKey.currentContext;
+              if (navContext != null) {
+                NotificationDispatcher.dispatch(navContext, data);
+              }
+            },
+            child: const Text(
+              'VER',
+              style: TextStyle(color: Colors.amberAccent, fontWeight: FontWeight.bold),
+            ),
+          );
+        }),
       );
+      return;
     }
 
-    if (notification != null && android != null) {
-      flutterLocalNotificationsPlugin.show(
-        notification.hashCode,
-        notification.title,
-        notification.body,
-        NotificationDetails(
-          android: AndroidNotificationDetails(
-            highImportanceChannel.id,
-            highImportanceChannel.name,
-            channelDescription: highImportanceChannel.description,
-            icon: android.smallIcon,
-          ),
-        ),
-        payload: message.data['route'] ?? '',
-      );
+    // ----------------------
+    // LÓGICA MOBILE (Local Notifications)
+    // ----------------------
+
+    AndroidBitmap<Object>? largeIconBitmap;
+    StyleInformation? bigPictureStyle;
+
+    // 3. Tratamento da imagem vinda do 'data'
+    if (imageUrl != null && imageUrl.isNotEmpty) {
+      try {
+        final Uint8List? imageBytes = await getByteArrayFromUrl(imageUrl);
+
+        if (imageBytes != null) {
+          largeIconBitmap = ByteArrayAndroidBitmap(imageBytes);
+
+          bigPictureStyle = BigPictureStyleInformation(
+            largeIconBitmap,
+            hideExpandedLargeIcon: true,
+            contentTitle: title,
+            summaryText: body,
+            htmlFormatContentTitle: true,
+            htmlFormatSummaryText: true,
+          );
+        }
+      } catch (e) {
+        if (kDebugMode) print('Erro ao baixar imagem da notificação: $e');
+      }
     }
+
+    flutterLocalNotificationsPlugin.show(
+      data.hashCode, // ID único baseado no conteúdo
+      title,
+      body,
+      NotificationDetails(
+        android: AndroidNotificationDetails(
+          highImportanceChannel.id,
+          highImportanceChannel.name,
+          channelDescription: highImportanceChannel.description,
+          // IMPORTANTE: Como não temos mais o objeto 'notification',
+          // você deve definir o ícone manualmente ou usar '@mipmap/ic_launcher'
+          icon: '@mipmap/ic_launcher',
+          largeIcon: largeIconBitmap,
+          styleInformation: bigPictureStyle,
+          priority: Priority.high,
+          importance: Importance.max,
+        ),
+      ),
+      // Passamos todo o data como payload (em string) para o callback de clique recuperar
+      payload: jsonEncode(data),
+    );
   });
 }
+void _handleMessageAction(Map<String, dynamic> data) {
+  final context = rootNavigatorKey.currentContext;
+  if (context == null) return;
+  if (data['action'] == 'refresh_list') {
+    try {
+      context.read<SuspectViewModel>().fetchCmd.execute();
+      debugPrint('🔄 Lista de foragidos atualizada via notificação');
+    } catch (e) {
+      debugPrint('Erro ao atualizar viewModel: $e');
+    }
+  }
+}
+
+
+
 
 void _setupOpenedAppListener() {
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
@@ -138,4 +230,35 @@ void _setupOpenedAppListener() {
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   debugPrint('🕓 Mensagem recebida em background: ${message.messageId}');
+}
+
+void setupWebNotificationListener() {
+  if (kIsWeb) {
+    final channel = html.BroadcastChannel('app_channel');
+    channel.onMessage.listen((event) {
+      print('📻 Dart: Recebido via BroadcastChannel');
+      if (event.data == null) return;
+      final dynamic data = event.data;
+      try {
+        Map<String, dynamic> safeData;
+
+        if (data is String) {
+          safeData = jsonDecode(data);
+        } else {
+          safeData = Map<String, dynamic>.from(data as Map);
+        }
+        if (safeData['type'] == 'NAVIGATE_TO') {
+          print('🚀 Payload recebido: ${safeData['payload']}');
+          final payload = Map<String, dynamic>.from(safeData['payload']);
+          final context = rootNavigatorKey.currentContext;
+
+          if (context != null) {
+            NotificationDispatcher.dispatch(context, payload);
+          }
+        }
+      } catch (e) {
+        debugPrint('⚠️ Erro no BroadcastChannel: $e');
+      }
+    });
+  }
 }
