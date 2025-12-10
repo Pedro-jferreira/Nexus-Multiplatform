@@ -21,8 +21,10 @@ class EmergencyCard extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 28,
-            backgroundImage: NetworkImage(contact.images as String),
-            backgroundColor: Colors.grey.shade200,
+            backgroundImage: contact.images.isNotEmpty
+                ? NetworkImage(contact.images.first.url)
+                : const AssetImage("assets/default_avatar.png")
+                      as ImageProvider,
           ),
           Expanded(
             child: Column(
@@ -41,8 +43,8 @@ class EmergencyCard extends StatelessWidget {
               ),
             ),
             icon: const Icon(Icons.phone, size: 18, color: Colors.red),
-            label: const Text("Ligar",),
-            ),
+            label: const Text("Ligar"),
+          ),
         ],
       ),
     );
