@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:Nexus/exceptions/app_exceptions.dart';
+import 'package:Nexus/guards/roles.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:result_dart/result_dart.dart';
@@ -72,6 +74,12 @@ class AuthRepositoryImpl extends ChangeNotifier implements AuthRepository  {
       );
 
       final token = AuthTokens.fromJson(data);
+      if((token.user.role == Role.ADMIN && !kIsWeb) || (token.user.role == Role.SECURITY && kIsWeb)){
+        await logout();
+        return Failure(Exception(
+            'Seu perfil de usuário não é compatível com esta versão da plataforma. Por favor, acesse pelo ambiente correto.'
+        ));
+      }
 
       await _saveTokens(token);
       _isTemporaryPassword = token.mustChangePassword;
