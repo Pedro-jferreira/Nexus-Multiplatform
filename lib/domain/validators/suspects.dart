@@ -66,7 +66,7 @@ class SuspectValidator extends LucidValidator<SuspectModel> {
     ruleFor((param) => param.description, key: 'description')
         .notEmpty(message: 'Informe uma descrição (ex: tatuagens, altura).')
         .minLength(50, message: 'A descrição deve ter no mínimo 50 caracteres')
-        .maxLength(2000, message: 'Texto muito longo');
+        .maxLength(250, message: 'Texto muito longo');
   }
 
   SuspectValidator.edit() {
@@ -92,7 +92,7 @@ class SuspectValidator extends LucidValidator<SuspectModel> {
     ruleFor((param) => param.description, key: 'description')
         .notEmpty(message: 'Informe uma descrição (ex: tatuagens, altura).')
         .minLength(50, message: 'A descrição deve ter no mínimo 50 caracteres')
-        .maxLength(2000, message: 'Texto muito longo');
+        .maxLength(250, message: 'Texto muito longo');
 
     ruleFor(
       (param) => param.suspectStatus,
