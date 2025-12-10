@@ -4,6 +4,8 @@ import 'package:Nexus/ui/features/incidents_mobile/widgets/tile_incident_mobile.
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../routing/routes/mobile/app_router_mobile.dart';
+
 class IncidentsPage extends StatefulWidget {
   const IncidentsPage({super.key});
 
@@ -85,6 +87,9 @@ class _IncidentsPageState extends State<IncidentsPage> {
               camera: incident.camera,
               similaridade: incident.grauSimilaridade,
               dataCaptura: incident.dataCaptura,
+              onTap: () {
+                IncidentsDetailsRouter(incident).go(context);
+              },
             );
           },
         );

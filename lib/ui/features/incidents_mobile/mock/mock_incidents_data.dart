@@ -1,4 +1,4 @@
-import 'package:Nexus/ui/features/incidents_mobile/mock/mock_incident_model.dart';
+import 'mock_incident_model.dart';
 
 class MockIncidents {
   static List<IncidentModel> incidents = [
@@ -7,28 +7,60 @@ class MockIncidents {
       camera: "Câmera 05 - Praça",
       grauSimilaridade: 0.98,
       fotoUrl: "assets/images/foto1_suspeito.png",
+      fotoReferenciaUrl: "assets/images/foto2_suspeito.png",
       dataCaptura: "Hoje, 23:50",
+      dataCompleta: "20 de outubro de 2025",
+      horaExata: "23:50:14",
+      aniversario: "15/05/1985",
+      status: "Procurado",
     ),
     IncidentModel(
-        nome: "Adriana de Sá Soares",
-        camera: "Câmera 03 - Shopping",
-        grauSimilaridade: 0.98,
-        fotoUrl: "assets/images/foto1_suspeito.png",
-        dataCaptura: "Ontem, 21:29"
+      nome: "Adriana de Sá Soares",
+      camera: "Câmera 03 - Shopping",
+      grauSimilaridade: 0.98,
+      fotoUrl: "assets/images/foto1_suspeito.png",
+      fotoReferenciaUrl: "assets/images/foto2_suspeito.png",
+      dataCaptura: "Ontem, 21:29",
+      dataCompleta: "19 de setembro de 2025",
+      horaExata: "21:29:00",
+      aniversario: "22/03/2001",
+      status: "Procurado",
     ),
     IncidentModel(
-        nome: "Isaias Valdemir",
-        camera: "Câmera 02 - Acesso Estacionamento",
-        grauSimilaridade: 0.90,
-        fotoUrl: "assets/images/foto1_suspeito.png",
-        dataCaptura: "Há 2 dias, 14:03"
+      nome: "Isaias Valdemir",
+      camera: "Câmera 02 - Acesso Estacionamento",
+      grauSimilaridade: 0.90,
+      fotoUrl: "assets/images/foto1_suspeito.png",
+      fotoReferenciaUrl: "assets/images/foto2_suspeito.png",
+      dataCaptura: "Há 2 dias, 14:03",
+      dataCompleta: "18 de setembro de 2025",
+      horaExata: "14:03:14",
+      aniversario: "30/01/1989",
+      status: "Procurado",
     ),
     IncidentModel(
-        nome: "Pedro Henrique Marques",
-        camera: "Câmera 01 - Marginal Botafogo",
-        grauSimilaridade: 0.88,
-        fotoUrl: "assets/images/foto1_suspeito.png",
-        dataCaptura: "Há 1 semana, 02:10"
+      nome: "Pedro Henrique Marques",
+      camera: "Câmera 01 - Marginal Botafogo",
+      grauSimilaridade: 0.80,
+      fotoUrl: "assets/images/foto1_suspeito.png",
+      fotoReferenciaUrl: "assets/images/foto2_suspeito.png",
+      dataCaptura: "Há 1 semana, 02:10",
+      dataCompleta: "13 de setembro de 2025",
+      horaExata: "02:10:10",
+      aniversario: "21/02/1985",
+      status: "Procurado",
+    ),
+    IncidentModel(
+      nome: "João Vitor Lightning McQueen",
+      camera: "Câmera 04 - Bar",
+      grauSimilaridade: 0.80,
+      fotoUrl: "assets/images/foto1_suspeito.png",
+      fotoReferenciaUrl: "assets/images/foto2_suspeito.png",
+      dataCaptura: "Há 2 semanas, 04:47",
+      dataCompleta: "04 de setembro de 2025",
+      horaExata: "04:47:39",
+      aniversario: "13/09/2000",
+      status: "Procurado",
     ),
   ];
 }
