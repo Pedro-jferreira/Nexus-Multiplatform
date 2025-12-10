@@ -1,4 +1,3 @@
-import 'package:Nexus/ui/features/incidents_mobile/mock/mock_incidents_data.dart';
 import 'package:Nexus/ui/features/incidents_mobile/view_model/incidents_mobile_view_model.dart';
 import 'package:Nexus/ui/features/incidents_mobile/widgets/tile_incident_mobile.dart';
 import 'package:flutter/material.dart';
@@ -19,17 +18,17 @@ class _IncidentsPageState extends State<IncidentsPage> {
 
   @override
   void initState() {
+    super.initState();
     _viewModel = IncidentsMobileViewModel(repository: context.read());
     _viewModel.fetchCmd.execute();
     _scrollController.addListener(_onScroll);
-    super.initState();
   }
 
   void _onScroll() {
     if (_scrollController.position.pixels >=
         _scrollController.position.maxScrollExtent - 200) {
-      if (!_viewModel.fetchMoreCmd.value.isRunning && _viewModel.hasMore) {
-        _viewModel.fetchMoreCmd.execute();
+      if (!_viewModel.fetchMoreMockCmd.value.isRunning && _viewModel.hasMore) {
+        _viewModel.fetchMoreMockCmd.execute();
       }
     }
   }
@@ -47,17 +46,19 @@ class _IncidentsPageState extends State<IncidentsPage> {
       listenable: Listenable.merge([
         _viewModel,
         _viewModel.fetchCmd,
-        _viewModel.fetchMoreCmd
+        _viewModel.fetchMoreMockCmd
       ]),
       builder: (context, _) {
         if (_viewModel.fetchCmd.value.isRunning) {
           return const Center(child: CircularProgressIndicator());
         }
 
-        final listaDisplay = MockIncidents.incidents;
+        final listaDisplay = _viewModel.incidentes;
+        final bool isLoadingMore = _viewModel.fetchMoreMockCmd.value.isRunning;
 
-        if (listaDisplay.isEmpty) {
+        if (listaDisplay.isEmpty && !isLoadingMore) {
           return ListView(
+            controller: _scrollController,
             children: [
               _buildHeader(),
               const SizedBox(height: 50),
@@ -72,13 +73,23 @@ class _IncidentsPageState extends State<IncidentsPage> {
         }
 
         return ListView.builder(
+          controller: _scrollController,
           padding: const EdgeInsets.only(bottom: 20),
-          itemCount: listaDisplay.length + 1,
-          itemBuilder: (context, index) {
 
+          itemCount: 1 + listaDisplay.length + (isLoadingMore ? 1 : 0),
+
+          itemBuilder: (context, index) {
             if (index == 0) {
               return _buildHeader();
             }
+
+            if (isLoadingMore && index == listaDisplay.length + 1) {
+              return const Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Center(child: CircularProgressIndicator()),
+              );
+            }
+
             final incident = listaDisplay[index - 1];
 
             return TileIncident(
