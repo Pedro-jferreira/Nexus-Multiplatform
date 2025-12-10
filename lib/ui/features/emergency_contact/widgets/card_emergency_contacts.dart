@@ -21,7 +21,7 @@ class EmergencyCard extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 28,
-            backgroundImage: AssetImage(contact.images as String),
+            backgroundImage: NetworkImage(contact.images as String),
             backgroundColor: Colors.grey.shade200,
           ),
           Expanded(
