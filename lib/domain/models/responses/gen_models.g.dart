@@ -186,3 +186,70 @@ const _$SuspectStatusEnumMap = {
   SuspectStatus.FORAGIDO: 'FORAGIDO',
   SuspectStatus.CAPTURADO: 'CAPTURADO',
 };
+
+_$IncidentResponseImpl _$$IncidentResponseImplFromJson(
+  Map<String, dynamic> json,
+) => _$IncidentResponseImpl(
+  id: (json['id'] as num).toInt(),
+  suspect: json['suspect'] == null
+      ? null
+      : SuspectResponse.fromJson(json['suspect'] as Map<String, dynamic>),
+  imageUrl: json['imageUrl'] as String?,
+  score: (json['score'] as num?)?.toDouble(),
+  location: json['location'] as String?,
+  incidentStatus: $enumDecodeNullable(
+    _$IncidentStatusEnumMap,
+    json['incidentStatus'],
+  ),
+  assignedUser: json['assignedUser'] == null
+      ? null
+      : UserResponse.fromJson(json['assignedUser'] as Map<String, dynamic>),
+  notes: json['notes'] as String?,
+  processedUrl: json['processedUrl'] as String?,
+  createdAt: _$JsonConverterFromJson<String, DateTime>(
+    json['createdAt'],
+    const DateOnlyConverter().fromJson,
+  ),
+  updatedAt: _$JsonConverterFromJson<String, DateTime>(
+    json['updatedAt'],
+    const DateOnlyConverter().fromJson,
+  ),
+);
+
+Map<String, dynamic> _$$IncidentResponseImplToJson(
+  _$IncidentResponseImpl instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'suspect': instance.suspect,
+  'imageUrl': instance.imageUrl,
+  'score': instance.score,
+  'location': instance.location,
+  'incidentStatus': _$IncidentStatusEnumMap[instance.incidentStatus],
+  'assignedUser': instance.assignedUser,
+  'notes': instance.notes,
+  'processedUrl': instance.processedUrl,
+  'createdAt': _$JsonConverterToJson<String, DateTime>(
+    instance.createdAt,
+    const DateOnlyConverter().toJson,
+  ),
+  'updatedAt': _$JsonConverterToJson<String, DateTime>(
+    instance.updatedAt,
+    const DateOnlyConverter().toJson,
+  ),
+};
+
+const _$IncidentStatusEnumMap = {
+  IncidentStatus.POSITIVO: 'POSITIVO',
+  IncidentStatus.FALSO_POSITIVO: 'FALSO_POSITIVO',
+  IncidentStatus.ABERTO: 'ABERTO',
+};
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) => json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) => value == null ? null : toJson(value);

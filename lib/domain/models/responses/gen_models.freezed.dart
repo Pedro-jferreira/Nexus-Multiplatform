@@ -1995,3 +1995,431 @@ abstract class _SuspectResponse implements SuspectResponse {
   _$$SuspectResponseImplCopyWith<_$SuspectResponseImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+IncidentResponse _$IncidentResponseFromJson(Map<String, dynamic> json) {
+  return _IncidentResponse.fromJson(json);
+}
+
+/// @nodoc
+mixin _$IncidentResponse {
+  int get id => throw _privateConstructorUsedError;
+  SuspectResponse? get suspect => throw _privateConstructorUsedError;
+  String? get imageUrl => throw _privateConstructorUsedError;
+  double? get score => throw _privateConstructorUsedError;
+  String? get location => throw _privateConstructorUsedError;
+  IncidentStatus? get incidentStatus => throw _privateConstructorUsedError;
+  UserResponse? get assignedUser => throw _privateConstructorUsedError;
+  String? get notes => throw _privateConstructorUsedError;
+  String? get processedUrl => throw _privateConstructorUsedError;
+  @DateOnlyConverter()
+  DateTime? get createdAt => throw _privateConstructorUsedError;
+  @DateOnlyConverter()
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
+
+  /// Serializes this IncidentResponse to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of IncidentResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $IncidentResponseCopyWith<IncidentResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $IncidentResponseCopyWith<$Res> {
+  factory $IncidentResponseCopyWith(
+    IncidentResponse value,
+    $Res Function(IncidentResponse) then,
+  ) = _$IncidentResponseCopyWithImpl<$Res, IncidentResponse>;
+  @useResult
+  $Res call({
+    int id,
+    SuspectResponse? suspect,
+    String? imageUrl,
+    double? score,
+    String? location,
+    IncidentStatus? incidentStatus,
+    UserResponse? assignedUser,
+    String? notes,
+    String? processedUrl,
+    @DateOnlyConverter() DateTime? createdAt,
+    @DateOnlyConverter() DateTime? updatedAt,
+  });
+
+  $SuspectResponseCopyWith<$Res>? get suspect;
+  $UserResponseCopyWith<$Res>? get assignedUser;
+}
+
+/// @nodoc
+class _$IncidentResponseCopyWithImpl<$Res, $Val extends IncidentResponse>
+    implements $IncidentResponseCopyWith<$Res> {
+  _$IncidentResponseCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of IncidentResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? suspect = freezed,
+    Object? imageUrl = freezed,
+    Object? score = freezed,
+    Object? location = freezed,
+    Object? incidentStatus = freezed,
+    Object? assignedUser = freezed,
+    Object? notes = freezed,
+    Object? processedUrl = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+  }) {
+    return _then(
+      _value.copyWith(
+            id: null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                      as int,
+            suspect: freezed == suspect
+                ? _value.suspect
+                : suspect // ignore: cast_nullable_to_non_nullable
+                      as SuspectResponse?,
+            imageUrl: freezed == imageUrl
+                ? _value.imageUrl
+                : imageUrl // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            score: freezed == score
+                ? _value.score
+                : score // ignore: cast_nullable_to_non_nullable
+                      as double?,
+            location: freezed == location
+                ? _value.location
+                : location // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            incidentStatus: freezed == incidentStatus
+                ? _value.incidentStatus
+                : incidentStatus // ignore: cast_nullable_to_non_nullable
+                      as IncidentStatus?,
+            assignedUser: freezed == assignedUser
+                ? _value.assignedUser
+                : assignedUser // ignore: cast_nullable_to_non_nullable
+                      as UserResponse?,
+            notes: freezed == notes
+                ? _value.notes
+                : notes // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            processedUrl: freezed == processedUrl
+                ? _value.processedUrl
+                : processedUrl // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            createdAt: freezed == createdAt
+                ? _value.createdAt
+                : createdAt // ignore: cast_nullable_to_non_nullable
+                      as DateTime?,
+            updatedAt: freezed == updatedAt
+                ? _value.updatedAt
+                : updatedAt // ignore: cast_nullable_to_non_nullable
+                      as DateTime?,
+          )
+          as $Val,
+    );
+  }
+
+  /// Create a copy of IncidentResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $SuspectResponseCopyWith<$Res>? get suspect {
+    if (_value.suspect == null) {
+      return null;
+    }
+
+    return $SuspectResponseCopyWith<$Res>(_value.suspect!, (value) {
+      return _then(_value.copyWith(suspect: value) as $Val);
+    });
+  }
+
+  /// Create a copy of IncidentResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $UserResponseCopyWith<$Res>? get assignedUser {
+    if (_value.assignedUser == null) {
+      return null;
+    }
+
+    return $UserResponseCopyWith<$Res>(_value.assignedUser!, (value) {
+      return _then(_value.copyWith(assignedUser: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$IncidentResponseImplCopyWith<$Res>
+    implements $IncidentResponseCopyWith<$Res> {
+  factory _$$IncidentResponseImplCopyWith(
+    _$IncidentResponseImpl value,
+    $Res Function(_$IncidentResponseImpl) then,
+  ) = __$$IncidentResponseImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({
+    int id,
+    SuspectResponse? suspect,
+    String? imageUrl,
+    double? score,
+    String? location,
+    IncidentStatus? incidentStatus,
+    UserResponse? assignedUser,
+    String? notes,
+    String? processedUrl,
+    @DateOnlyConverter() DateTime? createdAt,
+    @DateOnlyConverter() DateTime? updatedAt,
+  });
+
+  @override
+  $SuspectResponseCopyWith<$Res>? get suspect;
+  @override
+  $UserResponseCopyWith<$Res>? get assignedUser;
+}
+
+/// @nodoc
+class __$$IncidentResponseImplCopyWithImpl<$Res>
+    extends _$IncidentResponseCopyWithImpl<$Res, _$IncidentResponseImpl>
+    implements _$$IncidentResponseImplCopyWith<$Res> {
+  __$$IncidentResponseImplCopyWithImpl(
+    _$IncidentResponseImpl _value,
+    $Res Function(_$IncidentResponseImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of IncidentResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? suspect = freezed,
+    Object? imageUrl = freezed,
+    Object? score = freezed,
+    Object? location = freezed,
+    Object? incidentStatus = freezed,
+    Object? assignedUser = freezed,
+    Object? notes = freezed,
+    Object? processedUrl = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+  }) {
+    return _then(
+      _$IncidentResponseImpl(
+        id: null == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as int,
+        suspect: freezed == suspect
+            ? _value.suspect
+            : suspect // ignore: cast_nullable_to_non_nullable
+                  as SuspectResponse?,
+        imageUrl: freezed == imageUrl
+            ? _value.imageUrl
+            : imageUrl // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        score: freezed == score
+            ? _value.score
+            : score // ignore: cast_nullable_to_non_nullable
+                  as double?,
+        location: freezed == location
+            ? _value.location
+            : location // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        incidentStatus: freezed == incidentStatus
+            ? _value.incidentStatus
+            : incidentStatus // ignore: cast_nullable_to_non_nullable
+                  as IncidentStatus?,
+        assignedUser: freezed == assignedUser
+            ? _value.assignedUser
+            : assignedUser // ignore: cast_nullable_to_non_nullable
+                  as UserResponse?,
+        notes: freezed == notes
+            ? _value.notes
+            : notes // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        processedUrl: freezed == processedUrl
+            ? _value.processedUrl
+            : processedUrl // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        createdAt: freezed == createdAt
+            ? _value.createdAt
+            : createdAt // ignore: cast_nullable_to_non_nullable
+                  as DateTime?,
+        updatedAt: freezed == updatedAt
+            ? _value.updatedAt
+            : updatedAt // ignore: cast_nullable_to_non_nullable
+                  as DateTime?,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$IncidentResponseImpl implements _IncidentResponse {
+  const _$IncidentResponseImpl({
+    required this.id,
+    this.suspect,
+    this.imageUrl,
+    this.score,
+    this.location,
+    this.incidentStatus,
+    this.assignedUser,
+    this.notes,
+    this.processedUrl,
+    @DateOnlyConverter() this.createdAt,
+    @DateOnlyConverter() this.updatedAt,
+  });
+
+  factory _$IncidentResponseImpl.fromJson(Map<String, dynamic> json) =>
+      _$$IncidentResponseImplFromJson(json);
+
+  @override
+  final int id;
+  @override
+  final SuspectResponse? suspect;
+  @override
+  final String? imageUrl;
+  @override
+  final double? score;
+  @override
+  final String? location;
+  @override
+  final IncidentStatus? incidentStatus;
+  @override
+  final UserResponse? assignedUser;
+  @override
+  final String? notes;
+  @override
+  final String? processedUrl;
+  @override
+  @DateOnlyConverter()
+  final DateTime? createdAt;
+  @override
+  @DateOnlyConverter()
+  final DateTime? updatedAt;
+
+  @override
+  String toString() {
+    return 'IncidentResponse(id: $id, suspect: $suspect, imageUrl: $imageUrl, score: $score, location: $location, incidentStatus: $incidentStatus, assignedUser: $assignedUser, notes: $notes, processedUrl: $processedUrl, createdAt: $createdAt, updatedAt: $updatedAt)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$IncidentResponseImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.suspect, suspect) || other.suspect == suspect) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
+            (identical(other.score, score) || other.score == score) &&
+            (identical(other.location, location) ||
+                other.location == location) &&
+            (identical(other.incidentStatus, incidentStatus) ||
+                other.incidentStatus == incidentStatus) &&
+            (identical(other.assignedUser, assignedUser) ||
+                other.assignedUser == assignedUser) &&
+            (identical(other.notes, notes) || other.notes == notes) &&
+            (identical(other.processedUrl, processedUrl) ||
+                other.processedUrl == processedUrl) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+    runtimeType,
+    id,
+    suspect,
+    imageUrl,
+    score,
+    location,
+    incidentStatus,
+    assignedUser,
+    notes,
+    processedUrl,
+    createdAt,
+    updatedAt,
+  );
+
+  /// Create a copy of IncidentResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$IncidentResponseImplCopyWith<_$IncidentResponseImpl> get copyWith =>
+      __$$IncidentResponseImplCopyWithImpl<_$IncidentResponseImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$IncidentResponseImplToJson(this);
+  }
+}
+
+abstract class _IncidentResponse implements IncidentResponse {
+  const factory _IncidentResponse({
+    required final int id,
+    final SuspectResponse? suspect,
+    final String? imageUrl,
+    final double? score,
+    final String? location,
+    final IncidentStatus? incidentStatus,
+    final UserResponse? assignedUser,
+    final String? notes,
+    final String? processedUrl,
+    @DateOnlyConverter() final DateTime? createdAt,
+    @DateOnlyConverter() final DateTime? updatedAt,
+  }) = _$IncidentResponseImpl;
+
+  factory _IncidentResponse.fromJson(Map<String, dynamic> json) =
+      _$IncidentResponseImpl.fromJson;
+
+  @override
+  int get id;
+  @override
+  SuspectResponse? get suspect;
+  @override
+  String? get imageUrl;
+  @override
+  double? get score;
+  @override
+  String? get location;
+  @override
+  IncidentStatus? get incidentStatus;
+  @override
+  UserResponse? get assignedUser;
+  @override
+  String? get notes;
+  @override
+  String? get processedUrl;
+  @override
+  @DateOnlyConverter()
+  DateTime? get createdAt;
+  @override
+  @DateOnlyConverter()
+  DateTime? get updatedAt;
+
+  /// Create a copy of IncidentResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$IncidentResponseImplCopyWith<_$IncidentResponseImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}

@@ -13,4 +13,5 @@ part 'emergency_contact_responses.dart';
 part 'core.dart';
 part '../page.dart';
 part 'suspects.dart';
+part 'incidents.dart';
 
