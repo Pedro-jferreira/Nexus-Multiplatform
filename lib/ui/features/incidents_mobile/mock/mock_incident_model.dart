@@ -3,7 +3,7 @@ class IncidentModel {
   final String fotoUrl;
   final String camera;
   final double grauSimilaridade;
-  final DateTime dataCaptura;
+  final String dataCaptura;
   final void Function()? onTap;
 
   IncidentModel({
