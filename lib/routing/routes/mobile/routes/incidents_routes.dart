@@ -23,15 +23,38 @@ const incidentsDetailsRouter = TypedGoRoute<IncidentsDetailsRouter>(
 );
 
 class IncidentsDetailsRouter extends GoRouteData with _$IncidentsDetailsRouter {
-  const IncidentsDetailsRouter();
+  final IncidentModel $extra;
+
+  const IncidentsDetailsRouter(this.$extra);
 
   static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Placeholder(color: Colors.yellow),
+      backgroundColor: const Color(0xFFEBEBEB),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFFEBEBEB),
+        elevation: 0,
+        centerTitle: true,
+        iconTheme: const IconThemeData(color: Colors.black87),
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.assignment_outlined, color: Colors.black87, size: 20),
+            const SizedBox(width: 8),
+            const Text(
+              "Detalhes do Alerta",
+              style: TextStyle(
+                color: Colors.black87,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
+      body: IncidentsDetailsPage(incident: $extra),
     );
   }
 }

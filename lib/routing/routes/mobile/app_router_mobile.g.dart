@@ -31,11 +31,6 @@ RouteBase get $shellRoutes => StatefulShellRouteData.$route(
     ),
     StatefulShellBranchData.$branch(
       routes: [
-        GoRouteData.$route(path: '/chat', factory: _$ChatRouter._fromState),
-      ],
-    ),
-    StatefulShellBranchData.$branch(
-      routes: [
         GoRouteData.$route(
           path: '/contacts',
 
@@ -73,43 +68,27 @@ mixin _$IncidentsRouter on GoRouteData {
 
 mixin _$IncidentsDetailsRouter on GoRouteData {
   static IncidentsDetailsRouter _fromState(GoRouterState state) =>
-      const IncidentsDetailsRouter();
+      IncidentsDetailsRouter(state.extra as IncidentModel);
+
+  IncidentsDetailsRouter get _self => this as IncidentsDetailsRouter;
 
   @override
   String get location => GoRouteData.$location('/incidents/incidents_details');
 
   @override
-  void go(BuildContext context) => context.go(location);
+  void go(BuildContext context) => context.go(location, extra: _self.$extra);
 
   @override
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  @override
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  @override
-  void replace(BuildContext context) => context.replace(location);
-}
-
-mixin _$ChatRouter on GoRouteData {
-  static ChatRouter _fromState(GoRouterState state) => const ChatRouter();
-
-  @override
-  String get location => GoRouteData.$location('/chat');
-
-  @override
-  void go(BuildContext context) => context.go(location);
-
-  @override
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+  Future<T?> push<T>(BuildContext context) =>
+      context.push<T>(location, extra: _self.$extra);
 
   @override
   void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
+      context.pushReplacement(location, extra: _self.$extra);
 
   @override
-  void replace(BuildContext context) => context.replace(location);
+  void replace(BuildContext context) =>
+      context.replace(location, extra: _self.$extra);
 }
 
 mixin _$ContactsRouter on GoRouteData {
