@@ -1,8 +1,10 @@
 import 'package:Nexus/data/repositories/impl/suspect_repository_impl.dart';
 import 'package:Nexus/data/repositories/impl/user_repository_impl.dart';
+import 'package:Nexus/data/repositories/incident_repository.dart';
 import 'package:Nexus/data/repositories/suspects_repository.dart';
 import 'package:Nexus/data/repositories/user_repository.dart';
 import 'package:Nexus/data/services/impl/suspect_service_impl.dart';
+import 'package:Nexus/data/services/incidents_service.dart';
 import 'package:Nexus/data/services/suspect_service.dart';
 import 'package:dio/dio.dart';
 import 'package:go_router/go_router.dart';
@@ -21,8 +23,10 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../data/repositories/impl/incidents_repository_impl.dart';
 import '../data/repositories/impl/theme_control_repository_impl.dart';
 import '../data/repositories/theme_control_repository.dart';
+import '../data/services/impl/incidents_service_impl.dart';
 import '../ui/features/profile_web/view_model/theme_control_view_model.dart';
 import '../ui/features/suspect/view_models/suspect_view_model.dart';
 import 'dio_config.dart';
@@ -85,6 +89,9 @@ List<SingleChildWidget> get _servicesData {
     Provider<SuspectsService>(
       create: (context) => SuspectsServiceImpl(dio: context.read()),
     ),
+    Provider<IncidentsService>(
+      create: (context) => IncidentsServiceImpl(dio: context.read()),
+    ),
   ];
 }
 
@@ -106,6 +113,10 @@ List<SingleChildWidget> get _repositoriesData {
     Provider<ThemeControlRepository>(
       create: (context) =>
           ThemeControlRepositoryImpl(prefs: context.read()),
+    ),
+    Provider<IncidentRepository>(
+      create: (context) =>
+          IncidentsRepositoryImpl(service: context.read()),
     ),
   ];
 }

@@ -1,3 +1,4 @@
+import 'package:Nexus/ui/core/widgets/smart_hero_image.dart';
 import 'package:flutter/material.dart';
 
 class SuspectTile extends StatelessWidget {
@@ -39,50 +40,7 @@ class SuspectTile extends StatelessWidget {
       child: Row(
         spacing: 15,
         children: [
-        Image.network(
-        imgUrl,
-        height:  imgHeight,
-        width: imgWidth,
-        fit: BoxFit.cover, // Recomendado para a imagem preencher o espaço corretamente
-
-        // 1. Tratamento de Carregamento
-        loadingBuilder: (context, child, loadingProgress) {
-          if (loadingProgress == null) return child;
-          return SizedBox(
-            height: imgHeight,
-            width: imgWidth,
-            child: Center(
-              child: CircularProgressIndicator(
-                // Mostra o progresso se possível, senão fica indeterminado
-                value: loadingProgress.expectedTotalBytes != null
-                    ? loadingProgress.cumulativeBytesLoaded /
-                    loadingProgress.expectedTotalBytes!
-                    : null,
-              ),
-            ),
-          );
-        },
-
-        // 2. Tratamento de Erro
-        errorBuilder: (context, error, stackTrace) {
-          return Container(
-            height: imgHeight,
-            width: imgWidth,
-            color: colorScheme.surfaceContainerHighest, // Cor de fundo suave
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.broken_image, color: colorScheme.error),
-                const SizedBox(height: 4),
-                Text(
-                  'Erro',
-                  style: textTheme.bodySmall?.copyWith(color: colorScheme.error),
-                )
-              ],
-            ),
-          );
-        },
-      ),
+        SmartHeroImage(imageUrl: imgUrl, heroTag: imgUrl, width: imgWidth, height: imgHeight,),
           _buildInfo(textTheme, colorScheme, 'Nome', nome),
         ],
       ),

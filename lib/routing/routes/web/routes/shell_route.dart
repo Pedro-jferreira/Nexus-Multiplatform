@@ -6,7 +6,6 @@ part of '../app_router_web.dart';
     dashBoardBranch,
     fugitivesBranch,
     usersBranch,
-    chatBranch,
     incidentsBranch,
     emergencyContactsBranch,
     profileBranch

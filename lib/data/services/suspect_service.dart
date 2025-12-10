@@ -17,4 +17,5 @@ abstract class SuspectsService{
   });
 
   Future<void> delete(int id);
+
 }

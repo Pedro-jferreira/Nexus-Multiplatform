@@ -8,14 +8,15 @@ enum ServiceType {
   @JsonValue('PM')
   PM,
   @JsonValue('OUTRO')
-  OUTRO
+  OUTRO,
 }
- enum AuthProvider {
-   @JsonValue('LOCAL')
-   LOCAL,
-   @JsonValue('GOOGLE')
-   GOOGLE
- }
+
+enum AuthProvider {
+  @JsonValue('LOCAL')
+  LOCAL,
+  @JsonValue('GOOGLE')
+  GOOGLE,
+}
 
 enum EnumStatus {
   @JsonValue('ATIVO')
@@ -23,14 +24,21 @@ enum EnumStatus {
   @JsonValue('INATIVO')
   INATIVO,
   @JsonValue('BLOQUEADO')
-  BLOQUEADO
+  BLOQUEADO,
 }
 
 enum SuspectStatus {
   @JsonValue('FORAGIDO')
   FORAGIDO,
   @JsonValue('CAPTURADO')
-  CAPTURADO
+  CAPTURADO,
 }
 
-
+enum IncidentStatus {
+  @JsonValue('POSITIVO')
+  POSITIVO,
+  @JsonValue('FALSO_POSITIVO')
+  FALSO_POSITIVO,
+  @JsonValue('ABERTO')
+  ABERTO,
+}

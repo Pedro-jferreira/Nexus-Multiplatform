@@ -49,6 +49,7 @@ dependencies:
   web_browser_detect: ^2.2.0
   http: ^1.6.0
   universal_html: ^2.3.0
+  material_symbols_icons: ^4.2892.0
 
 dev_dependencies:
   flutter_test:
