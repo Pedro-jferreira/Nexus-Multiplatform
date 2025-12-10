@@ -1,4 +1,5 @@
 import 'package:Nexus/routing/app_router.dart';
+import 'package:Nexus/ui/features/emergency_contact/emergency_contacts_screen.dart';
 import 'package:Nexus/ui/features/incidents_mobile/incidents_page_mobile.dart';
 import 'package:Nexus/ui/features/shell_mobile/shell_app.dart';
 import 'package:flutter/material.dart';
