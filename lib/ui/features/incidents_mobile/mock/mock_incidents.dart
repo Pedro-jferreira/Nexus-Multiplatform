@@ -1,4 +1,4 @@
-import 'package:Nexus/ui/features/incidents_mobile/mock/incident_model.dart';
+import 'package:Nexus/ui/features/incidents_mobile/mock/mock_incident_model.dart';
 
 class MockIncidents {
   static List<IncidentModel> incidents = [
