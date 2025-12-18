@@ -6,6 +6,7 @@ import 'package:Nexus/data/repositories/user_repository.dart';
 import 'package:Nexus/data/services/impl/suspect_service_impl.dart';
 import 'package:Nexus/data/services/incidents_service.dart';
 import 'package:Nexus/data/services/suspect_service.dart';
+import 'package:Nexus/ui/features/incidents_web/view_models/incident_view_model.dart';
 import 'package:dio/dio.dart';
 import 'package:go_router/go_router.dart';
 import 'package:Nexus/data/repositories/auth_repository.dart';
@@ -129,6 +130,10 @@ List<SingleChildWidget> get _viewModelsProviders {
     ),
     ChangeNotifierProvider<SuspectViewModel>(
       create: (context) => SuspectViewModel(
+        repository: context.read(), // O Provider busca o SuspectsRepository na árvore
+      ),
+    ),ChangeNotifierProvider<IncidentViewModel>(
+      create: (context) => IncidentViewModel(
         repository: context.read(), // O Provider busca o SuspectsRepository na árvore
       ),
     ),
