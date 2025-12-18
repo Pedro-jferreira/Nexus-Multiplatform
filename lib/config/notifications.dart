@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:Nexus/domain/models/enums/api_enums.dart';
 import 'package:Nexus/routing/routes/web/app_router_web.dart';
+import 'package:Nexus/ui/features/incidents_web/view_models/incident_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -209,6 +210,13 @@ void _handleMessageAction(Map<String, dynamic> data) {
   if (data['action'] == 'refresh_list') {
     try {
       context.read<SuspectViewModel>().fetchCmd.execute();
+      debugPrint('🔄 Lista de foragidos atualizada via notificação');
+    } catch (e) {
+      debugPrint('Erro ao atualizar viewModel: $e');
+    }
+  }  if (data['action'] == 'REFRESHLIST') {
+    try {
+      context.read<IncidentViewModel>().loadIncidents();
       debugPrint('🔄 Lista de foragidos atualizada via notificação');
     } catch (e) {
       debugPrint('Erro ao atualizar viewModel: $e');
