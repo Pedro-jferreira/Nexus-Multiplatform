@@ -41,4 +41,6 @@ enum IncidentStatus {
   FALSO_POSITIVO,
   @JsonValue('ABERTO')
   ABERTO,
+  @JsonValue('EM_PROCESSAMENTO')
+  EM_PROCESSAMENTO
 }

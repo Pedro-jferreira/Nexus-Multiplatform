@@ -1,4 +1,5 @@
 import 'package:Nexus/domain/models/requests/gen_models.dart';
+import 'package:Nexus/ui/core/layout/custom_app_bar.dart';
 import 'package:Nexus/ui/features/auth/reset_password/reset_password_page.dart';
 import 'package:Nexus/ui/features/incidents_web/incident_page.dart';
 import 'package:Nexus/ui/features/profile_web/profile_page.dart';
@@ -8,6 +9,7 @@ import 'package:go_router/go_router.dart';
 import 'package:Nexus/ui/features/emergency_contacts_web/emergency_contact_page.dart';
 import 'package:Nexus/ui/features/shell_web/shell_app.dart';
 import 'package:Nexus/ui/features/users_web/user_page.dart';
+import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:provider/provider.dart';
 
 import '../../../ui/core/animations/transitions.dart';
