@@ -1,7 +1,9 @@
 
+import 'package:Nexus/ui/features/incidents_web/view_models/incident_view_model.dart';
 import 'package:Nexus/ui/features/incidents_web/widgets/suspect_incident_info.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 
 import '../../../../domain/models/enums/api_enums.dart';
@@ -18,10 +20,13 @@ class IncidentDetailPage extends StatefulWidget {
 
 class _IncidentDetailPageState extends State<IncidentDetailPage> {
   late Set<IncidentStatus> _selectedStatus;
+  late final IncidentViewModel viewModel;
 
   @override
   void initState() {
     super.initState();
+    viewModel = context.read();
+
     if (widget.args.currentStatus == IncidentStatus.ABERTO) {
       _selectedStatus = {}; // Nenhuma seleção
     } else {
@@ -30,10 +35,13 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
   }
 
   void _updateStatus(Set<IncidentStatus> newSelection) {
+    if (newSelection.isEmpty) return;
+    final selected = newSelection.first;
     setState(() {
       _selectedStatus = newSelection;
     });
-    print("Novo Status Selecionado: ${newSelection.first}");
+
+     viewModel.updateIncident(widget.args.id, selected);
   }
 
   @override
@@ -89,83 +97,105 @@ class _IncidentDetailPageState extends State<IncidentDetailPage> {
 
               const Divider(height: 1),
 
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surface,
-                  borderRadius: const BorderRadius.vertical(
-                    bottom: Radius.circular(20),
-                  ),
-                ),
-                child: Center(
-                  child: SegmentedButton<IncidentStatus>(
-                    emptySelectionAllowed: true,
-                    segments: const [
-                      ButtonSegment<IncidentStatus>(
-                        value: IncidentStatus.POSITIVO,
-                        label: Text('Positivo'),
-                        icon: Icon(Icons.check_circle_outline),
+              ListenableBuilder(
+                listenable: viewModel,
+                builder: (context,_) {
+                  final bool isThisLoading = viewModel.isLoading;
+                  return Stack(
+                    children: [
+                      Opacity(
+                        opacity: isThisLoading ? 0.5 : 1.0, // Efeito de desabilitado
+                        child: AbsorbPointer(
+                          absorbing: isThisLoading, // Impede cliques enquanto salva
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.surface,
+                              borderRadius: const BorderRadius.vertical(
+                                bottom: Radius.circular(20),
+                              ),
+                            ),
+                            child: Center(
+                              child: SegmentedButton<IncidentStatus>(
+                                emptySelectionAllowed: true,
+                                segments: const [
+                                  ButtonSegment<IncidentStatus>(
+                                    value: IncidentStatus.POSITIVO,
+                                    label: Text('Positivo'),
+                                    icon: Icon(Icons.check_circle_outline),
+                                  ),
+                                  ButtonSegment<IncidentStatus>(
+                                    value: IncidentStatus.FALSO_POSITIVO,
+                                    label: Text('Falso Positivo'),
+                                    icon: Icon(Icons.cancel_outlined),
+                                  ),
+                                ],
+
+                                selected: _selectedStatus.contains(IncidentStatus.ABERTO)
+                                    ? <IncidentStatus>{}
+                                    : _selectedStatus,
+
+                                onSelectionChanged: (Set<IncidentStatus> newSelection) {
+                                  if (newSelection.isEmpty) {
+                                    return;
+                                  }
+                                  _updateStatus(newSelection);
+                                },
+
+                                style: ButtonStyle(
+                                  backgroundColor: WidgetStateProperty.resolveWith<Color?>((
+                                    states,
+                                  ) {
+                                    if (states.contains(WidgetState.selected)) {
+                                      if (_selectedStatus.contains(
+                                        IncidentStatus.POSITIVO,
+                                      )) {
+                                        return Theme.of(
+                                          context,
+                                        ).colorScheme.secondary; // Fundo verde suave
+                                      }
+                                      if (_selectedStatus.contains(
+                                        IncidentStatus.FALSO_POSITIVO,
+                                      )) {
+                                        return Theme.of(
+                                          context,
+                                        ).colorScheme.tertiary; // Fundo vermelho suave
+                                      }
+                                    }
+                                    return null; // Cor padrão quando não selecionado
+                                  }),
+                                  foregroundColor: WidgetStateProperty.resolveWith<Color?>((
+                                    states,
+                                  ) {
+                                    if (states.contains(WidgetState.selected)) {
+                                      if (_selectedStatus.contains(
+                                        IncidentStatus.POSITIVO,
+                                      )) {
+                                        return Theme.of(context).colorScheme.onSecondary;
+                                      }
+                                      if (_selectedStatus.contains(
+                                        IncidentStatus.FALSO_POSITIVO,
+                                      )) {
+                                        return Theme.of(context).colorScheme.onTertiary;
+                                      }
+                                    }
+                                    return null;
+                                  }),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                      ButtonSegment<IncidentStatus>(
-                        value: IncidentStatus.FALSO_POSITIVO,
-                        label: Text('Falso Positivo'),
-                        icon: Icon(Icons.cancel_outlined),
-                      ),
+                      if (isThisLoading)
+                        const SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        ),
                     ],
-
-                    selected: _selectedStatus.contains(IncidentStatus.ABERTO)
-                        ? <IncidentStatus>{}
-                        : _selectedStatus,
-
-                    onSelectionChanged: (Set<IncidentStatus> newSelection) {
-                      if (newSelection.isEmpty) {
-                        return;
-                      }
-                      _updateStatus(newSelection);
-                    },
-
-                    style: ButtonStyle(
-                      backgroundColor: WidgetStateProperty.resolveWith<Color?>((
-                        states,
-                      ) {
-                        if (states.contains(WidgetState.selected)) {
-                          if (_selectedStatus.contains(
-                            IncidentStatus.POSITIVO,
-                          )) {
-                            return Theme.of(
-                              context,
-                            ).colorScheme.secondary; // Fundo verde suave
-                          }
-                          if (_selectedStatus.contains(
-                            IncidentStatus.FALSO_POSITIVO,
-                          )) {
-                            return Theme.of(
-                              context,
-                            ).colorScheme.tertiary; // Fundo vermelho suave
-                          }
-                        }
-                        return null; // Cor padrão quando não selecionado
-                      }),
-                      foregroundColor: WidgetStateProperty.resolveWith<Color?>((
-                        states,
-                      ) {
-                        if (states.contains(WidgetState.selected)) {
-                          if (_selectedStatus.contains(
-                            IncidentStatus.POSITIVO,
-                          )) {
-                            return Theme.of(context).colorScheme.onSecondary;
-                          }
-                          if (_selectedStatus.contains(
-                            IncidentStatus.FALSO_POSITIVO,
-                          )) {
-                            return Theme.of(context).colorScheme.onTertiary;
-                          }
-                        }
-                        return null;
-                      }),
-                    ),
-                  ),
-                ),
+                  );
+                }
               ),
             ],
           ),

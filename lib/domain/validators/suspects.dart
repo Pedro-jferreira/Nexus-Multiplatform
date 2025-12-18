@@ -100,3 +100,80 @@ class SuspectValidator extends LucidValidator<SuspectModel> {
     ).isNotNull(message: 'O status do suspeito é obrigatório na edição.');
   }
 }
+
+
+class AccessLogReportModel {
+  DateTime? startDate;
+  DateTime? endDate;
+  String format;
+
+  AccessLogReportModel({
+    required this.startDate,
+    required this.endDate,
+    this.format = 'pdf',
+  });
+
+  factory AccessLogReportModel.empty() => AccessLogReportModel(
+    startDate: null,
+    endDate: null,
+    format: 'pdf',
+  );
+
+  void clean() {
+    startDate = null;
+    endDate = null;
+    format = 'pdf';
+  }
+
+  void setStartDate(DateTime? date) => startDate = date;
+  void setEndDate(DateTime? date) => endDate = date;
+  void setFormat(String format) => this.format = format;
+
+}
+class AccessLogReportValidator extends LucidValidator<AccessLogReportModel> {
+
+  AccessLogReportValidator() {
+
+    // --- Data Inicial ---
+    ruleFor((model) => model.startDate, key: 'startDate')
+        .isNotNull(message: 'Informe a data inicial.')
+        .equalTo((model) {
+      final start = model.startDate;
+      final end = model.endDate;
+
+      // Se não tivermos as duas datas, retornamos o próprio start para passar (já validado no isNotNull)
+      if (start == null || end == null) return start;
+
+      // LÓGICA: Se start <= end, está valido.
+      // Retornamos 'start' para que o equalTo compare (start == start) e dê TRUE.
+      if (start.compareTo(end) <= 0) {
+        return start;
+      }
+
+      // Se for inválido (start > end), retornamos 'end'.
+      // O equalTo vai comparar (start == end) -> FALSE -> Dispara erro.
+      return end;
+    },
+        message: 'A data inicial não pode ser posterior à data final.');
+
+    // --- Data Final ---
+    ruleFor((model) => model.endDate, key: 'endDate')
+        .isNotNull(message: 'Informe a data final.')
+        .equalTo((model) {
+      final start = model.startDate;
+      final end = model.endDate;
+
+      if (start == null || end == null) return end;
+
+      // LÓGICA: Se end >= start, está valido.
+      // Retornamos 'end' para que o equalTo compare (end == end) e dê TRUE.
+      if (end.compareTo(start) >= 0) {
+        return end;
+      }
+
+      // Se inválido, força o erro retornando start
+      return start;
+    },
+        message: 'A data final não pode ser anterior à data inicial.');
+  }
+}

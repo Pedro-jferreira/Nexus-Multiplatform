@@ -34,3 +34,17 @@ class Optional<T> {
 
   const Optional.of(this.value) : isPresent = true;
 }
+@freezed
+class AccessLogReportRequest with _$AccessLogReportRequest {
+  const factory AccessLogReportRequest({
+    @DateOnlyConverter()
+    required DateTime startDate,
+    @DateOnlyConverter()
+    required DateTime endDate,
+    @Default('pdf') String format,
+  }) = _AccessLogReportRequest;
+
+  // Necessário para converter para Map
+  factory AccessLogReportRequest.fromJson(Map<String, dynamic> json) =>
+      _$AccessLogReportRequestFromJson(json);
+}

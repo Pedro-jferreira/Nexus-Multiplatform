@@ -1,4 +1,3 @@
-
 import 'package:Nexus/ui/features/auth/login/locked_page.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -104,26 +103,30 @@ class _LoginPageState extends State<LoginPage> {
         String message = (error is AppException)
             ? error.message
             : 'Erro desconhecido.';
-        final statusSode =  (error is AppException)
-            ? error.statusCode: null;
+        final statusSode = (error is AppException) ? error.statusCode : null;
 
-        if(statusSode != null && (statusSode == 401 || statusSode == 409)){
-          if(message == 'Conta bloqueada' || message == 'Conta desabilitada'){
+        if (statusSode != null &&
+            (statusSode == 401 || statusSode == 409 || statusSode == 500)) {
+          if (error is AppException) {
+            if (error.details.toString().contains('Conta desabilitada')) {
+              message = 'Conta desabilitada';
+            }
+          }
+          if (message == 'Conta bloqueada' || message == 'Conta desabilitada') {
             setState(() {
               _contaBloqueada = true;
             });
             message = 'Conta bloqueada';
-          }else{ message = 'credenciais invalidas';}
-
-
-
+          } else {
+            message = 'credenciais invalidas';
+          }
         }
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Error ao realizar login: $message'),
             backgroundColor: Theme.of(
               context,
-            ).colorScheme.error, // Deixa o snackbar vermelho
+            ).colorScheme.error,
           ),
         );
         cmd.reset();
@@ -266,7 +269,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             actions: [
               TextButton(
-                child: const Text(kIsWeb?'Já aceitei':"Ativar"),
+                child: const Text(kIsWeb ? 'Já aceitei' : "Ativar"),
                 onPressed: () async {
                   final settings = await FirebaseMessaging.instance
                       .requestPermission();
@@ -323,7 +326,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> _checkNotificationPermission() async {
     if (kIsWeb) {
-       setupNotifications();
+      setupNotifications();
     } else {
       await setupNotifications();
     }
@@ -358,14 +361,15 @@ class _LoginPageState extends State<LoginPage> {
 
         final device = Responsive.getDeviceType(context);
 
-        if(_contaBloqueada){
-         return LockedPage(
-           viewModel:widget.viewModel ,
-           onPressed: (){
-           setState(() {
-             _contaBloqueada = !_contaBloqueada;
-           });
-         },);
+        if (_contaBloqueada) {
+          return LockedPage(
+            viewModel: widget.viewModel,
+            onPressed: () {
+              setState(() {
+                _contaBloqueada = !_contaBloqueada;
+              });
+            },
+          );
         }
 
         switch (device) {

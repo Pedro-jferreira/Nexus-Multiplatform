@@ -35,9 +35,8 @@ class NotificationDispatcher {
         break;
 
       case NotificationTarget.incident:
-      // Exemplo futuro:
-      // IncidentDetailRoute(incidentId: id!).push(context);
-        debugPrint('Rota de incidentes ainda não implementada');
+
+       IncidentsRoute().go(context);
         break;
 
       case NotificationTarget.unknown:

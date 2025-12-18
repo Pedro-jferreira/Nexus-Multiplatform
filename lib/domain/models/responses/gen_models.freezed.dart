@@ -2003,7 +2003,7 @@ IncidentResponse _$IncidentResponseFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$IncidentResponse {
   int get id => throw _privateConstructorUsedError;
-  SuspectResponse? get suspect => throw _privateConstructorUsedError;
+  SuspectResponse get suspect => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
   double? get score => throw _privateConstructorUsedError;
   String? get location => throw _privateConstructorUsedError;
@@ -2012,7 +2012,7 @@ mixin _$IncidentResponse {
   String? get notes => throw _privateConstructorUsedError;
   String? get processedUrl => throw _privateConstructorUsedError;
   @DateOnlyConverter()
-  DateTime? get createdAt => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
   @DateOnlyConverter()
   DateTime? get updatedAt => throw _privateConstructorUsedError;
 
@@ -2035,7 +2035,7 @@ abstract class $IncidentResponseCopyWith<$Res> {
   @useResult
   $Res call({
     int id,
-    SuspectResponse? suspect,
+    SuspectResponse suspect,
     String? imageUrl,
     double? score,
     String? location,
@@ -2043,11 +2043,11 @@ abstract class $IncidentResponseCopyWith<$Res> {
     UserResponse? assignedUser,
     String? notes,
     String? processedUrl,
-    @DateOnlyConverter() DateTime? createdAt,
+    @DateOnlyConverter() DateTime createdAt,
     @DateOnlyConverter() DateTime? updatedAt,
   });
 
-  $SuspectResponseCopyWith<$Res>? get suspect;
+  $SuspectResponseCopyWith<$Res> get suspect;
   $UserResponseCopyWith<$Res>? get assignedUser;
 }
 
@@ -2067,7 +2067,7 @@ class _$IncidentResponseCopyWithImpl<$Res, $Val extends IncidentResponse>
   @override
   $Res call({
     Object? id = null,
-    Object? suspect = freezed,
+    Object? suspect = null,
     Object? imageUrl = freezed,
     Object? score = freezed,
     Object? location = freezed,
@@ -2075,7 +2075,7 @@ class _$IncidentResponseCopyWithImpl<$Res, $Val extends IncidentResponse>
     Object? assignedUser = freezed,
     Object? notes = freezed,
     Object? processedUrl = freezed,
-    Object? createdAt = freezed,
+    Object? createdAt = null,
     Object? updatedAt = freezed,
   }) {
     return _then(
@@ -2084,10 +2084,10 @@ class _$IncidentResponseCopyWithImpl<$Res, $Val extends IncidentResponse>
                 ? _value.id
                 : id // ignore: cast_nullable_to_non_nullable
                       as int,
-            suspect: freezed == suspect
+            suspect: null == suspect
                 ? _value.suspect
                 : suspect // ignore: cast_nullable_to_non_nullable
-                      as SuspectResponse?,
+                      as SuspectResponse,
             imageUrl: freezed == imageUrl
                 ? _value.imageUrl
                 : imageUrl // ignore: cast_nullable_to_non_nullable
@@ -2116,10 +2116,10 @@ class _$IncidentResponseCopyWithImpl<$Res, $Val extends IncidentResponse>
                 ? _value.processedUrl
                 : processedUrl // ignore: cast_nullable_to_non_nullable
                       as String?,
-            createdAt: freezed == createdAt
+            createdAt: null == createdAt
                 ? _value.createdAt
                 : createdAt // ignore: cast_nullable_to_non_nullable
-                      as DateTime?,
+                      as DateTime,
             updatedAt: freezed == updatedAt
                 ? _value.updatedAt
                 : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -2133,12 +2133,8 @@ class _$IncidentResponseCopyWithImpl<$Res, $Val extends IncidentResponse>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $SuspectResponseCopyWith<$Res>? get suspect {
-    if (_value.suspect == null) {
-      return null;
-    }
-
-    return $SuspectResponseCopyWith<$Res>(_value.suspect!, (value) {
+  $SuspectResponseCopyWith<$Res> get suspect {
+    return $SuspectResponseCopyWith<$Res>(_value.suspect, (value) {
       return _then(_value.copyWith(suspect: value) as $Val);
     });
   }
@@ -2169,7 +2165,7 @@ abstract class _$$IncidentResponseImplCopyWith<$Res>
   @useResult
   $Res call({
     int id,
-    SuspectResponse? suspect,
+    SuspectResponse suspect,
     String? imageUrl,
     double? score,
     String? location,
@@ -2177,12 +2173,12 @@ abstract class _$$IncidentResponseImplCopyWith<$Res>
     UserResponse? assignedUser,
     String? notes,
     String? processedUrl,
-    @DateOnlyConverter() DateTime? createdAt,
+    @DateOnlyConverter() DateTime createdAt,
     @DateOnlyConverter() DateTime? updatedAt,
   });
 
   @override
-  $SuspectResponseCopyWith<$Res>? get suspect;
+  $SuspectResponseCopyWith<$Res> get suspect;
   @override
   $UserResponseCopyWith<$Res>? get assignedUser;
 }
@@ -2202,7 +2198,7 @@ class __$$IncidentResponseImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? suspect = freezed,
+    Object? suspect = null,
     Object? imageUrl = freezed,
     Object? score = freezed,
     Object? location = freezed,
@@ -2210,7 +2206,7 @@ class __$$IncidentResponseImplCopyWithImpl<$Res>
     Object? assignedUser = freezed,
     Object? notes = freezed,
     Object? processedUrl = freezed,
-    Object? createdAt = freezed,
+    Object? createdAt = null,
     Object? updatedAt = freezed,
   }) {
     return _then(
@@ -2219,10 +2215,10 @@ class __$$IncidentResponseImplCopyWithImpl<$Res>
             ? _value.id
             : id // ignore: cast_nullable_to_non_nullable
                   as int,
-        suspect: freezed == suspect
+        suspect: null == suspect
             ? _value.suspect
             : suspect // ignore: cast_nullable_to_non_nullable
-                  as SuspectResponse?,
+                  as SuspectResponse,
         imageUrl: freezed == imageUrl
             ? _value.imageUrl
             : imageUrl // ignore: cast_nullable_to_non_nullable
@@ -2251,10 +2247,10 @@ class __$$IncidentResponseImplCopyWithImpl<$Res>
             ? _value.processedUrl
             : processedUrl // ignore: cast_nullable_to_non_nullable
                   as String?,
-        createdAt: freezed == createdAt
+        createdAt: null == createdAt
             ? _value.createdAt
             : createdAt // ignore: cast_nullable_to_non_nullable
-                  as DateTime?,
+                  as DateTime,
         updatedAt: freezed == updatedAt
             ? _value.updatedAt
             : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -2269,7 +2265,7 @@ class __$$IncidentResponseImplCopyWithImpl<$Res>
 class _$IncidentResponseImpl implements _IncidentResponse {
   const _$IncidentResponseImpl({
     required this.id,
-    this.suspect,
+    required this.suspect,
     this.imageUrl,
     this.score,
     this.location,
@@ -2277,7 +2273,7 @@ class _$IncidentResponseImpl implements _IncidentResponse {
     this.assignedUser,
     this.notes,
     this.processedUrl,
-    @DateOnlyConverter() this.createdAt,
+    @DateOnlyConverter() required this.createdAt,
     @DateOnlyConverter() this.updatedAt,
   });
 
@@ -2287,7 +2283,7 @@ class _$IncidentResponseImpl implements _IncidentResponse {
   @override
   final int id;
   @override
-  final SuspectResponse? suspect;
+  final SuspectResponse suspect;
   @override
   final String? imageUrl;
   @override
@@ -2304,7 +2300,7 @@ class _$IncidentResponseImpl implements _IncidentResponse {
   final String? processedUrl;
   @override
   @DateOnlyConverter()
-  final DateTime? createdAt;
+  final DateTime createdAt;
   @override
   @DateOnlyConverter()
   final DateTime? updatedAt;
@@ -2376,7 +2372,7 @@ class _$IncidentResponseImpl implements _IncidentResponse {
 abstract class _IncidentResponse implements IncidentResponse {
   const factory _IncidentResponse({
     required final int id,
-    final SuspectResponse? suspect,
+    required final SuspectResponse suspect,
     final String? imageUrl,
     final double? score,
     final String? location,
@@ -2384,7 +2380,7 @@ abstract class _IncidentResponse implements IncidentResponse {
     final UserResponse? assignedUser,
     final String? notes,
     final String? processedUrl,
-    @DateOnlyConverter() final DateTime? createdAt,
+    @DateOnlyConverter() required final DateTime createdAt,
     @DateOnlyConverter() final DateTime? updatedAt,
   }) = _$IncidentResponseImpl;
 
@@ -2394,7 +2390,7 @@ abstract class _IncidentResponse implements IncidentResponse {
   @override
   int get id;
   @override
-  SuspectResponse? get suspect;
+  SuspectResponse get suspect;
   @override
   String? get imageUrl;
   @override
@@ -2411,7 +2407,7 @@ abstract class _IncidentResponse implements IncidentResponse {
   String? get processedUrl;
   @override
   @DateOnlyConverter()
-  DateTime? get createdAt;
+  DateTime get createdAt;
   @override
   @DateOnlyConverter()
   DateTime? get updatedAt;
@@ -2422,4 +2418,243 @@ abstract class _IncidentResponse implements IncidentResponse {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$IncidentResponseImplCopyWith<_$IncidentResponseImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+UpdateIncidentRequest _$UpdateIncidentRequestFromJson(
+  Map<String, dynamic> json,
+) {
+  return _UpdateIncidentRequest.fromJson(json);
+}
+
+/// @nodoc
+mixin _$UpdateIncidentRequest {
+  String? get location => throw _privateConstructorUsedError;
+  IncidentStatus? get incidentStatus =>
+      throw _privateConstructorUsedError; // Enviamos como String para o backend
+  int? get assignedUserId => throw _privateConstructorUsedError;
+  String? get notes => throw _privateConstructorUsedError;
+
+  /// Serializes this UpdateIncidentRequest to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of UpdateIncidentRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $UpdateIncidentRequestCopyWith<UpdateIncidentRequest> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $UpdateIncidentRequestCopyWith<$Res> {
+  factory $UpdateIncidentRequestCopyWith(
+    UpdateIncidentRequest value,
+    $Res Function(UpdateIncidentRequest) then,
+  ) = _$UpdateIncidentRequestCopyWithImpl<$Res, UpdateIncidentRequest>;
+  @useResult
+  $Res call({
+    String? location,
+    IncidentStatus? incidentStatus,
+    int? assignedUserId,
+    String? notes,
+  });
+}
+
+/// @nodoc
+class _$UpdateIncidentRequestCopyWithImpl<
+  $Res,
+  $Val extends UpdateIncidentRequest
+>
+    implements $UpdateIncidentRequestCopyWith<$Res> {
+  _$UpdateIncidentRequestCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of UpdateIncidentRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? location = freezed,
+    Object? incidentStatus = freezed,
+    Object? assignedUserId = freezed,
+    Object? notes = freezed,
+  }) {
+    return _then(
+      _value.copyWith(
+            location: freezed == location
+                ? _value.location
+                : location // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            incidentStatus: freezed == incidentStatus
+                ? _value.incidentStatus
+                : incidentStatus // ignore: cast_nullable_to_non_nullable
+                      as IncidentStatus?,
+            assignedUserId: freezed == assignedUserId
+                ? _value.assignedUserId
+                : assignedUserId // ignore: cast_nullable_to_non_nullable
+                      as int?,
+            notes: freezed == notes
+                ? _value.notes
+                : notes // ignore: cast_nullable_to_non_nullable
+                      as String?,
+          )
+          as $Val,
+    );
+  }
+}
+
+/// @nodoc
+abstract class _$$UpdateIncidentRequestImplCopyWith<$Res>
+    implements $UpdateIncidentRequestCopyWith<$Res> {
+  factory _$$UpdateIncidentRequestImplCopyWith(
+    _$UpdateIncidentRequestImpl value,
+    $Res Function(_$UpdateIncidentRequestImpl) then,
+  ) = __$$UpdateIncidentRequestImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({
+    String? location,
+    IncidentStatus? incidentStatus,
+    int? assignedUserId,
+    String? notes,
+  });
+}
+
+/// @nodoc
+class __$$UpdateIncidentRequestImplCopyWithImpl<$Res>
+    extends
+        _$UpdateIncidentRequestCopyWithImpl<$Res, _$UpdateIncidentRequestImpl>
+    implements _$$UpdateIncidentRequestImplCopyWith<$Res> {
+  __$$UpdateIncidentRequestImplCopyWithImpl(
+    _$UpdateIncidentRequestImpl _value,
+    $Res Function(_$UpdateIncidentRequestImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of UpdateIncidentRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? location = freezed,
+    Object? incidentStatus = freezed,
+    Object? assignedUserId = freezed,
+    Object? notes = freezed,
+  }) {
+    return _then(
+      _$UpdateIncidentRequestImpl(
+        location: freezed == location
+            ? _value.location
+            : location // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        incidentStatus: freezed == incidentStatus
+            ? _value.incidentStatus
+            : incidentStatus // ignore: cast_nullable_to_non_nullable
+                  as IncidentStatus?,
+        assignedUserId: freezed == assignedUserId
+            ? _value.assignedUserId
+            : assignedUserId // ignore: cast_nullable_to_non_nullable
+                  as int?,
+        notes: freezed == notes
+            ? _value.notes
+            : notes // ignore: cast_nullable_to_non_nullable
+                  as String?,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$UpdateIncidentRequestImpl implements _UpdateIncidentRequest {
+  const _$UpdateIncidentRequestImpl({
+    this.location,
+    this.incidentStatus,
+    this.assignedUserId,
+    this.notes,
+  });
+
+  factory _$UpdateIncidentRequestImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UpdateIncidentRequestImplFromJson(json);
+
+  @override
+  final String? location;
+  @override
+  final IncidentStatus? incidentStatus;
+  // Enviamos como String para o backend
+  @override
+  final int? assignedUserId;
+  @override
+  final String? notes;
+
+  @override
+  String toString() {
+    return 'UpdateIncidentRequest(location: $location, incidentStatus: $incidentStatus, assignedUserId: $assignedUserId, notes: $notes)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UpdateIncidentRequestImpl &&
+            (identical(other.location, location) ||
+                other.location == location) &&
+            (identical(other.incidentStatus, incidentStatus) ||
+                other.incidentStatus == incidentStatus) &&
+            (identical(other.assignedUserId, assignedUserId) ||
+                other.assignedUserId == assignedUserId) &&
+            (identical(other.notes, notes) || other.notes == notes));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, location, incidentStatus, assignedUserId, notes);
+
+  /// Create a copy of UpdateIncidentRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UpdateIncidentRequestImplCopyWith<_$UpdateIncidentRequestImpl>
+  get copyWith =>
+      __$$UpdateIncidentRequestImplCopyWithImpl<_$UpdateIncidentRequestImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$UpdateIncidentRequestImplToJson(this);
+  }
+}
+
+abstract class _UpdateIncidentRequest implements UpdateIncidentRequest {
+  const factory _UpdateIncidentRequest({
+    final String? location,
+    final IncidentStatus? incidentStatus,
+    final int? assignedUserId,
+    final String? notes,
+  }) = _$UpdateIncidentRequestImpl;
+
+  factory _UpdateIncidentRequest.fromJson(Map<String, dynamic> json) =
+      _$UpdateIncidentRequestImpl.fromJson;
+
+  @override
+  String? get location;
+  @override
+  IncidentStatus? get incidentStatus; // Enviamos como String para o backend
+  @override
+  int? get assignedUserId;
+  @override
+  String? get notes;
+
+  /// Create a copy of UpdateIncidentRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$UpdateIncidentRequestImplCopyWith<_$UpdateIncidentRequestImpl>
+  get copyWith => throw _privateConstructorUsedError;
 }

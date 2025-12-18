@@ -2330,6 +2330,227 @@ abstract class _FilePayloadUpdate<T> implements FilePayloadUpdate<T> {
   get copyWith => throw _privateConstructorUsedError;
 }
 
+AccessLogReportRequest _$AccessLogReportRequestFromJson(
+  Map<String, dynamic> json,
+) {
+  return _AccessLogReportRequest.fromJson(json);
+}
+
+/// @nodoc
+mixin _$AccessLogReportRequest {
+  @DateOnlyConverter()
+  DateTime get startDate => throw _privateConstructorUsedError;
+  @DateOnlyConverter()
+  DateTime get endDate => throw _privateConstructorUsedError;
+  String get format => throw _privateConstructorUsedError;
+
+  /// Serializes this AccessLogReportRequest to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of AccessLogReportRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $AccessLogReportRequestCopyWith<AccessLogReportRequest> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $AccessLogReportRequestCopyWith<$Res> {
+  factory $AccessLogReportRequestCopyWith(
+    AccessLogReportRequest value,
+    $Res Function(AccessLogReportRequest) then,
+  ) = _$AccessLogReportRequestCopyWithImpl<$Res, AccessLogReportRequest>;
+  @useResult
+  $Res call({
+    @DateOnlyConverter() DateTime startDate,
+    @DateOnlyConverter() DateTime endDate,
+    String format,
+  });
+}
+
+/// @nodoc
+class _$AccessLogReportRequestCopyWithImpl<
+  $Res,
+  $Val extends AccessLogReportRequest
+>
+    implements $AccessLogReportRequestCopyWith<$Res> {
+  _$AccessLogReportRequestCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of AccessLogReportRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? startDate = null,
+    Object? endDate = null,
+    Object? format = null,
+  }) {
+    return _then(
+      _value.copyWith(
+            startDate: null == startDate
+                ? _value.startDate
+                : startDate // ignore: cast_nullable_to_non_nullable
+                      as DateTime,
+            endDate: null == endDate
+                ? _value.endDate
+                : endDate // ignore: cast_nullable_to_non_nullable
+                      as DateTime,
+            format: null == format
+                ? _value.format
+                : format // ignore: cast_nullable_to_non_nullable
+                      as String,
+          )
+          as $Val,
+    );
+  }
+}
+
+/// @nodoc
+abstract class _$$AccessLogReportRequestImplCopyWith<$Res>
+    implements $AccessLogReportRequestCopyWith<$Res> {
+  factory _$$AccessLogReportRequestImplCopyWith(
+    _$AccessLogReportRequestImpl value,
+    $Res Function(_$AccessLogReportRequestImpl) then,
+  ) = __$$AccessLogReportRequestImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({
+    @DateOnlyConverter() DateTime startDate,
+    @DateOnlyConverter() DateTime endDate,
+    String format,
+  });
+}
+
+/// @nodoc
+class __$$AccessLogReportRequestImplCopyWithImpl<$Res>
+    extends
+        _$AccessLogReportRequestCopyWithImpl<$Res, _$AccessLogReportRequestImpl>
+    implements _$$AccessLogReportRequestImplCopyWith<$Res> {
+  __$$AccessLogReportRequestImplCopyWithImpl(
+    _$AccessLogReportRequestImpl _value,
+    $Res Function(_$AccessLogReportRequestImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AccessLogReportRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? startDate = null,
+    Object? endDate = null,
+    Object? format = null,
+  }) {
+    return _then(
+      _$AccessLogReportRequestImpl(
+        startDate: null == startDate
+            ? _value.startDate
+            : startDate // ignore: cast_nullable_to_non_nullable
+                  as DateTime,
+        endDate: null == endDate
+            ? _value.endDate
+            : endDate // ignore: cast_nullable_to_non_nullable
+                  as DateTime,
+        format: null == format
+            ? _value.format
+            : format // ignore: cast_nullable_to_non_nullable
+                  as String,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$AccessLogReportRequestImpl implements _AccessLogReportRequest {
+  const _$AccessLogReportRequestImpl({
+    @DateOnlyConverter() required this.startDate,
+    @DateOnlyConverter() required this.endDate,
+    this.format = 'pdf',
+  });
+
+  factory _$AccessLogReportRequestImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AccessLogReportRequestImplFromJson(json);
+
+  @override
+  @DateOnlyConverter()
+  final DateTime startDate;
+  @override
+  @DateOnlyConverter()
+  final DateTime endDate;
+  @override
+  @JsonKey()
+  final String format;
+
+  @override
+  String toString() {
+    return 'AccessLogReportRequest(startDate: $startDate, endDate: $endDate, format: $format)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AccessLogReportRequestImpl &&
+            (identical(other.startDate, startDate) ||
+                other.startDate == startDate) &&
+            (identical(other.endDate, endDate) || other.endDate == endDate) &&
+            (identical(other.format, format) || other.format == format));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, startDate, endDate, format);
+
+  /// Create a copy of AccessLogReportRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AccessLogReportRequestImplCopyWith<_$AccessLogReportRequestImpl>
+  get copyWith =>
+      __$$AccessLogReportRequestImplCopyWithImpl<_$AccessLogReportRequestImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$AccessLogReportRequestImplToJson(this);
+  }
+}
+
+abstract class _AccessLogReportRequest implements AccessLogReportRequest {
+  const factory _AccessLogReportRequest({
+    @DateOnlyConverter() required final DateTime startDate,
+    @DateOnlyConverter() required final DateTime endDate,
+    final String format,
+  }) = _$AccessLogReportRequestImpl;
+
+  factory _AccessLogReportRequest.fromJson(Map<String, dynamic> json) =
+      _$AccessLogReportRequestImpl.fromJson;
+
+  @override
+  @DateOnlyConverter()
+  DateTime get startDate;
+  @override
+  @DateOnlyConverter()
+  DateTime get endDate;
+  @override
+  String get format;
+
+  /// Create a copy of AccessLogReportRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$AccessLogReportRequestImplCopyWith<_$AccessLogReportRequestImpl>
+  get copyWith => throw _privateConstructorUsedError;
+}
+
 CreateSuspectRequest _$CreateSuspectRequestFromJson(Map<String, dynamic> json) {
   return _CreateSuspectRequest.fromJson(json);
 }
