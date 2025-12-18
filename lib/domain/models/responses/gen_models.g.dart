@@ -191,9 +191,7 @@ _$IncidentResponseImpl _$$IncidentResponseImplFromJson(
   Map<String, dynamic> json,
 ) => _$IncidentResponseImpl(
   id: (json['id'] as num).toInt(),
-  suspect: json['suspect'] == null
-      ? null
-      : SuspectResponse.fromJson(json['suspect'] as Map<String, dynamic>),
+  suspect: SuspectResponse.fromJson(json['suspect'] as Map<String, dynamic>),
   imageUrl: json['imageUrl'] as String?,
   score: (json['score'] as num?)?.toDouble(),
   location: json['location'] as String?,
@@ -206,10 +204,7 @@ _$IncidentResponseImpl _$$IncidentResponseImplFromJson(
       : UserResponse.fromJson(json['assignedUser'] as Map<String, dynamic>),
   notes: json['notes'] as String?,
   processedUrl: json['processedUrl'] as String?,
-  createdAt: _$JsonConverterFromJson<String, DateTime>(
-    json['createdAt'],
-    const DateOnlyConverter().fromJson,
-  ),
+  createdAt: const DateOnlyConverter().fromJson(json['createdAt'] as String),
   updatedAt: _$JsonConverterFromJson<String, DateTime>(
     json['updatedAt'],
     const DateOnlyConverter().fromJson,
@@ -228,10 +223,7 @@ Map<String, dynamic> _$$IncidentResponseImplToJson(
   'assignedUser': instance.assignedUser,
   'notes': instance.notes,
   'processedUrl': instance.processedUrl,
-  'createdAt': _$JsonConverterToJson<String, DateTime>(
-    instance.createdAt,
-    const DateOnlyConverter().toJson,
-  ),
+  'createdAt': const DateOnlyConverter().toJson(instance.createdAt),
   'updatedAt': _$JsonConverterToJson<String, DateTime>(
     instance.updatedAt,
     const DateOnlyConverter().toJson,
@@ -242,6 +234,7 @@ const _$IncidentStatusEnumMap = {
   IncidentStatus.POSITIVO: 'POSITIVO',
   IncidentStatus.FALSO_POSITIVO: 'FALSO_POSITIVO',
   IncidentStatus.ABERTO: 'ABERTO',
+  IncidentStatus.EM_PROCESSAMENTO: 'EM_PROCESSAMENTO',
 };
 
 Value? _$JsonConverterFromJson<Json, Value>(
@@ -253,3 +246,24 @@ Json? _$JsonConverterToJson<Json, Value>(
   Value? value,
   Json? Function(Value value) toJson,
 ) => value == null ? null : toJson(value);
+
+_$UpdateIncidentRequestImpl _$$UpdateIncidentRequestImplFromJson(
+  Map<String, dynamic> json,
+) => _$UpdateIncidentRequestImpl(
+  location: json['location'] as String?,
+  incidentStatus: $enumDecodeNullable(
+    _$IncidentStatusEnumMap,
+    json['incidentStatus'],
+  ),
+  assignedUserId: (json['assignedUserId'] as num?)?.toInt(),
+  notes: json['notes'] as String?,
+);
+
+Map<String, dynamic> _$$UpdateIncidentRequestImplToJson(
+  _$UpdateIncidentRequestImpl instance,
+) => <String, dynamic>{
+  'location': instance.location,
+  'incidentStatus': _$IncidentStatusEnumMap[instance.incidentStatus],
+  'assignedUserId': instance.assignedUserId,
+  'notes': instance.notes,
+};
