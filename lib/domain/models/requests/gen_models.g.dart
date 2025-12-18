@@ -158,6 +158,22 @@ Map<String, dynamic> _$$UserFilterImplToJson(_$UserFilterImpl instance) =>
       'size': instance.size,
     };
 
+_$AccessLogReportRequestImpl _$$AccessLogReportRequestImplFromJson(
+  Map<String, dynamic> json,
+) => _$AccessLogReportRequestImpl(
+  startDate: const DateOnlyConverter().fromJson(json['startDate'] as String),
+  endDate: const DateOnlyConverter().fromJson(json['endDate'] as String),
+  format: json['format'] as String? ?? 'pdf',
+);
+
+Map<String, dynamic> _$$AccessLogReportRequestImplToJson(
+  _$AccessLogReportRequestImpl instance,
+) => <String, dynamic>{
+  'startDate': const DateOnlyConverter().toJson(instance.startDate),
+  'endDate': const DateOnlyConverter().toJson(instance.endDate),
+  'format': instance.format,
+};
+
 _$CreateSuspectRequestImpl _$$CreateSuspectRequestImplFromJson(
   Map<String, dynamic> json,
 ) => _$CreateSuspectRequestImpl(

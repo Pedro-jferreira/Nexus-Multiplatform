@@ -23,10 +23,10 @@ class ExceptionMapper {
           return ApiException("Sessão expirada. Faça login novamente.", statusCode: status);
         }
         if (status == 409) {
-          return ApiException(message ?? "Conflito ao processar solicitação.", statusCode: status);
+          return ApiException(message ?? "Conflito ao processar solicitação.", statusCode: status,);
         }
         if (status == 500) {
-          return ApiException("Erro interno do servidor.", statusCode: status);
+          return ApiException("Erro interno do servidor.", statusCode: status, details: error.response);
         }
 
         return ApiException(message ?? "Erro ao comunicar com o servidor.", statusCode: status);
