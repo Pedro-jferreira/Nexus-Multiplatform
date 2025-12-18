@@ -118,7 +118,6 @@ class _SuspectPageState extends State<SuspectPage> {
   @override
   void dispose() {
     _scrollController.dispose();
-    widget.viewModel.dispose();
     _searchController.dispose();
     _debounce?.cancel();
     super.dispose();
