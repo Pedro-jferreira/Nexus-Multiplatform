@@ -1,5 +1,8 @@
+import 'dart:typed_data';
+
 import 'package:Nexus/data/repositories/incident_repository.dart';
 import 'package:Nexus/data/services/incidents_service.dart';
+import 'package:Nexus/domain/models/requests/gen_models.dart';
 import 'package:result_dart/result_dart.dart';
 
 import '../../../domain/models/responses/gen_models.dart';
@@ -18,6 +21,26 @@ class IncidentsRepositoryImpl implements IncidentRepository{
             (e) => IncidentResponse.fromJson(e as Map<String, dynamic>),
       );
 
+      return Success(result);
+    } catch (e) {
+      return Failure(ExceptionMapper.map(e));
+    }
+  }
+
+  @override
+  AsyncResult<Uint8List> downloadReport(AccessLogReportRequest request) async {
+    try {
+      final bytes = await _service.downloadReport(request.toJson());
+      return Success(bytes);
+    } catch (e) {
+      return Failure(ExceptionMapper.map(e));
+    }
+  }
+  @override
+  AsyncResult<IncidentResponse> update(int id, UpdateIncidentRequest request) async {
+    try {
+      final json = await _service.update(id, request.toJson());
+      final result = IncidentResponse.fromJson(json);
       return Success(result);
     } catch (e) {
       return Failure(ExceptionMapper.map(e));
